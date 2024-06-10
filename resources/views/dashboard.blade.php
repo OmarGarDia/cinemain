@@ -17,7 +17,7 @@
                         <div class="px-6 text-gray-900 dark:text-gray-100 flex flex-wrap gap-4 justify-center h-full">
                             <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4">
                                 <div
-                                    class="max-w-sm p-6 rounded-lg shadow hover:bg-gray-100 dark:bg-red-400 dark:border-gray-700 dark:hover:bg-gray-700 flex justify-center items-center">
+                                    class="max-w-sm p-6 rounded-lg shadow dark:bg-red-400 dark:border-gray-700 flex justify-center items-center">
 
                                     <!-- Icono de película (cambiado por un ícono de FontAwesome) -->
                                     <div class="flex-shrink-0 mr-4">
@@ -38,7 +38,7 @@
 
                             <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4">
                                 <div
-                                    class="max-w-sm p-6 rounded-lg shadow hover:bg-gray-100 dark:bg-blue-400 dark:border-gray-700 dark:hover:bg-gray-700 flex justify-center items-center">
+                                    class="max-w-sm p-6 rounded-lg shadow dark:bg-blue-400 dark:border-gray-700 flex justify-center items-center">
 
                                     <!-- Icono de serie (cambiado por un ícono de FontAwesome) -->
                                     <div class="flex-shrink-0 mr-4">
@@ -60,7 +60,7 @@
 
                             <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4">
                                 <div
-                                    class="max-w-sm p-6 rounded-lg shadow hover:bg-gray-100 dark:bg-green-400 dark:border-gray-700 dark:hover:bg-gray-700 flex justify-center items-center">
+                                    class="max-w-sm p-6 rounded-lg shadow dark:bg-green-400 dark:border-gray-700 flex justify-center items-center">
 
                                     <!-- Icono de serie (cambiado por un ícono de FontAwesome) -->
                                     <div class="flex-shrink-0 mr-4">
@@ -82,7 +82,7 @@
 
                             <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4">
                                 <div
-                                    class="max-w-sm p-6 rounded-lg shadow hover:bg-gray-100 dark:bg-orange-400 dark:border-gray-700 dark:hover:bg-gray-700 flex justify-center items-center">
+                                    class="max-w-sm p-6 rounded-lg shadow dark:bg-orange-400 dark:border-gray-700 flex justify-center items-center">
 
                                     <!-- Icono de serie (cambiado por un ícono de FontAwesome) -->
                                     <div class="flex-shrink-0 mr-4">
@@ -92,7 +92,7 @@
                                     <!-- Texto "400 Series" -->
                                     <div class="text-center">
                                         <div class="text-5xl dark:text-white font-normal text-gray-700">
-                                            400
+                                            {{ $users }}
                                         </div>
                                         <div class="text-4xl dark:text-white font-normal text-gray-700">
                                             Usuarios

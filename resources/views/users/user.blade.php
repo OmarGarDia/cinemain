@@ -17,19 +17,19 @@
                                 <table class="table-auto w-full border-collapse border border-gray-200 text-sm"
                                     name="tabla_usuarios" id="tabla_usuarios">
                                     <thead>
-                                        <tr class="bg-gray-200">
-                                            <th class="px-4 py-2">ID</th>
-                                            <th class="px-4 py-2">NOMBRE</th>
-                                            <th class="px-4 py-2">EMAIL</th>
-                                            <th class="px-4 py-2">PASSWORD</th>
-                                            <th class="px-4 py-2">CREADO</th>
-                                            <th class="px-4 py-2">MODIFICADO</th>
-                                            <th class="px-4 py-2">OPCIONES</th>
+                                        <tr class=" bg-gray-200 text-center">
+                                            <th class="px-4 py-2 text-center">ID</th>
+                                            <th class="px-4 py-2 text-center">NOMBRE</th>
+                                            <th class="px-4 py-2 text-center">EMAIL</th>
+                                            <th class="px-4 py-2 text-center">PASSWORD</th>
+                                            <th class="px-4 py-2 text-center">CREADO</th>
+                                            <th class="px-4 py-2 text-center">MODIFICADO</th>
+                                            <th class="px-4 py-2 text-center">OPCIONES</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($users as $user)
-                                            <tr class="text-center border-y-2">
+                                            <tr class="border-y-2">
                                                 <td>{{ $user->id }}</td>
                                                 <td>{{ $user->name }}</td>
                                                 <td>{{ $user->email }}</td>
@@ -38,15 +38,17 @@
                                                 <td>{{ $user->updated_at }}</td>
                                                 <td>
                                                     <button
-                                                        class="bg-orange-400 text-white font-bold py-1 px-2 rounded"><i
-                                                            class="mdi mdi-square-edit-outline"></i></button>
-                                                    <button
-                                                        class="bg-red-500 text-white font-bold py-1 px-2 rounded mr-2"><i
-                                                            class="mdi mdi-trash-can-outline"></i></button>
+                                                        class="bg-orange-400 text-white font-bold py-1 px-2 rounded">
+                                                        <a href="{{ route('users.edit', $user->id) }}">
+                                                            <i class="mdi mdi-pencil-outline"></i>
+                                                        </a>
+                                                    </button>
+                                                    <button class="bg-red-500 text-white font-bold py-1 px-2 rounded">
+                                                        <i class="mdi mdi-trash-can-outline"></i>
+                                                    </button>
                                                 </td>
                                             </tr>
                                         @endforeach
-                                        <!-- Añade más filas según sea necesario -->
                                     </tbody>
                                 </table>
                             </div>

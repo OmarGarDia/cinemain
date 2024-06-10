@@ -10,3 +10,12 @@ body {
 .contenedor {
     height: 100vh;
 }
+
+input[type="password"] {
+    padding-right: 2.5rem; /* Ajusta el espacio a la derecha para el icono de visualización de contraseña */
+}
+
+input[type="password"].reveal-password {
+    -webkit-text-security: none; /* Muestra el texto de la contraseña */
+    text-security: none;
+}
