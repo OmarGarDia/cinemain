@@ -36,13 +36,13 @@
                                     <input type="password" name="password_edit" id="password_edit"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" />
                                 </div>
-                                <div class="pb-4">
+                                {{-- <div class="pb-4">
                                     <label for="confirm_password_edit"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-700">Confirmar
                                         Contraseña</label>
                                     <input type="password" name="confirm_password_edit" id="confirm_password_edit"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" />
-                                </div>
+                                </div> --}}
                                 <div class="pb-4">
                                     <button data-modal-hide="progress-modal" type="submit"
                                         class="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-green-700 dark:bg-green-800 dark:text-white dark:border-green-600 dark:hover:text-white dark:hover:bg-green-700">Editar</button>

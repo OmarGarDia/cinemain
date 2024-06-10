@@ -38,7 +38,7 @@ class UserController extends Controller
                 'email',
                 Rule::unique('users', 'email')->ignore($id),
             ],
-            'password_edit' => 'nullable|string|min:8|confirmed',
+            'password_edit' => 'nullable|string|min:8',
         ]);
 
         $user = User::findOrFail($id);
