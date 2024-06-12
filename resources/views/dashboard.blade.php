@@ -27,7 +27,7 @@
                                     <!-- Texto "400 Películas" -->
                                     <div class="text-center">
                                         <div class="text-5xl dark:text-white font-normal text-gray-700">
-                                            400
+                                            {{ $peliculas }}
                                         </div>
                                         <div class="text-4xl dark:text-white font-normal text-gray-700">
                                             Peliculas

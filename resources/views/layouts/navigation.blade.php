@@ -16,13 +16,16 @@
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <!-- Navigation Links -->
+
                 <div class="hidden space-x-2 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('usuarios')" :active="request()->routeIs('usuarios')">
-                        {{ __('Usuarios') }}
-                    </x-nav-link>
+                    @if (Auth::user()->role_id == 1)
+                        <x-nav-link :href="route('usuarios')" :active="request()->routeIs('usuarios')">
+                            {{ __('Usuarios') }}
+                        </x-nav-link>
+                    @endif
                 </div>
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">

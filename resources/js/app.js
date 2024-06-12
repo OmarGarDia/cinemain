@@ -1,4 +1,5 @@
 import "./bootstrap";
+import "./misFunciones";
 
 import Alpine from "alpinejs";
 
@@ -14,17 +15,19 @@ $(document).ready(function () {
 });
 
 // ======= MOSTRAR U OCULTAR CAMPO PASSWORD ========
-const passwordInput = document.getElementById("password_edit");
-const togglePasswordIcon = document.getElementById("hidePasswordIcon");
+// const passwordInput = document.getElementById("password_edit");
+// //const togglePasswordIcon = document.getElementById("hidePasswordIcon");
 
-togglePassword.addEventListener("click", function () {
-    if (passwordInput.type === "password") {
-        passwordInput.type = "text";
-        togglePasswordIcon.classList.remove("mdi-eye");
-        togglePasswordIcon.classList.add("mdi-eye-off");
-    } else {
-        passwordInput.type = "password";
-        togglePasswordIcon.classList.remove("mdi-eye-off");
-        togglePasswordIcon.classList.add("mdi-eye");
-    }
-});
+// togglePassword.addEventListener("click", function () {
+//     if (passwordInput.type === "password") {
+//         passwordInput.type = "text";
+//         togglePasswordIcon.classList.remove("mdi-eye");
+//         togglePasswordIcon.classList.add("mdi-eye-off");
+//     } else {
+//         passwordInput.type = "password";
+//         togglePasswordIcon.classList.remove("mdi-eye-off");
+//         togglePasswordIcon.classList.add("mdi-eye");
+//     }
+// });
+
+// ===== EVENTOS VARIOS =====

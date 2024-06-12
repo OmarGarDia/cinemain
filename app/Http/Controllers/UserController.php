@@ -17,13 +17,6 @@ class UserController extends Controller
         return view('users.user', compact('users'));
     }
 
-    public function countUsers()
-    {
-        $users = User::all()->count();
-
-        return view('dashboard', compact('users'));
-    }
-
     public function edit(int $id)
     {
         $users = User::findOrFail($id);
@@ -62,5 +55,13 @@ class UserController extends Controller
             Session::flash('error', $e->validator->errors()->first());
             return redirect()->back()->withErrors($e->validator)->withInput();
         }
+    }
+
+    public function destroy(int $id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+        Session::flash('success', 'Usuario eliminado correctamente.');
+        return redirect()->route('usuarios');
     }
 }

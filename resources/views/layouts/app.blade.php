@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="//cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css">
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/misFunciones.js'])
 </head>
 
 <body class="font-sans antialiased h-screen overflow-hidden">

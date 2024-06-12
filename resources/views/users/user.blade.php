@@ -42,16 +42,24 @@
                                                 <td>{{ $user->created_at }}</td>
                                                 <td>{{ $user->updated_at }}</td>
                                                 <td>
-                                                    <button
-                                                        class="bg-orange-400 text-white font-bold py-1 px-2 rounded">
-                                                        <a href="{{ route('users.edit', $user->id) }}">
-                                                            <i class="mdi mdi-pencil-outline"></i>
+                                                    <div class="flex items-center space-x-2">
+                                                        <a href="{{ route('users.edit', $user->id) }}"
+                                                            class="bg-orange-400 text-white font-bold py-0 px-1 rounded flex items-center">
+                                                            <i class="mdi mdi-pencil-outline text-lg"></i>
                                                         </a>
-                                                    </button>
-                                                    <button class="bg-red-500 text-white font-bold py-1 px-2 rounded">
-                                                        <i class="mdi mdi-trash-can-outline"></i>
-                                                    </button>
+                                                        <form action="{{ route('users.delete', $user->id) }}"
+                                                            method="POST" id="delete-form-{{ $user->id }}"
+                                                            style="display: inline;" class="flex items-center">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button id="botonEliminar"
+                                                                class="bg-red-500 text-white font-bold py-0 px-1 rounded flex items-center">
+                                                                <i class="mdi mdi-trash-can-outline text-lg"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
                                                 </td>
+
                                             </tr>
                                         @endforeach
                                     </tbody>
