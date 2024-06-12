@@ -36,18 +36,24 @@
                                     <input type="password" name="password_edit" id="password_edit"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" />
                                 </div>
-                                {{-- <div class="pb-4">
-                                    <label for="confirm_password_edit"
+                                <div class="pb-4">
+                                    <label for="password_edit_confirmation"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-700">Confirmar
                                         Contraseña</label>
-                                    <input type="password" name="confirm_password_edit" id="confirm_password_edit"
+                                    <input type="password" name="password_edit_confirmation"
+                                        id="password_edit_confirmation"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" />
-                                </div> --}}
+                                </div>
+                                @if (Session::has('error'))
+                                    <div class="pb-4">
+                                        <div class="text-red-500 text-sm">{{ Session::get('error') }}</div>
+                                    </div>
+                                @endif
                                 <div class="pb-4">
                                     <button data-modal-hide="progress-modal" type="submit"
                                         class="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-green-700 dark:bg-green-800 dark:text-white dark:border-green-600 dark:hover:text-white dark:hover:bg-green-700">Editar</button>
-                                    <button data-modal-hide="progress-modal" type="button"
-                                        class="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-red-700 dark:bg-red-800 dark:text-white dark:border-red-600 dark:hover:text-white dark:hover:bg-red-700">Cancelar</button>
+                                    <a data-modal-hide="progress-modal" href="{{ route('usuarios') }}"
+                                        class="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-red-700 dark:bg-red-800 dark:text-white dark:border-red-600 dark:hover:text-white dark:hover:bg-red-700">Cancelar</a>
                                 </div>
                             </div>
                         </form>
