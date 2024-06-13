@@ -54,4 +54,11 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Pelicula::class, 'pelicula_user', 'user_id', 'pelicula_id');
     }
+
+    public function peliculasVistas()
+    {
+        return $this->belongsToMany(Pelicula::class, 'pelicula_user')
+            ->wherePivot('status', 'vista')
+            ->withTimestamps();
+    }
 }

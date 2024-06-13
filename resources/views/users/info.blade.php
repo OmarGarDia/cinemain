@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-600 leading-tight">
-            {{ __('Usuarios') }}
+            {{ __('Seguimiento del usuario: ') . ' ' . $user->id . ' | ' . $user->name }}
         </h2>
     </x-slot>
 
@@ -19,39 +19,51 @@
                     <div class="bg-white overflow-hidden w-full">
                         <div class="px-6 text-gray-900 dark:text-gray-800 w-full">
                             <div class="overflow-x-auto">
+                                <div class="text-xl font-semibold border-b-2 pb-2 mb-4">
+                                    <!-- Clases para el tamaño, el peso de la fuente, el subrayado y el espaciado -->
+                                    Películas que ha visto
+                                </div>
+
                                 <table class="table-auto w-full border-collapse border border-gray-200 text-sm"
-                                    name="tabla_usuarios" id="tabla_usuarios">
+                                    name="tabla_peliculas_vistas" id="tabla_peliculas_vistas">
                                     <thead>
                                         <tr class=" bg-gray-200 text-center">
                                             <th class="px-4 py-2 text-center">ID</th>
-                                            <th class="px-4 py-2 text-center">NOMBRE</th>
-                                            <th class="px-4 py-2 text-center">EMAIL</th>
-                                            <th class="px-4 py-2 text-center">PASSWORD</th>
-                                            <th class="px-4 py-2 text-center">CREADO</th>
-                                            <th class="px-4 py-2 text-center">MODIFICADO</th>
-                                            <th class="px-4 py-2 text-center">OPCIONES</th>
+                                            <th class="px-4 py-2 text-center">TITULO</th>
+                                            <th class="px-4 py-2 text-center">AÑO</th>
+                                            <th class="px-4 py-2 text-center">SINOPSIS</th>
+                                            <th class="px-4 py-2 text-center">DURACION</th>
+                                            <th class="px-4 py-2 text-center">IDIOMA</th>
+                                            <th class="px-4 py-2 text-center">PAIS</th>
+                                            <th class="px-4 py-2 text-center">GENERO</th>
+                                            <th class="px-4 py-2 text-center">CALIFICA</th>
+                                            <th class="px-4 py-2 text-center">F.ESTRENO</th>
+                                            <th class="px-4 py-2 text-center">IMG</th>
+                                            <th class="px-4 py-2 text-center">ACCION</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($users as $user)
+                                        @foreach ($peliculasVistas as $pelicula)
                                             <tr class="border-y-2">
-                                                <td class="">{{ $user->id }}<a
-                                                        href="{{ route('perfil.info', ['userId' => $user->id]) }}"><i
-                                                            class="mdi mdi-eye ml-2 text-blue-500"></i></a>
-                                                </td>
-                                                <td>{{ $user->name }}</td>
-                                                <td>{{ $user->email }}</td>
-                                                <td>{{ $user->password }}</td>
-                                                <td>{{ $user->created_at }}</td>
-                                                <td>{{ $user->updated_at }}</td>
+                                                <td>{{ $pelicula->id }}</td>
+                                                <td>{{ $pelicula->titulo }}</td>
+                                                <td>{{ $pelicula->año }}</td>
+                                                <td>{{ $pelicula->sinopsis }}</td>
+                                                <td>{{ $pelicula->duracion }} min</td>
+                                                <td>{{ $pelicula->idioma }}</td>
+                                                <td>{{ $pelicula->pais }}</td>
+                                                <td>{{ $pelicula->genero }}</td>
+                                                <td>{{ $pelicula->calificacion }}/5</td>
+                                                <td>{{ $pelicula->fecha_estreno }}</td>
+                                                <td>{{ $pelicula->imagen }}</td>
                                                 <td>
                                                     <div class="flex items-center space-x-2">
-                                                        <a href="{{ route('users.edit', $user->id) }}"
+                                                        <a href=""
                                                             class="bg-orange-400 text-white font-bold py-0 px-1 rounded flex items-center">
                                                             <i class="mdi mdi-pencil-outline text-lg"></i>
                                                         </a>
-                                                        <form action="{{ route('users.delete', $user->id) }}"
-                                                            method="POST" id="delete-form-{{ $user->id }}"
+                                                        <form action="" method="POST"
+                                                            id="delete-form-{{ $pelicula->id }}"
                                                             style="display: inline;" class="flex items-center">
                                                             @csrf
                                                             @method('DELETE')

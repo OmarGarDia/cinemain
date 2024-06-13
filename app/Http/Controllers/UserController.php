@@ -17,6 +17,15 @@ class UserController extends Controller
         return view('users.user', compact('users'));
     }
 
+    public function userinfo($userId)
+    {
+        $user = User::findOrFail($userId);
+
+        $peliculasVistas = $user->peliculasVistas;
+
+        return view('users.info', compact('user', 'peliculasVistas'));
+    }
+
     public function edit(int $id)
     {
         $users = User::findOrFail($id);

@@ -10,10 +10,15 @@ Alpine.start();
 // Inicializa DataTables en la tabla con el id "miTabla"
 $(document).ready(function () {
     $("#tabla_usuarios").DataTable({
-        lengthChange: false, // Desactiva la funcionalidad de cambio de longitud
+        lengthChange: false,
     });
     $("#tabla_peliculas").DataTable({
-        lengthChange: false, // Desactiva la funcionalidad de cambio de longitud
+        lengthChange: false,
+    });
+
+    $("#tabla_peliculas_vistas").DataTable({
+        lengthMenu: [10],
+        lengthChange: false,
     });
 });
 
