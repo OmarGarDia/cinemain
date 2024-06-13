@@ -9,7 +9,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M21 10c0-7-7-7-7-7s-7 0-7 7v10a3 3 0 003 3h8a3 3 0 003-3V10z"></path>
             </svg>
-            <a href="#" class="hover:text-blue-500 w-full text-lg">Películas</a>
+            <a href="{{ route('peliculas') }}" class="hover:text-blue-500 w-full text-lg">Películas</a>
         </li>
         <li
             class="flex items-center border-b border-gray-200 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 p-4 w-full transition duration-300">

@@ -49,4 +49,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class);
     }
+
+    public function pelicula()
+    {
+        return $this->belongsToMany(Pelicula::class, 'pelicula_user', 'user_id', 'pelicula_id');
+    }
 }

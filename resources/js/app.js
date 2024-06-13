@@ -12,6 +12,9 @@ $(document).ready(function () {
     $("#tabla_usuarios").DataTable({
         lengthChange: false, // Desactiva la funcionalidad de cambio de longitud
     });
+    $("#tabla_peliculas").DataTable({
+        lengthChange: false, // Desactiva la funcionalidad de cambio de longitud
+    });
 });
 
 // ======= MOSTRAR U OCULTAR CAMPO PASSWORD ========
