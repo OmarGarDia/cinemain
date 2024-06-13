@@ -22,8 +22,9 @@ class UserController extends Controller
         $user = User::findOrFail($userId);
 
         $peliculasVistas = $user->peliculasVistas;
+        $peliculasPendientes = $user->peliculasPendientes;
 
-        return view('users.info', compact('user', 'peliculasVistas'));
+        return view('users.info', compact('user', 'peliculasVistas', 'peliculasPendientes'));
     }
 
     public function edit(int $id)

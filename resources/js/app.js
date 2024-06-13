@@ -20,6 +20,11 @@ $(document).ready(function () {
         lengthMenu: [10],
         lengthChange: false,
     });
+
+    $("#tabla_peliculas_pendiente").DataTable({
+        lengthMenu: [10],
+        lengthChange: false,
+    });
 });
 
 // ======= MOSTRAR U OCULTAR CAMPO PASSWORD ========

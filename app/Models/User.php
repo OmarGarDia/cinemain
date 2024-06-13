@@ -61,4 +61,11 @@ class User extends Authenticatable
             ->wherePivot('status', 'vista')
             ->withTimestamps();
     }
+
+    public function peliculasPendientes()
+    {
+        return $this->belongsToMany(Pelicula::class, 'pelicula_user')
+            ->wherePivot('status', 'pendiente')
+            ->withTimestamps();
+    }
 }
