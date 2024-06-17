@@ -33,6 +33,8 @@ Route::middleware(['auth', 'checkRole:1'])->group(function () {
     Route::get('/perfil/{userId}/info', [UserController::class, 'userinfo'])->name('perfil.info');
 
     Route::get('/peliculas', [PeliculasController::class, 'index'])->name('peliculas');
+    Route::get('/peliculas/add', [PeliculasController::class, 'create'])->name('addmovie');
+    Route::post('/peliculas/addmovie', [PeliculasController::class, 'store'])->name('storemovie');
 });
 
 

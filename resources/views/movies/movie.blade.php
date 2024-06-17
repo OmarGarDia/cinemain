@@ -19,22 +19,28 @@
                     <div class="bg-white overflow-hidden w-full">
                         <div class="px-6 text-gray-900 dark:text-gray-800 w-full">
                             <div class="overflow-x-auto">
+                                <div class="p-0 mt-2">
+                                    <a href="{{ route('addmovie') }}"
+                                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                        Añadir
+                                    </a>
+                                </div>
                                 <table class="table-auto w-full border-collapse border border-gray-200 text-sm"
                                     name="tabla_peliculas" id="tabla_peliculas">
                                     <thead>
-                                        <tr class=" bg-gray-200 text-center">
-                                            <th class="px-4 py-2 text-center">ID</th>
-                                            <th class="px-4 py-2 text-center">TITULO</th>
-                                            <th class="px-4 py-2 text-center">AÑO</th>
-                                            <th class="px-4 py-2 text-center">SINOPSIS</th>
-                                            <th class="px-4 py-2 text-center">DURACION</th>
-                                            <th class="px-4 py-2 text-center">IDIOMA</th>
-                                            <th class="px-4 py-2 text-center">PAIS</th>
-                                            <th class="px-4 py-2 text-center">GENERO</th>
-                                            <th class="px-4 py-2 text-center">CALIFICA</th>
-                                            <th class="px-4 py-2 text-center">F.ESTRENO</th>
-                                            <th class="px-4 py-2 text-center">IMG</th>
-                                            <th class="px-4 py-2 text-center">ACCION</th>
+                                        <tr class=" bg-gray-200">
+                                            <th>ID</th>
+                                            <th>TITULO</th>
+                                            <th>AÑO</th>
+                                            <th>SINOPSIS</th>
+                                            <th>DURACION</th>
+                                            <th>IDIOMA</th>
+                                            <th>PAIS</th>
+                                            <th>GENERO</th>
+                                            <th>CALIFICA</th>
+                                            <th>F.ESTRENO</th>
+                                            <th>IMG</th>
+                                            <th>ACCION</th>
                                         </tr>
                                     </thead>
                                     <tbody>

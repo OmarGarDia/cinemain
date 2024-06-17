@@ -19,3 +19,11 @@ input[type="password"].reveal-password {
     -webkit-text-security: none; /* Muestra el texto de la contraseña */
     text-security: none;
 }
+
+table.dataTable thead tr th {
+    text-align: center;
+}
+
+table.dataTable tbody tr td {
+    text-align: center;
+}

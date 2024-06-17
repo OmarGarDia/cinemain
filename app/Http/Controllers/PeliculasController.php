@@ -13,4 +13,13 @@ class PeliculasController extends Controller
         $peliculas = Pelicula::all();
         return view('movies.movie', compact('peliculas'));
     }
+
+    public function create()
+    {
+        return view('movies.add');
+    }
+
+    public function store(Request $request)
+    {
+    }
 }

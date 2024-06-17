@@ -13,6 +13,7 @@ $(document).ready(function () {
         lengthChange: false,
     });
     $("#tabla_peliculas").DataTable({
+        lengthMenu: [20],
         lengthChange: false,
     });
 
