@@ -35,7 +35,8 @@ Route::middleware(['auth', 'checkRole:1'])->group(function () {
     Route::get('/peliculas', [PeliculasController::class, 'index'])->name('peliculas');
     Route::get('/peliculas/add', [PeliculasController::class, 'create'])->name('addmovie');
     Route::post('/peliculas/addmovie', [PeliculasController::class, 'store'])->name('storemovie');
-    Route::get('peliculas/editar/{id}', [PeliculasController::class, 'edit'])->name('editarmovie');
+    Route::get('/peliculas/editar/{id}', [PeliculasController::class, 'edit'])->name('editarmovie');
+    Route::post('/peliculas/editarmovie/{id}', [PeliculasController::class, 'update'])->name('updatemovie');
 });
 
 

@@ -9,7 +9,8 @@
             <div class="bg-white overflow-hidden shadow-lg rounded-lg">
                 <div class="px-6 py-4 text-gray-900 dark:text-gray-800">
                     <div class="overflow-x-auto">
-                        <form method="POST" action="{{ route('storemovie') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('updatemovie', $peliculas->id) }}"
+                            enctype="multipart/form-data">
                             @csrf
                             <div class="space-y-4">
                                 <div>
