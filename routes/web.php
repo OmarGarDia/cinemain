@@ -37,6 +37,7 @@ Route::middleware(['auth', 'checkRole:1'])->group(function () {
     Route::post('/peliculas/addmovie', [PeliculasController::class, 'store'])->name('storemovie');
     Route::get('/peliculas/editar/{id}', [PeliculasController::class, 'edit'])->name('editarmovie');
     Route::post('/peliculas/editarmovie/{id}', [PeliculasController::class, 'update'])->name('updatemovie');
+    Route::delete('/peliculas/delete/{id}', [PeliculasController::class, 'destroy'])->name('deletemovie');
 });
 
 

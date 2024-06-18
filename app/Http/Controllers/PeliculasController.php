@@ -80,6 +80,13 @@ class PeliculasController extends Controller
         }
     }
 
+    public function destroy(int $id)
+    {
+        $pelicula = Pelicula::findOrFail($id);
+        $pelicula->delete();
+        return redirect()->route('peliculas')->with('success', 'Pelicula eliminada correctamente.');
+    }
+
     public function store(Request $request)
     {
         $request->validate([

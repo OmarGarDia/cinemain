@@ -74,8 +74,8 @@
                                                             class="bg-orange-400 text-white font-bold py-0 px-1 rounded flex items-center">
                                                             <i class="mdi mdi-pencil-outline text-lg"></i>
                                                         </a>
-                                                        <form action="" method="POST"
-                                                            id="delete-form-{{ $pelicula->id }}"
+                                                        <form action="{{ route('deletemovie', $pelicula->id) }}"
+                                                            method="POST" id="delete-form-{{ $pelicula->id }}"
                                                             style="display: inline;" class="flex items-center">
                                                             @csrf
                                                             @method('DELETE')
