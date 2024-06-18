@@ -19,10 +19,16 @@ class PeliculasController extends Controller
         return view('movies.add');
     }
 
+    public function edit(int $id)
+    {
+        $peliculas = Pelicula::findOrFail($id);
+        return view('movies.editar', compact('peliculas'));
+    }
+
     public function store(Request $request)
     {
         $request->validate([
-            'titulo' => 'required|string|max:255',
+            'titulo' => 'required|string|max:255|unique:peliculas,titulo',
             'anio' => 'required|integer',
             'sinopsis' => 'required|string',
             'duracion' => 'required|integer',
@@ -32,6 +38,8 @@ class PeliculasController extends Controller
             'calificacion' => 'required|integer|min:1|max:10',
             'fecha_estreno' => 'required|date',
             'imagen_pelicula' => 'required|image|mimes:jpeg,png,jpg|max:2048'
+        ], [
+            'titulo.unique' => 'Ya existe una pelicula con ese titulo',
         ]);
 
         $pelicula = new Pelicula();
@@ -51,6 +59,8 @@ class PeliculasController extends Controller
             $filename = time() . '.' . $file->getClientOriginalExtension();
             $filePath = $file->storeAs('movies', $filename, 'public');
             $pelicula->imagen = $filename;
+        } else {
+            return back()->withErrors(['imagen' => 'El archivo de imagen no se ha cargado correctamente.']);
         }
 
         $pelicula->save();

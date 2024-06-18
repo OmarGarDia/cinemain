@@ -11,6 +11,13 @@
                 <div class="bg-green-200 text-green-800 px-6 py-4 mb-4 rounded-md">
                     {{ Session::get('success') }}
                 </div>
+            @else
+                @if ($errors->any())
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                        <strong class="font-bold">Error:</strong>
+                        <span class="block sm:inline">{{ $errors->first() }}</span>
+                    </div>
+                @endif
             @endif
             <!-- Flex container para alinear el aside a la izquierda -->
             <div class="flex">
@@ -21,7 +28,8 @@
                             <div class="overflow-x-auto">
                                 <div class="p-0 mt-2">
                                     <a href="{{ route('addmovie') }}"
-                                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"><i
+                                            class="mdi mdi-plus"></i>
                                         Añadir
                                     </a>
                                 </div>
@@ -62,7 +70,7 @@
                                                 </td>
                                                 <td>
                                                     <div class="flex items-center space-x-2">
-                                                        <a href=""
+                                                        <a href="{{ route('editarmovie', $pelicula->id) }}"
                                                             class="bg-orange-400 text-white font-bold py-0 px-1 rounded flex items-center">
                                                             <i class="mdi mdi-pencil-outline text-lg"></i>
                                                         </a>
