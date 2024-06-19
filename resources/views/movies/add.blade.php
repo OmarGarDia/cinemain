@@ -4,7 +4,16 @@
             {{ __('Insertar Pelicula') }}
         </h2>
     </x-slot>
-    <div class="py-12">
+    <div class="py-4">
+        @if ($errors->any())
+            <div class="bg-red-200 text-red-800 px-6 py-1 mb-4 rounded-md">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <div class="mx-auto max-w-lg">
             <div class="bg-white overflow-hidden shadow-lg rounded-lg">
                 <div class="px-6 py-4 text-gray-900 dark:text-gray-800">

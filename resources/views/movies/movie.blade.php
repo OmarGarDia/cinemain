@@ -5,10 +5,10 @@
         </h2>
     </x-slot>
 
-    <div class="py-12 contenedor">
+    <div class="py-4 contenedor">
         <div class="mx-auto">
             @if (Session::has('success'))
-                <div class="bg-green-200 text-green-800 px-6 py-4 mb-4 rounded-md">
+                <div class="bg-green-200 text-green-800 px-6 py-1 mb-4 rounded-md">
                     {{ Session::get('success') }}
                 </div>
             @else

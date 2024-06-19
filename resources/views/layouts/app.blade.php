@@ -42,7 +42,7 @@
 
                 <!-- Slot -->
                 <div class="flex-1">
-                    <div class="border border-white px-2 "> <!-- Reducir px-4 a px-2 -->
+                    <div class="border border-white px-2 m-0"> <!-- Reducir px-4 a px-2 -->
                         {{ $slot }}
                     </div>
                 </div>
