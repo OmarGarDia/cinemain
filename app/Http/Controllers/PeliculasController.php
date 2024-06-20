@@ -24,8 +24,6 @@ class PeliculasController extends Controller
 
         $directores = Director::all();
         return view('movies.add', compact('directores'));
-
-        return view('movies.add');
     }
 
     public function edit(int $id)

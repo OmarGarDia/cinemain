@@ -67,7 +67,9 @@
                                                 <td>{{ $pelicula->genero }}</td>
                                                 <td>{{ $pelicula->calificacion }}/10</td>
                                                 <td>{{ $pelicula->fecha_estreno }}</td>
-                                                <td>{{ $pelicula->director->nombre }}</td>
+                                                <td class="text-blue-700"><a
+                                                        href="{{ route('infodirector', $pelicula->director_id) }}">{{ $pelicula->director->nombre }}</a>
+                                                </td>
                                                 <td>
                                                     <img src="{{ asset('storage/movies/' . $pelicula->imagen) }}"
                                                         alt="Sin imagen" class="w-20 h-20 object-contain">

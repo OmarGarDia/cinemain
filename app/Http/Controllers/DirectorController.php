@@ -7,4 +7,12 @@ use Illuminate\Http\Request;
 
 class DirectorController extends Controller
 {
+    public function show($id)
+    {
+        $director = Director::findOrFail($id);
+        $peliculas = $director->peliculas()->paginate(12);
+        $numPeliculas = $director->peliculas->count();
+
+        return view('directors.info', compact('director', 'peliculas', 'numPeliculas'));
+    }
 }

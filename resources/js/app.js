@@ -26,6 +26,11 @@ $(document).ready(function () {
         lengthMenu: [10],
         lengthChange: false,
     });
+
+    $("#peliculas_director").DataTable({
+        lengthMenu: [10],
+        lengthChange: false,
+    });
 });
 
 // ======= MOSTRAR U OCULTAR CAMPO PASSWORD ========
