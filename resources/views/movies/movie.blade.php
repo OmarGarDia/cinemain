@@ -47,6 +47,7 @@
                                             <th>GENERO</th>
                                             <th>CALIFICA</th>
                                             <th>F.ESTRENO</th>
+                                            <th>DIRECTOR</th>
                                             <th>IMG</th>
                                             <th>ACCION</th>
                                         </tr>
@@ -54,7 +55,9 @@
                                     <tbody>
                                         @foreach ($peliculas as $pelicula)
                                             <tr class="border-y-2">
-                                                <td>{{ $pelicula->id }}</td>
+                                                <td><a href="{{ route('movieinfo', $pelicula->id) }}"><i
+                                                            class="mdi mdi-eye text-blue-600 mr-1"></i></a>{{ $pelicula->id }}
+                                                </td>
                                                 <td>{{ $pelicula->titulo }}</td>
                                                 <td>{{ $pelicula->año }}</td>
                                                 <td>{{ $pelicula->sinopsis }}</td>
@@ -64,6 +67,7 @@
                                                 <td>{{ $pelicula->genero }}</td>
                                                 <td>{{ $pelicula->calificacion }}/10</td>
                                                 <td>{{ $pelicula->fecha_estreno }}</td>
+                                                <td>{{ $pelicula->director->nombre }}</td>
                                                 <td>
                                                     <img src="{{ asset('storage/movies/' . $pelicula->imagen) }}"
                                                         alt="Sin imagen" class="w-20 h-20 object-contain">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pelicula;
+use App\Models\Director;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -14,12 +15,16 @@ class PeliculasController extends Controller
 
     public function index()
     {
-        $peliculas = Pelicula::all();
+        $peliculas = Pelicula::with('director')->get();
         return view('movies.movie', compact('peliculas'));
     }
 
     public function create()
     {
+
+        $directores = Director::all();
+        return view('movies.add', compact('directores'));
+
         return view('movies.add');
     }
 
@@ -27,6 +32,13 @@ class PeliculasController extends Controller
     {
         $peliculas = Pelicula::findOrFail($id);
         return view('movies.editar', compact('peliculas'));
+    }
+
+    public function movieinfo($movieId)
+    {
+        $movie = Pelicula::findOrFail($movieId);
+
+        return view('movies.info', compact('movie'));
     }
 
     public function update(Request $request, int $id)
@@ -99,6 +111,7 @@ class PeliculasController extends Controller
             'genero' => 'required|string|max:255',
             'calificacion' => 'required|integer|min:1|max:10',
             'fecha_estreno' => 'required|date',
+            'director_id' => 'required|exists:directors,id',
             'imagen_pelicula' => 'required|image|mimes:jpeg,png,jpg|max:2048'
         ], [
             'titulo.unique' => 'Ya existe una pelicula con ese titulo',
@@ -114,6 +127,7 @@ class PeliculasController extends Controller
         $pelicula->genero = $request->genero;
         $pelicula->calificacion = $request->calificacion;
         $pelicula->fecha_estreno = $request->fecha_estreno;
+        $pelicula->director_id = $request->director_id;
 
         $file = $request->file('imagen_pelicula');
         if ($file) {

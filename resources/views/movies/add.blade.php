@@ -74,6 +74,18 @@
                                         required>
                                 </div>
                                 <div>
+                                    <label for="director_id"
+                                        class="block text-sm font-medium text-gray-700">Director</label>
+                                    <select name="director_id" id="director_id"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                        required>
+                                        <option value="">Seleccionar Director</option>
+                                        @foreach ($directores as $director)
+                                            <option value="{{ $director->id }}">{{ $director->nombre }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div>
                                     <label for="sinopsis"
                                         class="block text-sm font-medium text-gray-700">Sinopsis</label>
                                     <textarea name="sinopsis" id="sinopsis"
