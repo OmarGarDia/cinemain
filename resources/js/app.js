@@ -17,6 +17,11 @@ $(document).ready(function () {
         lengthChange: false,
     });
 
+    $("#tabla_directores").DataTable({
+        lengthMenu: [20],
+        lengthChange: false,
+    });
+
     $("#tabla_peliculas_vistas").DataTable({
         lengthMenu: [10],
         lengthChange: false,

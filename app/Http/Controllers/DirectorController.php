@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 
 class DirectorController extends Controller
 {
+
+    public function index()
+    {
+        $directores = Director::all();
+        return view('directors.directores', compact('directores'));
+    }
+
     public function show($id)
     {
         $director = Director::findOrFail($id);

@@ -41,6 +41,7 @@ Route::middleware(['auth', 'checkRole:1'])->group(function () {
     Route::delete('/peliculas/delete/{id}', [PeliculasController::class, 'destroy'])->name('deletemovie');
     Route::get('/peliculas/{movieId}/info', [PeliculasController::class, 'movieinfo'])->name('infodirector');
 
+    Route::get('/directores', [DirectorController::class, 'index'])->name('directores');
     Route::get('/director/{id}', [DirectorController::class, 'show'])->name('infodirector');
 });
 
