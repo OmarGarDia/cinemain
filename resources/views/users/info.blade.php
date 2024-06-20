@@ -57,7 +57,10 @@
                                                     <td>{{ $pelicula->genero }}</td>
                                                     <td>{{ $pelicula->calificacion }}/10</td>
                                                     <td>{{ $pelicula->fecha_estreno }}</td>
-                                                    <td>{{ $pelicula->imagen }}</td>
+                                                    <td>
+                                                        <img src="{{ asset('storage/movies/' . $pelicula->imagen) }}"
+                                                            alt="Sin imagen" class="w-20 h-20 object-contain">
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -104,18 +107,120 @@
                                                     <td>{{ $pelicula->genero }}</td>
                                                     <td>{{ $pelicula->calificacion }}/5</td>
                                                     <td>{{ $pelicula->fecha_estreno }}</td>
-                                                    <td>{{ $pelicula->imagen }}</td>
+                                                    <td>
+                                                        <img src="{{ asset('storage/movies/' . $pelicula->imagen) }}"
+                                                            alt="Sin imagen" class="w-20 h-20 object-contain">
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
                                 @endif
-
+                            </div>
+                            <div class="overflow-x-auto mt-10">
+                                <div
+                                    class="text-xl font-semibold border-b-2 border-purple-700 pb-2 mb-4 text-purple-700">
+                                    Películas que sigue
+                                </div>
+                                @if ($peliculasSiguiendo->isEmpty())
+                                    <div class="bg-purple-100 p-4">
+                                        Aún no tiene películas añadidas en la lista de seguimiento.
+                                    </div>
+                                @else
+                                    <table class="table-auto w-full border-collapse border border-gray-200 text-sm"
+                                        name="tabla_peliculas_pendiente" id="tabla_peliculas_pendiente">
+                                        <thead>
+                                            <tr class=" bg-gray-200 text-center">
+                                                <th class="px-4 py-2 text-center">ID</th>
+                                                <th class="px-4 py-2 text-center">TITULO</th>
+                                                <th class="px-4 py-2 text-center">AÑO</th>
+                                                <th class="px-4 py-2 text-center">SINOPSIS</th>
+                                                <th class="px-4 py-2 text-center">DURACION</th>
+                                                <th class="px-4 py-2 text-center">IDIOMA</th>
+                                                <th class="px-4 py-2 text-center">PAIS</th>
+                                                <th class="px-4 py-2 text-center">GENERO</th>
+                                                <th class="px-4 py-2 text-center">CALIFICA</th>
+                                                <th class="px-4 py-2 text-center">F.ESTRENO</th>
+                                                <th class="px-4 py-2 text-center">IMG</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($peliculasSiguiendo as $pelicula)
+                                                <tr class="border-y-2">
+                                                    <td>{{ $pelicula->id }}</td>
+                                                    <td>{{ $pelicula->titulo }}</td>
+                                                    <td>{{ $pelicula->año }}</td>
+                                                    <td>{{ $pelicula->sinopsis }}</td>
+                                                    <td>{{ $pelicula->duracion }} min</td>
+                                                    <td>{{ $pelicula->idioma }}</td>
+                                                    <td>{{ $pelicula->pais }}</td>
+                                                    <td>{{ $pelicula->genero }}</td>
+                                                    <td>{{ $pelicula->calificacion }}/5</td>
+                                                    <td>{{ $pelicula->fecha_estreno }}</td>
+                                                    <td>
+                                                        <img src="{{ asset('storage/movies/' . $pelicula->imagen) }}"
+                                                            alt="Sin imagen" class="w-20 h-20 object-contain">
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                @endif
+                            </div>
+                            <div class="overflow-x-auto mt-10">
+                                <div class="text-xl font-semibold border-b-2 border-red-700 pb-2 mb-4 text-red-700">
+                                    Películas favoritas
+                                </div>
+                                @if ($peliculasFavoritas->isEmpty())
+                                    <div class="bg-red-100 p-4">
+                                        Aún no tiene películas añadidas en la lista de favoritas.
+                                    </div>
+                                @else
+                                    <table class="table-auto w-full border-collapse border border-gray-200 text-sm"
+                                        name="tabla_peliculas_pendiente" id="tabla_peliculas_pendiente">
+                                        <thead>
+                                            <tr class=" bg-gray-200 text-center">
+                                                <th class="px-4 py-2 text-center">ID</th>
+                                                <th class="px-4 py-2 text-center">TITULO</th>
+                                                <th class="px-4 py-2 text-center">AÑO</th>
+                                                <th class="px-4 py-2 text-center">SINOPSIS</th>
+                                                <th class="px-4 py-2 text-center">DURACION</th>
+                                                <th class="px-4 py-2 text-center">IDIOMA</th>
+                                                <th class="px-4 py-2 text-center">PAIS</th>
+                                                <th class="px-4 py-2 text-center">GENERO</th>
+                                                <th class="px-4 py-2 text-center">CALIFICA</th>
+                                                <th class="px-4 py-2 text-center">F.ESTRENO</th>
+                                                <th class="px-4 py-2 text-center">IMG</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($peliculasFavoritas as $pelicula)
+                                                <tr class="border-y-2">
+                                                    <td>{{ $pelicula->id }}</td>
+                                                    <td>{{ $pelicula->titulo }}</td>
+                                                    <td>{{ $pelicula->año }}</td>
+                                                    <td>{{ $pelicula->sinopsis }}</td>
+                                                    <td>{{ $pelicula->duracion }} min</td>
+                                                    <td>{{ $pelicula->idioma }}</td>
+                                                    <td>{{ $pelicula->pais }}</td>
+                                                    <td>{{ $pelicula->genero }}</td>
+                                                    <td>{{ $pelicula->calificacion }}/5</td>
+                                                    <td>{{ $pelicula->fecha_estreno }}</td>
+                                                    <td>
+                                                        <img src="{{ asset('storage/movies/' . $pelicula->imagen) }}"
+                                                            alt="Sin imagen" class="w-20 h-20 object-contain">
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                @endif
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </x-app-layout>

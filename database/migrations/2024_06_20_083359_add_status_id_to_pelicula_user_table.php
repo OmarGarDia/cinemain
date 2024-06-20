@@ -12,17 +12,21 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('pelicula_user', function (Blueprint $table) {
-            $table->string('status')->nullable();
+            $table->unsignedBigInteger('status_id')->nullable();
+
+            $table->foreign('status_id')->references('id')->on('status_movie');
         });
     }
 
     /**
      * Reverse the migrations.
      */
-    public function down(): void
+    public function down()
     {
         Schema::table('pelicula_user', function (Blueprint $table) {
-            //
+            $table->dropForeign(['status_id']);
+
+            $table->dropColumn('status_id');
         });
     }
 };

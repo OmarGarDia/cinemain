@@ -23,8 +23,10 @@ class UserController extends Controller
 
         $peliculasVistas = $user->peliculasVistas;
         $peliculasPendientes = $user->peliculasPendientes;
+        $peliculasSiguiendo = $user->peliculasSiguiendo;
+        $peliculasFavoritas = $user->peliculasFavoritas;
 
-        return view('users.info', compact('user', 'peliculasVistas', 'peliculasPendientes'));
+        return view('users.info', compact('user', 'peliculasVistas', 'peliculasPendientes', 'peliculasSiguiendo', 'peliculasFavoritas'));
     }
 
     public function edit(int $id)
