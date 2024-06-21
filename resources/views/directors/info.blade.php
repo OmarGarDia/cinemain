@@ -47,8 +47,9 @@
                             class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
                             @foreach ($peliculas as $pelicula)
                                 <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
-                                    <img src="{{ asset('storage/movies/' . $pelicula->imagen) }}"
-                                        alt="{{ $pelicula->titulo }}" class="object-cover w-full h-48">
+                                    <a href="{{ route('movieinfo', $pelicula->id) }}"><img
+                                            src="{{ asset('storage/movies/' . $pelicula->imagen) }}"
+                                            alt="{{ $pelicula->titulo }}" class="object-cover w-full h-48"></a>
                                     <div class="px-4 py-3">
                                         <p class="text-lg font-semibold text-gray-800 dark:text-gray-200 truncate">
                                             {{ $pelicula->titulo }}

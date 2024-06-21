@@ -33,8 +33,7 @@ class PeliculasController extends Controller
 
     public function movieinfo($movieId)
     {
-        $movie = Pelicula::findOrFail($movieId);
-
+        $movie = Pelicula::with('director')->findOrFail($movieId);
         return view('movies.info', compact('movie'));
     }
 

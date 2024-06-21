@@ -36,7 +36,8 @@
                     </div>
                     <div class="mt-2">
                         <span class="text-gray-600">Director:</span>
-                        <span class="ml-2 text-gray-800">Director Nombre</span>
+                        <span class="ml-2 text-gray-800"><a class="text-blue-600 font-bold"
+                                href="{{ route('infodirector', $movie->director->id) }}">{{ $movie->director->nombre }}</a></span>
                     </div>
                     <p class="mt-4 text-gray-700">{{ $movie->sinopsis }}</p>
                 </div>
