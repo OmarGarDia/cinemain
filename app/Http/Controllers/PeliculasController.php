@@ -21,7 +21,6 @@ class PeliculasController extends Controller
 
     public function create()
     {
-
         $directores = Director::all();
         return view('movies.add', compact('directores'));
     }

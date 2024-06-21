@@ -27,10 +27,9 @@
                         <div class="px-6 text-gray-900 dark:text-gray-800 w-full">
                             <div class="overflow-x-auto">
                                 <div class="p-0 mt-2">
-                                    <a href=""
-                                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"><i
-                                            class="mdi mdi-plus"></i>
-                                        Añadir
+                                    <a href="{{ route('createdirector') }}"
+                                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                        <i class="mdi mdi-plus"></i> Añadir
                                     </a>
                                 </div>
                                 <table class="table-auto w-full border-collapse border border-gray-200 text-sm"

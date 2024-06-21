@@ -39,9 +39,15 @@
                         <span class="ml-2 text-gray-800">Director Nombre</span>
                     </div>
                     <p class="mt-4 text-gray-700">{{ $movie->sinopsis }}</p>
-
                 </div>
             </div>
+        </div>
+        <div class="mt-4 justify-center flex">
+            <a href="{{ route('peliculas') }}"
+                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"><i
+                    class="mdi mdi-arrow-left-thick"></i>
+                Volver
+            </a>
         </div>
     </div>
 </x-app-layout>

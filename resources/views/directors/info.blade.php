@@ -15,7 +15,7 @@
 
                     <div class="md:flex md:items-center pt-8">
                         <div class="md:flex-shrink-0">
-                            <img src="{{ asset('storage/movies/' . $director->imagen) }}" alt="Sin imagen"
+                            <img src="{{ asset('storage/directors/' . $director->imagen) }}" alt="Sin imagen"
                                 class="h-full w-full object-cover md:w-48 rounded-lg shadow-md">
                         </div>
                         <div class="md:ml-8 mt-4 md:mt-0">

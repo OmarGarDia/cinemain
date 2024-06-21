@@ -39,10 +39,12 @@ Route::middleware(['auth', 'checkRole:1'])->group(function () {
     Route::get('/peliculas/editar/{id}', [PeliculasController::class, 'edit'])->name('editarmovie');
     Route::post('/peliculas/editarmovie/{id}', [PeliculasController::class, 'update'])->name('updatemovie');
     Route::delete('/peliculas/delete/{id}', [PeliculasController::class, 'destroy'])->name('deletemovie');
-    Route::get('/peliculas/{movieId}/info', [PeliculasController::class, 'movieinfo'])->name('infodirector');
+    Route::get('/peliculas/{movieId}/info', [PeliculasController::class, 'movieinfo'])->name('movieinfo');
 
     Route::get('/directores', [DirectorController::class, 'index'])->name('directores');
-    Route::get('/director/{id}', [DirectorController::class, 'show'])->name('infodirector');
+    Route::get('/directores/create', [DirectorController::class, 'create'])->name('createdirector');
+    Route::post('/directores/adddirector', [DirectorController::class, 'store'])->name('storedirector');
+    Route::get('/directores/{id}', [DirectorController::class, 'show'])->name('infodirector');
 });
 
 
