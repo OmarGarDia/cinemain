@@ -12,10 +12,10 @@
                     {{ Session::get('success') }}
                 </div>
             @else
-                @if ($errors->any())
+                @if (Session::has('error'))
                     <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
                         <strong class="font-bold">Error:</strong>
-                        <span class="block sm:inline">{{ $errors->first() }}</span>
+                        <span class="block sm:inline">{{ Session::get('error') }}</span>
                     </div>
                 @endif
             @endif
@@ -47,24 +47,24 @@
                                     <tbody>
                                         @foreach ($directores as $director)
                                             <tr class="border-y-2">
-                                                <td><a href=""><i
+                                                <td><a href="{{ route('infodirector', $director->id) }}"><i
                                                             class="mdi mdi-eye text-blue-600 mr-1"></i></a>{{ $director->id }}
                                                 </td>
                                                 <td>{{ $director->nombre }}</td>
                                                 <td>{{ $director->fecha_nacimiento }}</td>
                                                 <td>{{ $director->lugar_nacimiento }}</td>
                                                 <td>
-                                                    <img src="{{ asset('storage/movies/' . $director->imagen) }}"
+                                                    <img src="{{ asset('storage/directors/' . $director->imagen) }}"
                                                         alt="Sin imagen" class="w-20 h-20 object-contain">
                                                 </td>
                                                 <td>
                                                     <div class="flex items-center space-x-2">
-                                                        <a href=""
+                                                        <a href="{{ route('editdirector', $director->id) }}"
                                                             class="bg-orange-400 text-white font-bold py-0 px-1 rounded flex items-center">
                                                             <i class="mdi mdi-pencil-outline text-lg"></i>
                                                         </a>
-                                                        <form action="" method="POST"
-                                                            id="delete-form-{{ $director->id }}"
+                                                        <form action="{{ route('deletedirector', $director->id) }}"
+                                                            method="POST" id="delete-form-{{ $director->id }}"
                                                             style="display: inline;" class="flex items-center">
                                                             @csrf
                                                             @method('DELETE')

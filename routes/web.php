@@ -44,6 +44,9 @@ Route::middleware(['auth', 'checkRole:1'])->group(function () {
     Route::get('/directores', [DirectorController::class, 'index'])->name('directores');
     Route::get('/directores/create', [DirectorController::class, 'create'])->name('createdirector');
     Route::post('/directores/adddirector', [DirectorController::class, 'store'])->name('storedirector');
+    Route::get('/directores/editar/{id}', [DirectorController::class, 'edit'])->name('editdirector');
+    Route::post('/directores/editardirector/{id}', [DirectorController::class, 'update'])->name('updatedirector');
+    Route::delete('/directores/delete/{id}', [DirectorController::class, 'destroy'])->name('deletedirector');
     Route::get('/directores/{id}', [DirectorController::class, 'show'])->name('infodirector');
 });
 
