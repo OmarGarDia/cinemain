@@ -62,7 +62,7 @@
             </svg>
 
 
-            <a href="" class="hover:text-blue-500 w-full text-lg">Actores/Actrices</a>
+            <a href="{{ route('actores') }}" class="hover:text-blue-500 w-full text-lg">Actores/Actrices</a>
         </li>
     </ul>
 </aside>

@@ -36,6 +36,11 @@ $(document).ready(function () {
         lengthMenu: [10],
         lengthChange: false,
     });
+
+    $("#tabla_actores").DataTable({
+        lengthMenu: [10],
+        lengthChange: false,
+    });
 });
 
 // ======= MOSTRAR U OCULTAR CAMPO PASSWORD ========

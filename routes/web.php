@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PeliculasController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DirectorController;
+use App\Http\Controllers\ActoresController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -48,6 +49,14 @@ Route::middleware(['auth', 'checkRole:1'])->group(function () {
     Route::post('/directores/editardirector/{id}', [DirectorController::class, 'update'])->name('updatedirector');
     Route::delete('/directores/delete/{id}', [DirectorController::class, 'destroy'])->name('deletedirector');
     Route::get('/directores/{id}', [DirectorController::class, 'show'])->name('infodirector');
+
+    Route::get('/actores', [ActoresController::class, 'index'])->name('actores');
+    Route::get('/actores/add', [ActoresController::class, 'create'])->name('createactor');
+    Route::post('/actores/addactor', [ActoresController::class, 'store'])->name('storeactor');
+    Route::get('/actores/editar/{id}', [ActoresController::class, 'edit'])->name('editactor');
+    Route::post('actores/editaractor/{id}', [ActoresController::class, 'update'])->name('updateactor');
+    Route::delete('/actores/delete/{id}', [ActoresController::class, 'destroy'])->name('deleteactor');
+    Route::get('/actores/{id}', [ActoresController::class, 'show'])->name('infoactor');
 });
 
 

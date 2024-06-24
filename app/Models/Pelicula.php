@@ -34,4 +34,9 @@ class Pelicula extends Model
     {
         return $this->belongsTo(Director::class);
     }
+
+    public function actores()
+    {
+        return $this->belongsToMany(Actor::class, 'actor_pelicula');
+    }
 }

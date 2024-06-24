@@ -39,6 +39,22 @@
                         <span class="ml-2 text-gray-800"><a class="text-blue-600 font-bold"
                                 href="{{ route('infodirector', $movie->director->id) }}">{{ $movie->director->nombre }}</a></span>
                     </div>
+                    <div class="mt-2">
+                        <span class="text-gray-600">Elenco:</span>
+                        <span class="ml-2 text-gray-800">
+                            @php
+                                $actorNames = $movie->actores->pluck('nombre')->implode(', ');
+                            @endphp
+                            @foreach ($movie->actores as $actor)
+                                <a class="text-blue-600 font-bold" href="{{ route('infoactor', $actor->id) }}">
+                                    {{ $actor->nombre }}
+                                </a>
+                                @if (!$loop->last)
+                                    ,
+                                @endif
+                            @endforeach
+                        </span>
+                    </div>
                     <p class="mt-4 text-gray-700">{{ $movie->sinopsis }}</p>
                 </div>
             </div>
