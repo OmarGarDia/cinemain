@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Http;
 
 
 class PeliculasController extends Controller
@@ -138,5 +139,35 @@ class PeliculasController extends Controller
         $pelicula->save();
 
         return redirect()->route('peliculas')->with('success', 'Pelicula almacenada correctamente');
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $apiKey = env('TMDB_API_KEY'); // Asegúrate de tener tu clave de API en tu archivo .env
+
+        $response = Http::get("https://api.themoviedb.org/3/search/movie", [
+            'api_key' => $apiKey,
+            'query' => $query,
+            'language' => 'es-ES',
+            'include_adult' => false
+        ]);
+
+        $results = $response->json()['results'];
+
+        // Si necesitas más detalles de cada película, puedes hacer una solicitud adicional para cada película
+        $detailedResults = [];
+
+        foreach ($results as $movie) {
+            $movieId = $movie['id'];
+            $movieDetailsResponse = Http::get("https://api.themoviedb.org/3/movie/{$movieId}", [
+                'api_key' => $apiKey,
+                'language' => 'es-ES'
+            ]);
+
+            $detailedResults[] = $movieDetailsResponse->json();
+        }
+
+        return response()->json(['results' => $detailedResults]);
     }
 }

@@ -40,7 +40,6 @@
                                             <th>ID</th>
                                             <th>TITULO</th>
                                             <th>AÑO</th>
-                                            <th>SINOPSIS</th>
                                             <th>DURACION</th>
                                             <th>IDIOMA</th>
                                             <th>PAIS</th>
@@ -60,7 +59,6 @@
                                                 </td>
                                                 <td>{{ $pelicula->titulo }}</td>
                                                 <td>{{ $pelicula->año }}</td>
-                                                <td>{{ $pelicula->sinopsis }}</td>
                                                 <td>{{ $pelicula->duracion }} min</td>
                                                 <td>{{ $pelicula->idioma }}</td>
                                                 <td>{{ $pelicula->pais }}</td>

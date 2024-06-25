@@ -1,15 +1,16 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-600 leading-tight">
-            {{ __('Información de la pelicula ') }}
+            {{ __('Información de la película') }}
         </h2>
     </x-slot>
     <div class="py-4 contenedor">
         <div class="max-w-4xl mx-auto bg-white border border-gray-300 shadow-lg rounded-lg overflow-hidden p-6">
-            <div class="md:flex md:items-center">
+            <div class="md:flex md:items-start"> <!-- md:items-start para que la imagen esté arriba -->
                 <div class="md:flex-shrink-0">
                     <img src="{{ asset('storage/movies/' . $movie->imagen) }}" alt="Sin imagen"
-                        class="h-full w-full object-cover md:w-48 rounded-lg shadow-md">
+                        class="h-full w-full object-cover md:w-48 md:h-auto rounded-lg shadow-md">
+                    <!-- object-cover para cubrir y md:w-48 para tamaño en dispositivos md -->
                 </div>
                 <div class="md:ml-8 mt-4 md:mt-0">
                     <h1 class="text-2xl font-bold">{{ $movie->titulo }}</h1>
@@ -59,7 +60,7 @@
                 </div>
             </div>
         </div>
-        <div class="mt-4 justify-center flex">
+        <div class="mt-4 flex justify-center"> <!-- flex justify-center para centrar el botón -->
             <a href="{{ route('peliculas') }}"
                 class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"><i
                     class="mdi mdi-arrow-left-thick"></i>

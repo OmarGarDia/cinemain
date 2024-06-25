@@ -22,6 +22,13 @@
                             @csrf
                             <div class="space-y-4">
                                 <div>
+                                    <label for="search_movie" class="block text-sm font-medium text-gray-700">Buscar
+                                        Película</label>
+                                    <input type="text" id="search_movie"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
+                                    <ul id="search_results" class="list-group"></ul>
+                                </div>
+                                <div>
                                     <label for="titulo" class="block text-sm font-medium text-gray-700">Título</label>
                                     <input type="text" name="titulo" id="titulo"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
