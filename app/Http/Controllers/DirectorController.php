@@ -6,6 +6,7 @@ use App\Models\Director;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Http;
 use Exception;
 
 class DirectorController extends Controller
@@ -121,6 +122,22 @@ class DirectorController extends Controller
         } catch (Exception $e) {
             // Puedes personalizar el mensaje de error según tus necesidades
             return redirect()->route('directores')->with('error', 'Error al eliminar el director. No se puede eliminar un director asociado a una película.');
+        }
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        $response = Http::get('https://api.themoviedb.org/3/search/person', [
+            'api_key' => '572048c03066a9b129b919b78cc7e6fc',
+            'query' => $query,
+        ]);
+
+        if ($response->successful()) {
+            return $response->json();
+        } else {
+            return response()->json(['error' => 'Failed to fetch data from API'], $response->status());
         }
     }
 }

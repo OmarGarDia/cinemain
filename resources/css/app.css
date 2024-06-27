@@ -27,3 +27,28 @@ table.dataTable thead tr th {
 table.dataTable tbody tr td {
     text-align: center;
 }
+
+.movie-info-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Para alinear el texto y la imagen a los extremos */
+    cursor: pointer;
+    padding: 5px 10px; /* Añadir un poco de espacio interno */
+    border-bottom: 1px solid #ddd; /* Línea divisoria entre elementos */
+}
+
+.movie-title {
+    flex: 1; /* Ocupa todo el espacio disponible */
+    margin-right: 10px; /* Espacio entre el título y la imagen */
+}
+
+.movie-poster {
+    width: 30px;
+    height: auto;
+    border-radius: 4px;
+}
+
+#search_results {
+    max-height: 200px; /* Altura máxima para la lista */
+    overflow-y: auto; /* Habilitar scroll vertical si la lista es demasiado larga */
+}
