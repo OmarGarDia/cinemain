@@ -12,9 +12,9 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="//cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css">
-
     <!-- Meta tag para la URL de búsqueda -->
     <meta name="search-movie-url" content="{{ route('searchmovie') }}">
+    <meta name="search-director-url" content="{{ route('search.director') }}">
 
     <!-- Incluir Axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

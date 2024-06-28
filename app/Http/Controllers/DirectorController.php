@@ -135,7 +135,9 @@ class DirectorController extends Controller
         ]);
 
         if ($response->successful()) {
-            return $response->json();
+            return response()->json([
+                'results' => $response->json()['results'],
+            ]);
         } else {
             return response()->json(['error' => 'Failed to fetch data from API'], $response->status());
         }
