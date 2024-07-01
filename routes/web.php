@@ -6,6 +6,8 @@ use App\Http\Controllers\PeliculasController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DirectorController;
 use App\Http\Controllers\ActoresController;
+use App\Http\Controllers\SeriesController;
+
 
 use Illuminate\Support\Facades\Route;
 
@@ -59,6 +61,9 @@ Route::middleware(['auth', 'checkRole:1'])->group(function () {
     Route::post('actores/editaractor/{id}', [ActoresController::class, 'update'])->name('updateactor');
     Route::delete('/actores/delete/{id}', [ActoresController::class, 'destroy'])->name('deleteactor');
     Route::get('/actores/{id}', [ActoresController::class, 'show'])->name('infoactor');
+
+    Route::get('/series', [SeriesController::class, 'index'])->name('series');
+    Route::get('/series/add', [SeriesController::class, 'create'])->name('createserie');
 });
 
 

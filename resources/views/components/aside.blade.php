@@ -22,7 +22,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M5 16a1 1 0 011-1h12a1 1 0 110 2H6a1 1 0 01-1-1z"></path>
             </svg>
-            <a href="#" class="hover:text-blue-500 w-full text-lg">Series TV</a>
+            <a href="{{ route('series') }}" class="hover:text-blue-500 w-full text-lg">Series TV</a>
         </li>
         <li
             class="flex items-center border-b border-gray-200 dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-gray-700 p-4 w-full transition duration-300">

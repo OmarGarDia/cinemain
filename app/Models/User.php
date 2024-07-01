@@ -55,6 +55,16 @@ class User extends Authenticatable
         return $this->belongsToMany(Pelicula::class, 'pelicula_user', 'user_id', 'pelicula_id');
     }
 
+    public function series()
+    {
+        return $this->belongsToMany(Serie::class, 'user_series')->withPivot('status');
+    }
+
+    public function episodes()
+    {
+        return $this->belongsToMany(Episode::class, 'user_epidodes')->withPivot('status');
+    }
+
     public function peliculasVistas()
     {
         return $this->belongsToMany(Pelicula::class, 'pelicula_user')
