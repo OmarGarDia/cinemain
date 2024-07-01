@@ -21,10 +21,9 @@ class SeriesController extends Controller
 
     public function serieinfo($id)
     {
-        $serie = Serie::findOrFail($id);
-        $actores = $serie->actores; // Acceder a la relación muchos a muchos
+        $serie = Serie::with('director', 'actores')->findOrFail($id);
 
-        return view('series.info', compact('serie', 'actores'));
+        return view('series.info', compact('serie'));
     }
 
     /**

@@ -22,9 +22,10 @@ class ActoresController extends Controller
     {
         $actor = Actor::findOrFail($id);
         $peliculas = $actor->peliculas()->paginate(12);
+        $series = $actor->series()->paginate(12);
         $numPeliculas = $actor->peliculas->count();
-
-        return view('actors.info', compact('actor', 'peliculas', 'numPeliculas'));
+        $numSeries = $actor->series->count();
+        return view('actors.info', compact('actor', 'peliculas', 'series', 'numSeries', 'numPeliculas'));
     }
 
     public function create()

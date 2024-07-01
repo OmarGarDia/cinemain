@@ -33,6 +33,10 @@
                                 <span class="text-gray-600">Peliculas donde actúa:</span>
                                 <span class="ml-2 text-gray-800">{{ $numPeliculas }}</span>
                             </div>
+                            <div class="mt-2">
+                                <span class="text-gray-600">Series donde actúa:</span>
+                                <span class="ml-2 text-gray-800">{{ $numSeries }}</span>
+                            </div>
 
                             <p class="mt-4 text-gray-700"></p>
 
@@ -43,27 +47,69 @@
                         <div class="text-2xl dark:text-gray-800">
                             Listado de Películas de {{ $actor->nombre }}
                         </div>
-                        <div
-                            class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
-                            @foreach ($peliculas as $pelicula)
-                                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
-                                    <a href="{{ route('movieinfo', $pelicula->id) }}"><img
-                                            src="{{ asset('storage/movies/' . $pelicula->imagen) }}"
-                                            alt="{{ $pelicula->titulo }}" class="object-cover w-full h-48"></a>
-                                    <div class="px-4 py-3">
-                                        <p class="text-lg font-semibold text-gray-800 dark:text-gray-200 truncate">
-                                            {{ $pelicula->titulo }}
-                                        </p>
-                                        <p class="text-sm text-gray-500 dark:text-gray-300">
-                                            Año: {{ $pelicula->año }}
-                                        </p>
+
+                        @if ($peliculas->isEmpty())
+                            <div class="mt-4 bg-orange-200 text-orange-800 p-4 rounded">
+                                De momento no ha actuado en ninguna película.
+                            </div>
+                        @else
+                            <div
+                                class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+                                @foreach ($peliculas as $pelicula)
+                                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+                                        <a href="{{ route('movieinfo', $pelicula->id) }}">
+                                            <img src="{{ asset('storage/movies/' . $pelicula->imagen) }}"
+                                                alt="{{ $pelicula->titulo }}" class="object-cover w-full h-48">
+                                        </a>
+                                        <div class="px-4 py-3">
+                                            <p class="text-lg font-semibold text-gray-800 dark:text-gray-200 truncate">
+                                                {{ $pelicula->titulo }}
+                                            </p>
+                                            <p class="text-sm text-gray-500 dark:text-gray-300">
+                                                Año: {{ $pelicula->año }}
+                                            </p>
+                                        </div>
                                     </div>
-                                </div>
-                            @endforeach
+                                @endforeach
+                            </div>
+                            <div class="mt-4">
+                                {{ $peliculas->links() }} <!-- Agregar paginación aquí -->
+                            </div>
+                        @endif
+                    </div>
+
+                    <div class="mt-8">
+                        <div class="text-2xl dark:text-gray-800">
+                            Listado de Series de {{ $actor->nombre }}
                         </div>
-                        <div class="mt-4">
-                            {{ $peliculas->links() }} <!-- Agregar paginación aquí -->
-                        </div>
+
+                        @if ($series->isEmpty())
+                            <div class="mt-4 bg-orange-200 text-orange-800 p-4 rounded">
+                                De momento no ha participado en ninguna serie.
+                            </div>
+                        @else
+                            <div
+                                class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+                                @foreach ($series as $serie)
+                                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+                                        <div class="px-4 py-3">
+                                            <a href="{{ route('serieinfo', $serie->id) }}">
+                                                <p
+                                                    class="text-lg font-semibold text-gray-800 dark:text-gray-200 truncate">
+                                                    {{ $serie->titulo }}
+                                                </p>
+                                                <p class="text-sm text-gray-500 dark:text-gray-300">
+                                                    Año: {{ $serie->fecha_estreno }}
+                                                </p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                            <div class="mt-4">
+                                {{ $series->links() }} <!-- Agregar paginación aquí -->
+                            </div>
+                        @endif
                     </div>
 
                 </div>
