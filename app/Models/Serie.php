@@ -11,9 +11,9 @@ class Serie extends Model
 
     protected $fillable = ['titulo', 'descripcion', 'fecha_estreno', 'director_id'];
 
-    public function actors()
+    public function actores()
     {
-        return $this->belongsToMany(Actor::class);
+        return $this->belongsToMany(Actor::class, 'actor_series', 'series_id', 'actor_id');
     }
 
     public function seasons()
@@ -24,5 +24,10 @@ class Serie extends Model
     public function users()
     {
         return $this->belongsToMany(User::class, 'user_series')->withPivot('status');
+    }
+
+    public function director()
+    {
+        return $this->belongsTo(Director::class, 'director_id');
     }
 }

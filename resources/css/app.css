@@ -52,3 +52,11 @@ table.dataTable tbody tr td {
     max-height: 200px; /* Altura máxima para la lista */
     overflow-y: auto; /* Habilitar scroll vertical si la lista es demasiado larga */
 }
+
+.serie-poster {
+    margin-top: 5px;
+    width: 40px; /* Puedes ajustar el tamaño aquí */
+    height: auto;
+    margin-left: 8px; /* Ajusta según tus necesidades */
+    border-radius: 20%;
+}

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('titulo');
             $table->text('descripcion')->nullable();
-            $table->date('fecha_estreno')->nullable();
+            $table->integer('fecha_estreno')->nullable();
             $table->unsignedBigInteger('director_id')->nullable();
             $table->foreign('director_id')->references('id')->on('directors');
             $table->timestamps();

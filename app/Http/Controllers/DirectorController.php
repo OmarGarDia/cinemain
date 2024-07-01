@@ -22,9 +22,11 @@ class DirectorController extends Controller
     {
         $director = Director::findOrFail($id);
         $peliculas = $director->peliculas()->paginate(12);
+        $series = $director->series()->paginate(12);
         $numPeliculas = $director->peliculas->count();
+        $numSeries = $director->series->count();
 
-        return view('directors.info', compact('director', 'peliculas', 'numPeliculas'));
+        return view('directors.info', compact('director', 'peliculas', 'series', 'numPeliculas', 'numSeries'));
     }
 
     public function create()

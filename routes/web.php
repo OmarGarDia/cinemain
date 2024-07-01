@@ -63,7 +63,11 @@ Route::middleware(['auth', 'checkRole:1'])->group(function () {
     Route::get('/actores/{id}', [ActoresController::class, 'show'])->name('infoactor');
 
     Route::get('/series', [SeriesController::class, 'index'])->name('series');
-    Route::get('/series/add', [SeriesController::class, 'create'])->name('createserie');
+    Route::get('/series/create', [SeriesController::class, 'create'])->name('createserie');
+    Route::post('/series/add', [SeriesController::class, 'store'])->name('storeserie');
+    Route::get('/series/{serieId}/info', [SeriesController::class, 'serieinfo'])->name('serieinfo');
+
+    Route::post('/search-series', [SeriesController::class, 'search'])->name('your_series_search_route');
 });
 
 

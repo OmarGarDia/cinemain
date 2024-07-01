@@ -17,4 +17,9 @@ class Director extends Model
     {
         return $this->hasMany(Pelicula::class);
     }
+
+    public function series()
+    {
+        return $this->hasMany(Serie::class);
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Serie;
 use App\Models\Director;
+use Illuminate\Support\Facades\Http;
 
 
 class SeriesController extends Controller
@@ -14,8 +15,16 @@ class SeriesController extends Controller
      */
     public function index()
     {
-        $series = Serie::all();
+        $series = Serie::with('director')->get();
         return view('series.series', compact('series'));
+    }
+
+    public function serieinfo($id)
+    {
+        $serie = Serie::findOrFail($id);
+        $actores = $serie->actores; // Acceder a la relación muchos a muchos
+
+        return view('series.info', compact('serie', 'actores'));
     }
 
     /**
@@ -32,7 +41,16 @@ class SeriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'titulo' => 'required',
+            'descripcion' => 'nullable',
+            'fecha_estreno' => 'nullable|integer',
+            'director' => 'nullable'
+        ]);
+
+        Serie::create($request->all());
+
+        return redirect()->route('series')->with('success', 'Serie creada correctamente.');
     }
 
     /**
@@ -65,5 +83,34 @@ class SeriesController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $apiKey = env('TMDB_API_KEY'); // Asegúrate de tener tu clave de API en tu archivo .env
+
+        $response = Http::get("https://api.themoviedb.org/3/search/tv", [
+            'api_key' => $apiKey,
+            'query' => $query,
+            'language' => 'es-ES',
+        ]);
+
+        $results = $response->json()['results'];
+
+        // Si necesitas más detalles de cada serie, puedes hacer una solicitud adicional para cada serie
+        $detailedResults = [];
+
+        foreach ($results as $series) {
+            $seriesId = $series['id'];
+            $seriesDetailsResponse = Http::get("https://api.themoviedb.org/3/tv/{$seriesId}", [
+                'api_key' => $apiKey,
+                'language' => 'es-ES'
+            ]);
+
+            $detailedResults[] = $seriesDetailsResponse->json();
+        }
+
+        return response()->json(['results' => $detailedResults]);
     }
 }

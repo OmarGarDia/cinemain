@@ -39,21 +39,44 @@
                                         <tr class=" bg-gray-200">
                                             <th>ID</th>
                                             <th>TITULO</th>
-                                            <th>DESCRIPCION</th>
                                             <th>F.ESTRENO</th>
                                             <th>DIRECTOR</th>
                                             <th>ACCION</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
+                                        @foreach ($series as $serie)
+                                            <tr>
+                                                <td><a href="{{ route('serieinfo', $serie->id) }}"><i
+                                                            class="mdi mdi-eye text-blue-600 mr-1"></i></a>{{ $serie->id }}
+                                                </td>
+                                                <td>{{ $serie->titulo }}</td>
+                                                <td>{{ $serie->fecha_estreno }}</td>
+                                                <td class="text-blue-700"><a
+                                                        href="{{ route('infodirector', $serie->director_id) }}">{{ $serie->director->nombre }}</a>
+                                                </td>
+                                                <td class="align-middle text-center">
+                                                    <div class="flex items-center justify-center space-x-2">
+                                                        <!-- Contenido dentro del td -->
+                                                        <a href="#"
+                                                            class="bg-orange-400 text-white font-bold py-0 px-1 rounded flex items-center">
+                                                            <i class="mdi mdi-pencil-outline text-lg"></i>
+                                                        </a>
+                                                        <form action="#" method="POST"
+                                                            id="delete-form-{{ $serie->id }}"
+                                                            class="flex items-center">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button id="botonEliminar"
+                                                                class="bg-red-500 text-white font-bold py-0 px-1 rounded flex items-center">
+                                                                <i class="mdi mdi-trash-can-outline text-lg"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </td>
+
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

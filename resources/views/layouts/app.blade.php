@@ -15,6 +15,7 @@
     <!-- Meta tag para la URL de búsqueda -->
     <meta name="search-movie-url" content="{{ route('searchmovie') }}">
     <meta name="search-director-url" content="{{ route('search.director') }}">
+    <meta name="search-series-url" content="{{ route('your_series_search_route') }}">
 
     <!-- Incluir Axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

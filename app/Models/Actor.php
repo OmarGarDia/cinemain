@@ -20,6 +20,6 @@ class Actor extends Model
 
     public function series()
     {
-        return $this->belongsToMany(Serie::class);
+        return $this->belongsToMany(Serie::class, 'actor_series', 'series_id', 'actor_id');
     }
 }

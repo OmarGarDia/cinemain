@@ -19,15 +19,15 @@
         <div class="mx-auto max-w-4xl">
             <div class="bg-white shadow-md rounded-lg overflow-hidden">
                 <div class="px-8 py-6">
-                    <form method="POST" action="" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('storeserie') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="space-y-6">
                             <div>
-                                <label for="search_movie" class="block text-sm font-medium text-gray-700">Buscar
+                                <label for="search_serie" class="block text-sm font-medium text-gray-700">Buscar
                                     Serie</label>
-                                <input type="text" id="search_movie"
+                                <input type="text" id="search_serie"
                                     class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
-                                <ul id="search_results" class="list-group"></ul>
+                                <ul id="search_serie_result" class="list-group"></ul>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
@@ -58,8 +58,9 @@
                                 </select>
                             </div>
                             <div>
-                                <label for="sinopsis" class="block text-sm font-medium text-gray-700">Sinopsis</label>
-                                <textarea name="sinopsis" id="sinopsis"
+                                <label for="descripcion"
+                                    class="block text-sm font-medium text-gray-700">Descripción</label>
+                                <textarea name="descripcion" id="descripcion"
                                     class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                                     required></textarea>
                             </div>
