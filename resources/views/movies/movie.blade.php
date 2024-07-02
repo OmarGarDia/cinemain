@@ -62,7 +62,9 @@
                                                 <td>{{ $pelicula->duracion }} min</td>
                                                 <td>{{ $pelicula->idioma }}</td>
                                                 <td>{{ $pelicula->pais }}</td>
-                                                <td>{{ $pelicula->genero }}</td>
+                                                <td>
+                                                    {{ implode(', ', $pelicula->genres_array) }}
+                                                </td>
                                                 <td>{{ $pelicula->calificacion }}/10</td>
                                                 <td>{{ $pelicula->fecha_estreno }}</td>
                                                 <td class="text-blue-700"><a

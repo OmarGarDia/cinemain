@@ -24,7 +24,7 @@
                     </div>
                     <div class="mt-2">
                         <span class="text-gray-600">Género:</span>
-                        <span class="ml-2 text-gray-800">{{ $movie->genero }}</span>
+                        <span class="ml-2 text-gray-800">{{ $generosString }}</span>
                     </div>
                     <div class="mt-2">
                         <span class="text-gray-600">País:</span>
@@ -43,9 +43,6 @@
                     <div class="mt-2">
                         <span class="text-gray-600">Elenco:</span>
                         <span class="ml-2 text-gray-800">
-                            @php
-                                $actorNames = $movie->actores->pluck('nombre')->implode(', ');
-                            @endphp
                             @foreach ($movie->actores as $actor)
                                 <a class="text-blue-600 font-bold" href="{{ route('infoactor', $actor->id) }}">
                                     {{ $actor->nombre }}

@@ -61,6 +61,8 @@ $(document).ready(function () {
 
 // ===== EVENTOS VARIOS =====
 
+// BUSCADOR DE PELICULAS
+
 document.addEventListener("DOMContentLoaded", function () {
     const searchInput = document.getElementById("search_movie");
     const searchResults = document.getElementById("search_results");
@@ -83,175 +85,252 @@ document.addEventListener("DOMContentLoaded", function () {
     let timeout = null;
     let cancelToken = axios.CancelToken.source();
     const cache = new Map();
+    let genresMap = {};
 
-    searchInput.addEventListener("input", function () {
-        clearTimeout(timeout);
-        const query = searchInput.value.trim();
+    // Llamada inicial para obtener los nombres de géneros en español
+    axios
+        .get("https://api.themoviedb.org/3/genre/movie/list", {
+            params: {
+                api_key: "572048c03066a9b129b919b78cc7e6fc",
+                language: "es-ES",
+            },
+        })
+        .then((response) => {
+            genresMap = response.data.genres.reduce((acc, genre) => {
+                acc[genre.id] = genre.name;
+                return acc;
+            }, {});
 
-        if (query.length > 2) {
-            timeout = setTimeout(() => {
-                if (cache.has(query)) {
-                    displayResults(cache.get(query));
+            console.log("Genres map:", genresMap);
+
+            // Luego de obtener los géneros desde la API, procedemos a llenar el formulario
+            searchInput.addEventListener("input", function () {
+                clearTimeout(timeout);
+                const query = searchInput.value.trim();
+
+                if (query.length > 2) {
+                    timeout = setTimeout(() => {
+                        if (cache.has(query)) {
+                            displayResults(cache.get(query));
+                        } else {
+                            cancelToken.cancel("New request initiated");
+                            cancelToken = axios.CancelToken.source();
+
+                            searchResults.innerHTML =
+                                "<p>Cargando resultados...</p>";
+
+                            axios
+                                .get(
+                                    `https://api.themoviedb.org/3/search/movie`,
+                                    {
+                                        params: {
+                                            api_key:
+                                                "572048c03066a9b129b919b78cc7e6fc",
+                                            query: query,
+                                            language: "es-ES",
+                                        },
+                                        cancelToken: cancelToken.token,
+                                    }
+                                )
+                                .then((response) => {
+                                    const movies = response.data.results;
+                                    cache.set(query, movies);
+                                    displayResults(movies);
+                                })
+                                .catch((error) => {
+                                    if (axios.isCancel(error)) {
+                                        console.log(
+                                            "Request canceled:",
+                                            error.message
+                                        );
+                                    } else {
+                                        console.error(
+                                            "Error fetching data:",
+                                            error
+                                        );
+                                    }
+                                })
+                                .finally(() => {
+                                    searchResults.innerHTML = "";
+                                });
+                        }
+                    }, 500);
                 } else {
-                    cancelToken.cancel("New request initiated");
-                    cancelToken = axios.CancelToken.source();
-
-                    // Mostrar feedback visual de carga
-                    searchResults.innerHTML = "<p>Cargando resultados...</p>";
-
-                    axios
-                        .get(`https://api.themoviedb.org/3/search/movie`, {
-                            params: {
-                                api_key: "572048c03066a9b129b919b78cc7e6fc",
-                                query: query,
-                                language: "es-ES", // Agregar el parámetro language para obtener resultados en español
-                            },
-                            cancelToken: cancelToken.token,
-                        })
-                        .then((response) => {
-                            const movies = response.data.results;
-                            cache.set(query, movies);
-                            displayResults(movies);
-                        })
-                        .catch((error) => {
-                            if (axios.isCancel(error)) {
-                                console.log("Request canceled:", error.message);
-                            } else {
-                                console.error("Error fetching data:", error);
-                            }
-                        })
-                        .finally(() => {
-                            // Limpiar feedback visual de carga
-                            searchResults.innerHTML = "";
-                        });
+                    searchResults.innerHTML = "";
                 }
-            }, 500); // Reducir el tiempo de espera del debouncing si es necesario
-        } else {
-            searchResults.innerHTML = "";
-        }
-    });
+            });
 
-    function displayResults(movies) {
-        searchResults.innerHTML = "";
+            function displayResults(movies) {
+                searchResults.innerHTML = "";
 
-        movies.forEach((movie) => {
-            const li = document.createElement("li");
-            li.classList.add("list-group-item");
+                movies.forEach((movie) => {
+                    const li = document.createElement("li");
+                    li.classList.add("list-group-item");
 
-            const movieInfoContainer = document.createElement("div");
-            movieInfoContainer.classList.add("movie-info-container");
+                    const movieInfoContainer = document.createElement("div");
+                    movieInfoContainer.classList.add("movie-info-container");
 
-            const titleYear = document.createElement("div");
-            titleYear.textContent = `${movie.title} (${
-                movie.release_date
-                    ? movie.release_date.split("-")[0]
-                    : "Fecha desconocida"
-            })`;
-            titleYear.classList.add("movie-title");
-            movieInfoContainer.appendChild(titleYear);
+                    const titleYear = document.createElement("div");
+                    titleYear.textContent = `${movie.title} (${
+                        movie.release_date
+                            ? movie.release_date.split("-")[0]
+                            : "Fecha desconocida"
+                    })`;
+                    titleYear.classList.add("movie-title");
+                    movieInfoContainer.appendChild(titleYear);
 
-            if (movie.poster_path) {
-                const img = document.createElement("img");
-                img.src = `https://image.tmdb.org/t/p/w45${movie.poster_path}`;
-                img.alt = movie.title;
-                img.classList.add("movie-poster");
-                movieInfoContainer.appendChild(img);
+                    if (movie.poster_path) {
+                        const img = document.createElement("img");
+                        img.src = `https://image.tmdb.org/t/p/w45${movie.poster_path}`;
+                        img.alt = movie.title;
+                        img.classList.add("movie-poster");
+                        movieInfoContainer.appendChild(img);
+                    }
+
+                    li.appendChild(movieInfoContainer);
+                    searchResults.appendChild(li);
+
+                    movieInfoContainer.addEventListener("click", () =>
+                        fillForm(movie)
+                    );
+                });
             }
 
-            li.appendChild(movieInfoContainer);
-            searchResults.appendChild(li);
+            async function fillForm(movie) {
+                console.log(movie);
+                document.getElementById("titulo").value = movie.title || "";
+                document.getElementById("anio").value = movie.release_date
+                    ? movie.release_date.split("-")[0]
+                    : "";
+                document.getElementById("sinopsis").value =
+                    movie.overview || "";
+                document.getElementById("idioma").value = getLanguage(
+                    movie.original_language
+                );
 
-            movieInfoContainer.addEventListener("click", () => fillForm(movie));
-        });
-    }
+                // Obtener duración y país de producción
+                try {
+                    const movieDetails = await getMovieDetails(movie.id);
+                    if (movieDetails) {
+                        document.getElementById("pais").value =
+                            getProductionCountries(
+                                movieDetails.production_countries
+                            );
+                        document.getElementById("calificacion").value =
+                            parseFloat(movieDetails.vote_average).toFixed(1) ||
+                            "";
+                        document.getElementById("fecha_estreno").value =
+                            movieDetails.release_date || "";
+                        document.getElementById("duracion").value =
+                            movieDetails.runtime || "";
 
-    function fillForm(movie) {
-        console.log(movie);
-        document.getElementById("titulo").value = movie.title || "";
-        document.getElementById("anio").value = movie.release_date
-            ? movie.release_date.split("-")[0]
-            : "";
-        document.getElementById("sinopsis").value = movie.overview || "";
-        document.getElementById("idioma").value = getLanguage(
-            movie.original_language
-        );
-        document.getElementById("pais").value = getProductionCountries(
-            movie.production_countries
-        );
-        document.getElementById("genero").value = movie.genres
-            ? movie.genres.map((genre) => genre.name).join(", ")
-            : "";
-        const calificacion = parseFloat(movie.vote_average).toFixed(1);
-        document.getElementById("calificacion").value = isNaN(calificacion)
-            ? ""
-            : calificacion;
-        document.getElementById("fecha_estreno").value =
-            movie.release_date || "";
+                        // Obtener nombres de géneros
+                        const genreNames = movie.genre_ids.map(
+                            (genreId) => genresMap[genreId]
+                        );
 
-        axios
-            .get(`https://api.themoviedb.org/3/movie/${movie.id}`, {
-                params: {
-                    api_key: "572048c03066a9b129b919b78cc7e6fc",
-                },
-            })
-            .then((response) => {
-                const runtime = response.data.runtime;
-                document.getElementById("duracion").value = runtime || "";
-            })
-            .catch((error) => {
-                console.error("Error fetching movie details:", error);
-                // Si hay un error, manejarlo apropiadamente
-            });
-
-        axios
-            .get(`https://api.themoviedb.org/3/movie/${movie.id}/credits`, {
-                params: {
-                    api_key: "572048c03066a9b129b919b78cc7e6fc",
-                },
-            })
-            .then((response) => {
-                const directorName = response.data.crew.find(
-                    (member) => member.job === "Director"
-                )?.name;
-                const directorSelect = document.getElementById("director_id");
-                if (directorSelect) {
-                    const directorOption = [...directorSelect.options].find(
-                        (option) => option.text === directorName
-                    );
-                    if (directorOption) {
-                        directorSelect.value = directorOption.value;
+                        // Seleccionar géneros correspondientes
+                        selectGenres(genreNames);
                     }
+                } catch (error) {
+                    console.error("Error fetching movie details:", error);
                 }
-            })
-            .catch((error) => {
-                console.error("Error fetching director data:", error);
-            });
-    }
 
-    function getLanguage(originalLanguage) {
-        const languageMap = {
-            en: "Inglés",
-            es: "Español",
-        };
-        return languageMap[originalLanguage] || "Desconocido";
-    }
+                axios
+                    .get(
+                        `https://api.themoviedb.org/3/movie/${movie.id}/credits`,
+                        {
+                            params: {
+                                api_key: "572048c03066a9b129b919b78cc7e6fc",
+                            },
+                        }
+                    )
+                    .then((response) => {
+                        const directorName = response.data.crew.find(
+                            (member) => member.job === "Director"
+                        )?.name;
+                        const directorSelect =
+                            document.getElementById("director_id");
+                        if (directorSelect) {
+                            const directorOption = [
+                                ...directorSelect.options,
+                            ].find((option) => option.text === directorName);
+                            if (directorOption) {
+                                directorSelect.value = directorOption.value;
+                            }
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Error fetching director data:", error);
+                    });
+            }
 
-    function getProductionCountries(countries) {
-        if (!countries || countries.length === 0) {
-            return "";
-        }
+            function getMovieDetails(movieId) {
+                return axios
+                    .get(`https://api.themoviedb.org/3/movie/${movieId}`, {
+                        params: {
+                            api_key: "572048c03066a9b129b919b78cc7e6fc",
+                        },
+                    })
+                    .then((response) => {
+                        return response.data;
+                    })
+                    .catch((error) => {
+                        throw error;
+                    });
+            }
 
-        const countryCodes = {
-            US: "Estados Unidos",
-            CA: "Canadá",
-            MX: "México",
-        };
+            function getLanguage(originalLanguage) {
+                const languageMap = {
+                    en: "Inglés",
+                    es: "Español",
+                };
+                return languageMap[originalLanguage] || "Desconocido";
+            }
 
-        return countries
-            .map((country) => countryCodes[country.iso_3166_1] || country.name)
-            .join(", ");
-    }
+            function getProductionCountries(countries) {
+                if (!countries || countries.length === 0) {
+                    return "";
+                }
+
+                const countryCodes = {
+                    US: "Estados Unidos",
+                    CA: "Canadá",
+                    MX: "México",
+                };
+
+                return countries
+                    .map(
+                        (country) =>
+                            countryCodes[country.iso_3166_1] || country.name
+                    )
+                    .join(", ");
+            }
+
+            function selectGenres(genreNames) {
+                console.log(genreNames);
+                const genreSelect = document.getElementById("generos");
+                if (genreSelect) {
+                    const genreOptions = [...genreSelect.options];
+
+                    // Iterar sobre los nombres de género de la película y seleccionar los correspondientes
+                    genreNames.forEach((genreName) => {
+                        const genreOption = genreOptions.find(
+                            (option) => option.text === genreName
+                        );
+                        if (genreOption) {
+                            genreOption.selected = true;
+                        }
+                    });
+                }
+            }
+        })
+        .catch((error) => {
+            console.error("Error fetching genres:", error);
+        });
 });
+
+// BUSCADOR DE ACTORES
 
 document.addEventListener("DOMContentLoaded", function () {
     const searchInput = document.getElementById("search_director");
@@ -380,6 +459,8 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 });
+
+// BUSCADOR DE SERIES
 
 document.addEventListener("DOMContentLoaded", function () {
     const searchInput = document.getElementById("search_serie");

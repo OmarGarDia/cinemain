@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Pelicula;
 use App\Models\Director;
+use App\Models\Genre;
+
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -16,14 +18,22 @@ class PeliculasController extends Controller
 
     public function index()
     {
-        $peliculas = Pelicula::with('director')->get();
+        $peliculas = Pelicula::with('director')
+            ->get()
+            ->map(function ($pelicula) {
+                $pelicula->load('genres');
+                $pelicula->genres_array = $pelicula->genres->pluck('name')->toArray();
+                return $pelicula;
+            });
+
         return view('movies.movie', compact('peliculas'));
     }
 
     public function create()
     {
         $directores = Director::all();
-        return view('movies.add', compact('directores'));
+        $generos = Genre::all();
+        return view('movies.add', compact('directores', 'generos'));
     }
 
     public function edit(int $id)
@@ -34,8 +44,15 @@ class PeliculasController extends Controller
 
     public function movieinfo($movieId)
     {
-        $movie = Pelicula::with('director', 'actores')->findOrFail($movieId);
-        return view('movies.info', compact('movie'));
+        $movie = Pelicula::with('director', 'actores', 'genres')->findOrFail($movieId);
+
+        $generos = $movie->genres->pluck('name')->toArray();
+        $generosString = implode(', ', $generos);
+        $actorNames = $movie->actores->pluck('nombre')->toArray();
+        $actoresString = implode(', ', $actorNames);
+
+
+        return view('movies.info', compact('movie', 'generosString', 'actoresString'));
     }
 
     public function update(Request $request, int $id)
@@ -105,11 +122,12 @@ class PeliculasController extends Controller
             'duracion' => 'required|integer',
             'idioma' => 'required|string|max:255',
             'pais' => 'required|string|max:255',
-            'genero' => 'required|string|max:255',
             'calificacion' => 'required|integer|min:1|max:10',
             'fecha_estreno' => 'required|date',
             'director_id' => 'required|exists:directors,id',
-            'imagen_pelicula' => 'required|image|mimes:jpeg,png,jpg|max:2048'
+            'imagen_pelicula' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'generos' => 'required|array',
+            'generos.*' => 'exists:genres,id'
         ], [
             'titulo.unique' => 'Ya existe una pelicula con ese titulo',
         ]);
@@ -121,14 +139,12 @@ class PeliculasController extends Controller
         $pelicula->duracion = $request->duracion;
         $pelicula->idioma = $request->idioma;
         $pelicula->pais = $request->pais;
-        $pelicula->genero = $request->genero;
         $pelicula->calificacion = $request->calificacion;
         $pelicula->fecha_estreno = $request->fecha_estreno;
         $pelicula->director_id = $request->director_id;
 
         $file = $request->file('imagen_pelicula');
         if ($file) {
-            $file = $request->file('imagen_pelicula');
             $filename = time() . '.' . $file->getClientOriginalExtension();
             $filePath = $file->storeAs('movies', $filename, 'public');
             $pelicula->imagen = $filename;
@@ -137,6 +153,7 @@ class PeliculasController extends Controller
         }
 
         $pelicula->save();
+        $pelicula->genres()->sync($request->generos);
 
         return redirect()->route('peliculas')->with('success', 'Pelicula almacenada correctamente');
     }

@@ -30,4 +30,9 @@ class Serie extends Model
     {
         return $this->belongsTo(Director::class, 'director_id');
     }
+
+    public function genres()
+    {
+        return $this->belongsToMany(Genre::class, 'genre_series');
+    }
 }

@@ -16,7 +16,6 @@ class Pelicula extends Model
         'duracion',
         'idioma',
         'pais',
-        'genero',
         'calificacion',
         'imagen',
         'fecha_estreno',
@@ -38,5 +37,10 @@ class Pelicula extends Model
     public function actores()
     {
         return $this->belongsToMany(Actor::class, 'actor_pelicula');
+    }
+
+    public function genres()
+    {
+        return $this->belongsToMany(Genre::class, 'genre_peliculas', 'pelicula_id', 'genre_id');
     }
 }
