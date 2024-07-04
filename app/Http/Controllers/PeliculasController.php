@@ -38,8 +38,14 @@ class PeliculasController extends Controller
 
     public function edit(int $id)
     {
+        $directores = Director::all();
         $peliculas = Pelicula::findOrFail($id);
-        return view('movies.editar', compact('peliculas'));
+        $generos = Genre::all(); // Obtener todos los géneros disponibles
+
+        // Obtener los IDs de los géneros asociados a la película
+        $generosSeleccionados = $peliculas->genres()->pluck('genres.id')->toArray();
+
+        return view('movies.editar', compact('peliculas', 'generos', 'generosSeleccionados', 'directores'));
     }
 
     public function movieinfo($movieId)

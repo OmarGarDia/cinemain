@@ -66,7 +66,7 @@
                                                 {{ $pelicula->titulo }}
                                             </p>
                                             <p class="text-sm text-gray-500 dark:text-gray-300">
-                                                Año: {{ $pelicula->anio }}
+                                                Año: {{ substr($pelicula->fecha_estreno, 0, 4) }}
                                             </p>
                                         </div>
                                     </div>
