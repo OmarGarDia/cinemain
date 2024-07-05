@@ -43,6 +43,8 @@ Route::middleware(['auth', 'checkRole:1'])->group(function () {
     Route::post('/peliculas/editarmovie/{id}', [PeliculasController::class, 'update'])->name('updatemovie');
     Route::delete('/peliculas/delete/{id}', [PeliculasController::class, 'destroy'])->name('deletemovie');
     Route::get('/peliculas/{movieId}/info', [PeliculasController::class, 'movieinfo'])->name('movieinfo');
+    Route::get('/peliculas/{movieId}/elenco', [PeliculasController::class, 'toAddElenco'])->name('elenco');
+    Route::post('/movies/{id}/addactors', [PeliculasController::class, 'storeActorToMovie'])->name('store_actor_to_movie');
     Route::post('/searchmovie', [PeliculasController::class, 'search'])->name('searchmovie');
 
     Route::get('/directores', [DirectorController::class, 'index'])->name('directores');

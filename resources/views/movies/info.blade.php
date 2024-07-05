@@ -42,6 +42,10 @@
                     </div>
                     <div class="mt-2">
                         <span class="text-gray-600">Elenco:</span>
+                        <a class="bg-green-600 text-white px-1 py-0 rounded-full inline-flex items-center justify-center"
+                            href="{{ route('elenco', $movie->id) }}">
+                            <i class="mdi mdi-plus"></i>
+                        </a>
                         <span class="ml-2 text-gray-800">
                             @foreach ($movie->actores as $actor)
                                 <a class="text-blue-600 font-bold" href="{{ route('infoactor', $actor->id) }}">

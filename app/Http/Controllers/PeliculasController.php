@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Pelicula;
 use App\Models\Director;
 use App\Models\Genre;
+use App\Models\Actor;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Http;
+use Carbon\Carbon;
 
 
 class PeliculasController extends Controller
@@ -165,6 +167,35 @@ class PeliculasController extends Controller
 
         return redirect()->route('peliculas')->with('success', 'Pelicula almacenada correctamente');
     }
+
+    public function toAddElenco(int $id)
+    {
+        $pelicula = Pelicula::findOrFail($id);
+        $actores = Actor::all();
+        return view('movies.addactors', compact('pelicula', 'actores'));
+    }
+
+    public function storeActorToMovie(Request $request, int $id)
+    {
+        $request->validate([
+            'actor_ids' => 'required|array',
+            'actor_ids.*' => 'exists:actors,id',
+        ]);
+
+        $movie = Pelicula::findOrFail($id);
+
+        $actor_ids = $request->actor_ids;
+
+        foreach ($actor_ids as $actor_id) {
+            $movie->actores()->attach($actor_id, [
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+        }
+
+        return redirect()->route('movieinfo', $movie->id)->with('success', 'Actores añadidos correctamente');
+    }
+
 
     public function search(Request $request)
     {
