@@ -37,9 +37,9 @@
                                         required>
                                 </div>
                                 <div>
-                                    <label for="anio" class="block text-sm font-medium text-gray-700">Fecha
+                                    <label for="fecha_estreno" class="block text-sm font-medium text-gray-700">Fecha
                                         Estreno</label>
-                                    <input type="number" name="anio" id="anio"
+                                    <input type="number" name="fecha_estreno" id="fecha_estreno"
                                         class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                                         required>
                                 </div>
@@ -69,7 +69,7 @@
                                     class="py-2 px-4 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
                                     Añadir
                                 </button>
-                                <a href="{{ route('peliculas') }}"
+                                <a href="{{ route('series') }}"
                                     class="py-2 px-4 text-sm font-medium text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-4 focus:ring-gray-300">
                                     Cancelar
                                 </a>
