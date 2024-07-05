@@ -26,7 +26,7 @@
                                     <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre</label>
                                     <input type="text" name="nombre" id="nombre"
                                         value="{{ old('nombre', $actor->nombre) }}"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-300 dark:placeholder-gray-400 "
                                         required>
                                 </div>
                                 <div>
@@ -34,7 +34,7 @@
                                         nacimiento</label>
                                     <input type="date" name="fecha_nac" id="fecha_nac"
                                         value="{{ old('fecha_nac', $actor->fecha_nacimiento) }}"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-300 dark:placeholder-gray-400 "
                                         required>
                                 </div>
                                 <div>
@@ -42,15 +42,22 @@
                                         class="block text-sm font-medium text-gray-700">Nacionalidad</label>
                                     <input type="text" name="lugar_nac" id="lugar_nac"
                                         value="{{ old('lugar_nac', $actor->nacionalidad) }}"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-300 dark:placeholder-gray-400 "
                                         required>
                                 </div>
                                 <div>
                                     <label for="bio"
                                         class="block text-sm font-medium text-gray-700">Biografía</label>
                                     <textarea name="bio" id="bio"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-300 dark:placeholder-gray-400 "
                                         required>{{ old('bio', $actor->bio) }}</textarea>
+                                </div>
+                                <div>
+                                    <label for="imagen_actor"
+                                        class="block text-sm font-medium text-gray-700">Imagen</label>
+                                    <input type="file" name="imagen_actor" id="imagen_actor"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-300 dark:placeholder-gray-400"
+                                        required>
                                 </div>
                                 @if ($actor->imagen)
                                     <div>

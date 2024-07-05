@@ -40,21 +40,19 @@
                                             <th>NOMBRE</th>
                                             <th>AÑO NACIMIENTO</th>
                                             <th>LUGAR NACIMIENTO</th>
-                                            <th>BIO</th>
                                             <th>IMAGEN</th>
                                             <th>OPCIONES</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($actores as $actor)
-                                            <tr>
+                                            <tr class="border-y-2">
                                                 <td><a href="{{ route('infoactor', $actor->id) }}"><i
                                                             class="mdi mdi-eye text-blue-600 mr-1"></i></a>{{ $actor->id }}
                                                 </td>
                                                 <td>{{ $actor->nombre }}</td>
                                                 <td>{{ $actor->fecha_nacimiento }}</td>
                                                 <td>{{ $actor->nacionalidad }}</td>
-                                                <td>{{ $actor->bio }}</td>
                                                 <td>
                                                     <img src="{{ asset('storage/actors/' . $actor->imagen) }}"
                                                         alt="Sin imagen" class="w-20 h-20 object-contain">

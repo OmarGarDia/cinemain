@@ -333,23 +333,14 @@ document.addEventListener("DOMContentLoaded", function () {
 // BUSCADOR DE ACTORES
 
 document.addEventListener("DOMContentLoaded", function () {
-    const searchInput = document.getElementById("search_director");
-    const searchResults = document.getElementById("search_results");
-    const searchDirectorUrlMeta = document.querySelector(
-        'meta[name="search-director-url"]'
-    );
+    const searchInput = document.getElementById("search_actor");
+    const searchResults = document.getElementById("search_actor_results");
 
-    if (!searchInput || !searchResults || !searchDirectorUrlMeta) {
+    const apiKey = "572048c03066a9b129b919b78cc7e6fc"; // API Key de TMDb
+
+    if (!searchInput || !searchResults) {
         return;
     }
-
-    const searchDirectorUrl = searchDirectorUrlMeta.getAttribute("content");
-    const axiosConfig = {
-        headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-        },
-    };
 
     let timeout = null;
     let cancelToken = axios.CancelToken.source();
@@ -370,15 +361,18 @@ document.addEventListener("DOMContentLoaded", function () {
                     searchResults.innerHTML = "<p>Cargando resultados...</p>";
 
                     axios
-                        .post(
-                            searchDirectorUrl,
-                            { query: query },
-                            { cancelToken: cancelToken.token, ...axiosConfig }
-                        )
+                        .get(`https://api.themoviedb.org/3/search/person`, {
+                            params: {
+                                api_key: apiKey,
+                                query: query,
+                                language: "es-ES",
+                            },
+                            cancelToken: cancelToken.token,
+                        })
                         .then((response) => {
-                            const directors = response.data.results;
-                            cache.set(query, directors);
-                            displayResults(directors);
+                            const actors = response.data.results;
+                            cache.set(query, actors);
+                            displayResults(actors);
                         })
                         .catch((error) => {
                             if (axios.isCancel(error)) {
@@ -397,65 +391,64 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    function displayResults(directors) {
+    function displayResults(actors) {
         searchResults.innerHTML = "";
 
-        directors.forEach((director) => {
+        actors.forEach((actor) => {
             const li = document.createElement("li");
             li.classList.add("list-group-item");
 
-            const directorInfoContainer = document.createElement("div");
-            directorInfoContainer.classList.add(
-                "director-info-container",
+            const actorInfoContainer = document.createElement("div");
+            actorInfoContainer.classList.add(
+                "actor-info-container",
                 "flex",
                 "items-center"
             );
 
             const name = document.createElement("div");
-            name.textContent = director.name;
-            name.classList.add("director-name", "flex-grow");
-            directorInfoContainer.appendChild(name);
+            name.textContent = actor.name;
+            name.classList.add("actor-name", "flex-grow");
+            actorInfoContainer.appendChild(name);
 
-            if (director.profile_path) {
+            if (actor.profile_path) {
                 const img = document.createElement("img");
-                img.src = `https://image.tmdb.org/t/p/w45${director.profile_path}`;
-                img.alt = director.name;
-                img.classList.add("director-poster", "ml-2", "rounded-full");
-                directorInfoContainer.appendChild(img);
+                img.src = `https://image.tmdb.org/t/p/w45${actor.profile_path}`;
+                img.alt = actor.name;
+                img.classList.add("actor-poster", "ml-2", "rounded-full");
+                actorInfoContainer.appendChild(img);
             }
 
-            li.appendChild(directorInfoContainer);
+            li.appendChild(actorInfoContainer);
             searchResults.appendChild(li);
 
-            directorInfoContainer.addEventListener("click", () =>
-                fillForm(director)
-            );
+            actorInfoContainer.addEventListener("click", () => fillForm(actor));
         });
     }
 
-    function fillForm(director) {
-        console.log(director);
-        document.getElementById("nombre").value = director.name || "";
+    function fillForm(actor) {
+        console.log(actor);
+        document.getElementById("nombre").value = actor.name || "";
 
         axios
-            .get(`https://api.themoviedb.org/3/person/${director.id}`, {
+            .get(`https://api.themoviedb.org/3/person/${actor.id}`, {
                 params: {
-                    api_key: "572048c03066a9b129b919b78cc7e6fc",
+                    api_key: apiKey,
                     language: "es-ES",
                 },
             })
             .then((response) => {
-                const directorDetails = response.data;
+                const actorDetails = response.data;
                 document.getElementById("nombre").value =
-                    directorDetails.name || "";
+                    actorDetails.name || "";
                 document.getElementById("fecha_nac").value =
-                    directorDetails.birthday || "";
+                    actorDetails.birthday || "";
                 document.getElementById("lugar_nac").value =
-                    directorDetails.place_of_birth || "";
-                // Aquí puedes agregar más campos si es necesario
+                    actorDetails.place_of_birth || "";
+                document.getElementById("bio").value =
+                    actorDetails.biography || "";
             })
             .catch((error) => {
-                console.error("Error fetching director details:", error);
+                console.error("Error fetching actor details:", error);
             });
     }
 });
