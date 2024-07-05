@@ -19,7 +19,7 @@
         <div class="mx-auto max-w-4xl">
             <div class="bg-white shadow-md rounded-lg overflow-hidden">
                 <div class="px-8 py-6">
-                    <form method="POST" action="" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('updatemovie', $peliculas->id) }}" enctype="multipart/form-data">
                         @csrf
                         <div class="space-y-6">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -77,7 +77,8 @@
                                     <label for="calificacion"
                                         class="block text-sm font-medium text-gray-700">Calificación</label>
                                     <input type="number" name="calificacion" id="calificacion" min="1"
-                                        value="{{ old('calificacion', $peliculas->calificacion) }}" max="10"
+                                        max="10" step="0.1"
+                                        value="{{ old('calificacion', $peliculas->calificacion) }}"
                                         class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                                         required>
                                 </div>

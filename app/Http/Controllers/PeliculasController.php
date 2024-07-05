@@ -42,7 +42,6 @@ class PeliculasController extends Controller
         $peliculas = Pelicula::findOrFail($id);
         $generos = Genre::all(); // Obtener todos los géneros disponibles
 
-        // Obtener los IDs de los géneros asociados a la película
         $generosSeleccionados = $peliculas->genres()->pluck('genres.id')->toArray();
 
         return view('movies.editar', compact('peliculas', 'generos', 'generosSeleccionados', 'directores'));
@@ -63,7 +62,6 @@ class PeliculasController extends Controller
 
     public function update(Request $request, int $id)
     {
-
         try {
             $request->validate([
                 'titulo' => 'required|string|max:255|unique:peliculas,titulo,' . $id,
@@ -72,8 +70,9 @@ class PeliculasController extends Controller
                 'duracion' => 'required|integer',
                 'idioma' => 'required|string|max:255',
                 'pais' => 'required|string|max:255',
-                'genero' => 'required|string|max:255',
-                'calificacion' => 'required|integer|min:1|max:10',
+                'generos' => 'required|array',
+                'generos.*' => 'exists:genres,id',
+                'calificacion' => 'required|numeric|min:1|max:10',
                 'fecha_estreno' => 'required|date',
                 'imagen_pelicula' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
             ], [
@@ -87,7 +86,6 @@ class PeliculasController extends Controller
             $pelicula->duracion = $request->duracion;
             $pelicula->idioma = $request->idioma;
             $pelicula->pais = $request->pais;
-            $pelicula->genero = $request->genero;
             $pelicula->calificacion = $request->calificacion;
             $pelicula->fecha_estreno = $request->fecha_estreno;
 
@@ -102,6 +100,9 @@ class PeliculasController extends Controller
                 $pelicula->imagen = $nombreImagen;
             }
 
+            // Actualiza los géneros
+            $pelicula->genres()->sync($request->generos);
+
             $pelicula->save();
 
             return redirect()->route('peliculas')->with('success', 'Pelicula actualizada correctamente');
@@ -111,6 +112,7 @@ class PeliculasController extends Controller
             return redirect()->back()->withErrors($errors)->withInput();
         }
     }
+
 
     public function destroy(int $id)
     {
@@ -128,7 +130,7 @@ class PeliculasController extends Controller
             'duracion' => 'required|integer',
             'idioma' => 'required|string|max:255',
             'pais' => 'required|string|max:255',
-            'calificacion' => 'required|integer|min:1|max:10',
+            'calificacion' => 'required|numeric|min:1|max:10',
             'fecha_estreno' => 'required|date',
             'director_id' => 'required|exists:directors,id',
             'imagen_pelicula' => 'required|image|mimes:jpeg,png,jpg|max:2048',

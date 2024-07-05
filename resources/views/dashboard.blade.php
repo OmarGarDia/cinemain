@@ -48,7 +48,7 @@
                                     <!-- Texto "400 Series" -->
                                     <div class="text-center">
                                         <div class="text-5xl dark:text-white font-normal text-gray-700">
-                                            400
+                                            0
                                         </div>
                                         <div class="text-4xl dark:text-white font-normal text-gray-700">
                                             Series
@@ -70,7 +70,7 @@
                                     <!-- Texto "400 Series" -->
                                     <div class="text-center">
                                         <div class="text-5xl dark:text-white font-normal text-gray-700">
-                                            400
+                                            0
                                         </div>
                                         <div class="text-4xl dark:text-white font-normal text-gray-700">
                                             Documentales

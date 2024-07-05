@@ -26,7 +26,7 @@
                                     <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre</label>
                                     <input type="text" name="nombre" id="nombre"
                                         value="{{ old('nombre', $director->nombre) }}"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-300 dark:placeholder-gray-400"
                                         required>
                                 </div>
                                 <div>
@@ -34,7 +34,7 @@
                                         nacimiento</label>
                                     <input type="date" name="fecha_nac" id="fecha_nac"
                                         value="{{ old('fecha_nac', $director->fecha_nacimiento) }}"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-300 dark:placeholder-gray-400 "
                                         required>
                                 </div>
                                 <div>
@@ -42,7 +42,14 @@
                                         nacimiento</label>
                                     <input type="text" name="lugar_nac" id="lugar_nac"
                                         value="{{ old('lugar_nac', $director->lugar_nacimiento) }}"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-300 dark:placeholder-gray-400 "
+                                        required>
+                                </div>
+                                <div>
+                                    <label for="imagen_director"
+                                        class="block text-sm font-medium text-gray-700">Imagen</label>
+                                    <input type="file" name="imagen_director" id="imagen_director"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         required>
                                 </div>
                                 @if ($director->imagen)
@@ -55,7 +62,7 @@
                                 <div class="flex items-center justify-between pt-4">
                                     <button type="submit"
                                         class="py-2 px-4 text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
-                                        Añadir
+                                        Editar
                                     </button>
                                     <a href="{{ route('directores') }}"
                                         class="py-2 px-4 text-sm font-medium text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-4 focus:ring-gray-300">

@@ -77,7 +77,7 @@
                                     <label for="calificacion"
                                         class="block text-sm font-medium text-gray-700">Calificación</label>
                                     <input type="number" name="calificacion" id="calificacion" min="1"
-                                        max="10"
+                                        step="0.1" max="10"
                                         class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                                         required>
                                 </div>

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('idioma')->nullable();
             $table->string('pais')->nullable();
             $table->string('genero')->nullable();
-            $table->integer('calificacion')->nullable();
+            $table->float('calificacion')->nullable();
             $table->string('imagen')->nullable();
             $table->string('trailer')->nullable();
             $table->date('fecha_estreno')->nullable();
