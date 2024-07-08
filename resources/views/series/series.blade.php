@@ -66,7 +66,7 @@
                                                 <td class="align-middle text-center">
                                                     <div class="flex items-center justify-center space-x-2">
                                                         <!-- Contenido dentro del td -->
-                                                        <a href="#"
+                                                        <a href="{{ route('editarserie', $serie->id) }}"
                                                             class="bg-orange-400 text-white font-bold py-0 px-1 rounded flex items-center">
                                                             <i class="mdi mdi-pencil-outline text-lg"></i>
                                                         </a>
