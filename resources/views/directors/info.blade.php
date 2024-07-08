@@ -95,6 +95,10 @@
                                 @foreach ($series as $serie)
                                     <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
                                         <a href="">
+                                            <a href="{{ route('serieinfo', $serie->id) }}">
+                                                <img src="{{ asset('storage/series/' . $serie->imagen) }}"
+                                                    alt="{{ $serie->titulo }}" class="object-cover w-full h-48">
+                                            </a>
                                             <div class="px-4 py-3">
                                                 <p class="text-lg font-semibold text-gray-800 dark:text-gray-200 truncate">
                                                     {{ $serie->titulo }}

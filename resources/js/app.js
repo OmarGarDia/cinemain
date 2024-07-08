@@ -681,65 +681,88 @@ document.addEventListener("DOMContentLoaded", function () {
             li.appendChild(serieInfoContainer);
             searchResults.appendChild(li);
 
-            serieInfoContainer.addEventListener("click", () => fillForm(serie));
+            serieInfoContainer.addEventListener("click", () => {
+                fillForm(serie);
+                searchResults.innerHTML = ""; // Ocultar la lista de resultados al seleccionar una serie
+            });
+        });
+
+        // Agregar evento para ocultar la lista de resultados al hacer clic fuera de ella
+        document.addEventListener("click", function (event) {
+            const isClickInside = searchResults.contains(event.target);
+            const isClickInput = event.target === searchInput;
+
+            if (!isClickInside && !isClickInput) {
+                searchResults.innerHTML = "";
+            }
         });
     }
 
     function fillForm(serie) {
         console.log(serie);
-        document.getElementById("titulo").value = serie.name || "";
 
+        // Llenar el formulario con los datos básicos de la serie
+        document.getElementById("titulo").value = serie.name || "";
+        document.getElementById("fecha_estreno").value = serie.first_air_date
+            ? serie.first_air_date.split("-")[0]
+            : "";
+        document.getElementById("descripcion").value = serie.overview || "";
+
+        // Obtener nombres de géneros de la serie
+        const genreNames = serie.genres.map((genre) => genre.name);
+
+        // Función para seleccionar los géneros correspondientes en el select
+        selectGenres(genreNames);
+
+        // Obtener detalles adicionales de la serie, incluyendo el director
         axios
             .get(`https://api.themoviedb.org/3/tv/${serie.id}`, {
                 params: {
                     api_key: "572048c03066a9b129b919b78cc7e6fc",
                     language: "es-ES",
                 },
-                timeout: 60000, // Asegúrate de que el timeout esté configurado aquí si es necesario
             })
             .then((response) => {
                 const serieDetails = response.data;
-                document.getElementById("titulo").value =
-                    serieDetails.name || "";
 
-                const firstAirDate = serieDetails.first_air_date
-                    ? serieDetails.first_air_date.split("-")[0]
-                    : "";
-                document.getElementById("fecha_estreno").value = firstAirDate;
+                // Obtener nombres de los directores
+                const directorNames = serieDetails.created_by.map(
+                    (director) => director.name
+                );
 
-                document.getElementById("descripcion").value =
-                    serieDetails.overview || "";
+                // Seleccionar el director correspondiente en el select
+                selectDirector(directorNames);
 
-                // Clear previous selection
-                const directorSelect = document.getElementById("director_id");
-                directorSelect.value = "";
-
-                // Find and select the director in the dropdown by name
-                const directors = serieDetails.created_by;
-                if (directors.length > 0) {
-                    for (let i = 0; i < directors.length; i++) {
-                        const directorName = directors[i].name;
-                        // Check if directorName exists in the options of the select
-                        for (
-                            let j = 0;
-                            j < directorSelect.options.length;
-                            j++
-                        ) {
-                            if (
-                                directorSelect.options[j].text === directorName
-                            ) {
-                                directorSelect.selectedIndex = j;
-                                break;
-                            }
-                        }
-                    }
-                }
-
-                // Clear search results
-                searchResults.innerHTML = "";
+                // Aquí puedes manejar más detalles si los necesitas
+                console.log("Detalles adicionales de la serie:", serieDetails);
             })
             .catch((error) => {
-                console.error("Error fetching series details:", error);
+                console.error("Error al obtener detalles de la serie:", error);
             });
+    }
+
+    function selectGenres(genreNames) {
+        const select = document.getElementById("generos");
+        const options = select.options;
+
+        for (let i = 0; i < options.length; i++) {
+            if (genreNames.includes(options[i].textContent)) {
+                options[i].selected = true;
+            } else {
+                options[i].selected = false;
+            }
+        }
+    }
+
+    function selectDirector(directorNames) {
+        const directorSelect = document.getElementById("director_id");
+        const options = directorSelect.options;
+
+        for (let i = 0; i < options.length; i++) {
+            if (directorNames.includes(options[i].textContent.trim())) {
+                directorSelect.selectedIndex = i;
+                break;
+            }
+        }
     }
 });

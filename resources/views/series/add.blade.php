@@ -46,7 +46,16 @@
                                         required>
                                 </div>
                             </div>
-
+                            <div>
+                                <label for="generos" class="block text-sm font-medium text-gray-700">Géneros</label>
+                                <select name="generos[]" id="generos" multiple
+                                    class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                                    required>
+                                    @foreach ($generos as $genero)
+                                        <option value="{{ $genero->id }}">{{ $genero->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div>
                                 <label for="director_id" class="block text-sm font-medium text-gray-700">Director</label>
                                 <select name="director_id" id="director_id"

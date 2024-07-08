@@ -19,10 +19,16 @@ class SeriesController extends Controller
      */
     public function index()
     {
-        $series = Serie::with('director')->get();
+        $series = Serie::with('director')
+            ->get()
+            ->map(function ($serie) {
+                $serie->load('genres');
+                $serie->genres_array = $serie->genres->pluck('name')->toArray();
+                return $serie;
+            });
+
         return view('series.series', compact('series'));
     }
-
     public function serieinfo($id)
     {
         $serie = Serie::with('director', 'actores')->findOrFail($id);
@@ -36,7 +42,8 @@ class SeriesController extends Controller
     public function create()
     {
         $directores = Director::all();
-        return view('series.add', compact('directores'));
+        $generos = Genre::all();
+        return view('series.add', compact('directores', 'generos'));
     }
 
     /**
@@ -50,6 +57,8 @@ class SeriesController extends Controller
             'fecha_estreno' => 'nullable|integer',
             'director_id' => 'nullable|exists:directors,id',
             'imagen_serie' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'generos' => 'required|array', // Asegúrate de que los géneros estén presentes y sean un arreglo
+            'generos.*' => 'exists:genres,id', // Valida que cada género exista en la tabla de géneros por su id
         ]);
 
         $nombreImagen = null;
@@ -67,6 +76,7 @@ class SeriesController extends Controller
             'imagen' => $nombreImagen,
         ]);
 
+        $serie->genres()->attach($request->generos);
         return redirect()->route('series')->with('success', 'Serie creada correctamente.');
     }
 
@@ -135,7 +145,9 @@ class SeriesController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $serie = Serie::findOrFail($id);
+        $serie->delete();
+        return redirect()->route('series')->with('success', 'Serie eliminada correctamente.');
     }
 
     public function search(Request $request)
