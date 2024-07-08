@@ -1,4 +1,6 @@
-<x-app-layout>
+@extends('layouts.app')
+
+@section('content')
     <x-slot name="header">
         <h2 class="font-semibold text-2xl text-gray-900 leading-tight">
             {{ __('Insertar Actores a ' . $pelicula->titulo) }}
@@ -17,7 +19,7 @@
         @endif
 
         <div class="mx-auto max-w-4xl">
-            <div class="bg-white shadow-md rounded-lg overflow-hidden">
+            <div class="bg-white shadow-md rounded-lg overflow-hidden border border-gray-300">
                 <div class="px-8 py-6">
                     <form action="{{ route('store_actor_to_movie', $pelicula->id) }}" method="POST">
                         @csrf
@@ -41,4 +43,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+@endsection

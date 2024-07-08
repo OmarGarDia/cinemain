@@ -38,18 +38,16 @@
             <!-- Contenido principal -->
             <div class="flex flex-col w-full overflow-auto">
                 <!-- Header -->
-                @isset($header)
-                    <header class="bg-white shadow">
-                        <div class="mx-auto py-4 px-4 sm:px-6 lg:px-8"> <!-- Reducir py-6 a py-4 -->
-                            {{ $header }}
-                        </div>
-                    </header>
-                @endisset
+                <header class="bg-white shadow">
+                    <div class="mx-auto py-4 px-4 sm:px-6 lg:px-8">
+                        @yield('header')
+                    </div>
+                </header>
 
                 <!-- Slot -->
                 <div class="flex-1">
-                    <div class="border border-white px-2 m-0"> <!-- Reducir px-4 a px-2 -->
-                        {{ $slot }}
+                    <div class="border border-white px-2 m-0">
+                        @yield('content')
                     </div>
                 </div>
             </div>

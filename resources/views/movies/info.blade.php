@@ -1,16 +1,18 @@
-<x-app-layout>
+@extends('layouts.app')
+
+@section('content')
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-600 leading-tight">
             {{ __('Información de la película') }}
         </h2>
     </x-slot>
+
     <div class="py-4 contenedor">
         <div class="max-w-4xl mx-auto bg-white border border-gray-300 shadow-lg rounded-lg overflow-hidden p-6">
-            <div class="md:flex md:items-start"> <!-- md:items-start para que la imagen esté arriba -->
+            <div class="md:flex md:items-start">
                 <div class="md:flex-shrink-0">
                     <img src="{{ asset('storage/movies/' . $movie->imagen) }}" alt="Sin imagen"
                         class="h-full w-full object-cover md:w-48 md:h-auto rounded-lg shadow-md">
-                    <!-- object-cover para cubrir y md:w-48 para tamaño en dispositivos md -->
                 </div>
                 <div class="md:ml-8 mt-4 md:mt-0">
                     <h1 class="text-2xl font-bold">{{ $movie->titulo }}</h1>
@@ -37,20 +39,19 @@
                     </div>
                     <div class="mt-2">
                         <span class="text-gray-600">Director:</span>
-                        <span class="ml-2 text-gray-800"><a class="text-blue-600 font-bold"
-                                href="{{ route('infodirector', $movie->director->id) }}">{{ $movie->director->nombre }}</a></span>
+                        <span class="ml-2 text-gray-800"><a href="{{ route('infodirector', $movie->director->id) }}"
+                                class="text-blue-600 font-bold">{{ $movie->director->nombre }}</a></span>
                     </div>
                     <div class="mt-2">
                         <span class="text-gray-600">Elenco:</span>
-                        <a class="bg-green-600 text-white px-1 py-0 rounded-full inline-flex items-center justify-center"
-                            href="{{ route('elenco', $movie->id) }}">
+                        <a href="{{ route('elenco', $movie->id) }}"
+                            class="bg-green-600 text-white px-1 py-0 rounded-full inline-flex items-center justify-center">
                             <i class="mdi mdi-plus"></i>
                         </a>
                         <span class="ml-2 text-gray-800">
                             @foreach ($movie->actores as $actor)
-                                <a class="text-blue-600 font-bold" href="{{ route('infoactor', $actor->id) }}">
-                                    {{ $actor->nombre }}
-                                </a>
+                                <a href="{{ route('infoactor', $actor->id) }}"
+                                    class="text-blue-600 font-bold">{{ $actor->nombre }}</a>
                                 @if (!$loop->last)
                                     ,
                                 @endif
@@ -61,12 +62,10 @@
                 </div>
             </div>
         </div>
-        <div class="mt-4 flex justify-center"> <!-- flex justify-center para centrar el botón -->
-            <a href="{{ route('peliculas') }}"
-                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"><i
-                    class="mdi mdi-arrow-left-thick"></i>
-                Volver
+        <div class="mt-4 flex justify-center">
+            <a href="{{ route('peliculas') }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                <i class="mdi mdi-arrow-left-thick"></i> Volver
             </a>
         </div>
     </div>
-</x-app-layout>
+@endsection

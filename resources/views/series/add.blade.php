@@ -1,10 +1,12 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-2xl text-gray-900 leading-tight">
-            {{ __('Insertar Serie') }}
-        </h2>
-    </x-slot>
+@extends('layouts.app')
 
+@section('header')
+    <h2 class="font-semibold text-2xl text-gray-900 leading-tight">
+        {{ __('Insertar Serie') }}
+    </h2>
+@endsection
+
+@section('content')
     <div class="py-6">
         @if ($errors->any())
             <div class="bg-red-200 text-red-800 px-6 py-2 mb-6 rounded-lg shadow-md">
@@ -17,7 +19,7 @@
         @endif
 
         <div class="mx-auto max-w-4xl">
-            <div class="bg-white shadow-md rounded-lg overflow-hidden">
+            <div class="bg-white shadow-md rounded-lg overflow-hidden border border-gray-300">
                 <div class="px-8 py-6">
                     <form method="POST" action="{{ route('storeserie') }}" enctype="multipart/form-data">
                         @csrf
@@ -46,8 +48,7 @@
                             </div>
 
                             <div>
-                                <label for="director_id"
-                                    class="block text-sm font-medium text-gray-700">Director</label>
+                                <label for="director_id" class="block text-sm font-medium text-gray-700">Director</label>
                                 <select name="director_id" id="director_id"
                                     class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                                     required>
@@ -58,8 +59,7 @@
                                 </select>
                             </div>
                             <div>
-                                <label for="descripcion"
-                                    class="block text-sm font-medium text-gray-700">Descripción</label>
+                                <label for="descripcion" class="block text-sm font-medium text-gray-700">Descripción</label>
                                 <textarea name="descripcion" id="descripcion"
                                     class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                                     required></textarea>
@@ -80,4 +80,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+@endsection

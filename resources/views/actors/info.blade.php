@@ -1,14 +1,16 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-600 leading-tight">
-            {{ $actor->nombre }}
-        </h2>
-    </x-slot>
+@extends('layouts.app')
 
+@section('header')
+    <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-600 leading-tight">
+        {{ $actor->nombre }}
+    </h2>
+@endsection
+
+@section('content')
     <div class="py-4 contenedor">
-        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-7xl sm:px-4 lg:px-6">
             <div class="overflow-hidden bg-white border border-gray-300 shadow-lg rounded-lg">
-                <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
+                <div class="p-6 sm:px-12 bg-white border-b border-gray-200">
                     <div class="text-2xl dark:text-gray-800">
                         Información del Actor/Actriz
                     </div>
@@ -39,7 +41,6 @@
                             </div>
 
                             <p class="mt-4 text-gray-700"></p>
-
                         </div>
                     </div>
 
@@ -63,10 +64,8 @@
                                         </a>
                                         <div class="px-4 py-3">
                                             <p class="text-lg font-semibold text-gray-800 dark:text-gray-200 truncate">
-                                                {{ $pelicula->titulo }}
-                                            </p>
-                                            <p class="text-sm text-gray-500 dark:text-gray-300">
-                                                Año: {{ $pelicula->año }}
+                                                {{ $pelicula->titulo }}</p>
+                                            <p class="text-sm text-gray-500 dark:text-gray-300">Año: {{ $pelicula->año }}
                                             </p>
                                         </div>
                                     </div>
@@ -94,13 +93,10 @@
                                     <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
                                         <div class="px-4 py-3">
                                             <a href="{{ route('serieinfo', $serie->id) }}">
-                                                <p
-                                                    class="text-lg font-semibold text-gray-800 dark:text-gray-200 truncate">
-                                                    {{ $serie->titulo }}
-                                                </p>
-                                                <p class="text-sm text-gray-500 dark:text-gray-300">
-                                                    Año: {{ $serie->fecha_estreno }}
-                                                </p>
+                                                <p class="text-lg font-semibold text-gray-800 dark:text-gray-200 truncate">
+                                                    {{ $serie->titulo }}</p>
+                                                <p class="text-sm text-gray-500 dark:text-gray-300">Año:
+                                                    {{ $serie->fecha_estreno }}</p>
                                             </a>
                                         </div>
                                     </div>
@@ -111,9 +107,8 @@
                             </div>
                         @endif
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
-</x-app-layout>
+@endsection

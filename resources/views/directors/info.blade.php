@@ -1,10 +1,12 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-600 leading-tight">
-            {{ $director->nombre }}
-        </h2>
-    </x-slot>
+@extends('layouts.app')
 
+@section('header')
+    <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-600 leading-tight">
+        {{ $director->nombre }}
+    </h2>
+@endsection
+
+@section('content')
     <div class="py-4 contenedor">
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div class="overflow-hidden bg-white border border-gray-300 shadow-lg rounded-lg">
@@ -26,11 +28,11 @@
                                     class="ml-2 text-gray-800">{{ \Carbon\Carbon::parse($director->fecha_nacimiento)->format('d-m-Y') }}</span>
                             </div>
                             <div class="mt-2">
-                                <span class="text-gray-600">Fecha de nacimiento:</span>
+                                <span class="text-gray-600">Lugar de nacimiento:</span>
                                 <span class="ml-2 text-gray-800">{{ $director->lugar_nacimiento }}</span>
                             </div>
                             <div class="mt-2">
-                                <span class="text-gray-600">Peliculas dirigidas:</span>
+                                <span class="text-gray-600">Películas dirigidas:</span>
                                 <span class="ml-2 text-gray-800">{{ $numPeliculas }}</span>
                             </div>
                             <div class="mt-2">
@@ -94,8 +96,7 @@
                                     <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
                                         <a href="">
                                             <div class="px-4 py-3">
-                                                <p
-                                                    class="text-lg font-semibold text-gray-800 dark:text-gray-200 truncate">
+                                                <p class="text-lg font-semibold text-gray-800 dark:text-gray-200 truncate">
                                                     {{ $serie->titulo }}
                                                 </p>
                                                 <p class="text-sm text-gray-500 dark:text-gray-300">
@@ -117,4 +118,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+@endsection

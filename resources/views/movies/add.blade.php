@@ -1,4 +1,6 @@
-<x-app-layout>
+@extends('layouts.app')
+
+@section('content')
     <x-slot name="header">
         <h2 class="font-semibold text-2xl text-gray-900 leading-tight">
             {{ __('Insertar Película') }}
@@ -17,7 +19,7 @@
         @endif
 
         <div class="mx-auto max-w-4xl">
-            <div class="bg-white shadow-md rounded-lg overflow-hidden">
+            <div class="bg-white shadow-md rounded-lg overflow-hidden border border-gray-300">
                 <div class="px-8 py-6">
                     <form method="POST" action="{{ route('storemovie') }}" enctype="multipart/form-data">
                         @csrf
@@ -63,8 +65,7 @@
                                         required>
                                 </div>
                                 <div>
-                                    <label for="generos"
-                                        class="block text-sm font-medium text-gray-700">Géneros</label>
+                                    <label for="generos" class="block text-sm font-medium text-gray-700">Géneros</label>
                                     <select name="generos[]" id="generos" multiple
                                         class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                                         required>
@@ -101,8 +102,7 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label for="sinopsis"
-                                        class="block text-sm font-medium text-gray-700">Sinopsis</label>
+                                    <label for="sinopsis" class="block text-sm font-medium text-gray-700">Sinopsis</label>
                                     <textarea name="sinopsis" id="sinopsis"
                                         class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                                         required></textarea>
@@ -131,4 +131,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+@endsection

@@ -1,9 +1,14 @@
-<x-app-layout>
+@extends('layouts.app')
+
+@section('header')
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-600 leading-tight">
             {{ __('Información de la serie') }}
         </h2>
     </x-slot>
+@endsection
+
+@section('content')
     <div class="py-4 contenedor">
         <div class="max-w-4xl mx-auto bg-white border border-gray-300 shadow-lg rounded-lg overflow-hidden p-6">
             <div class="md:flex md:items-start"> <!-- md:items-start para que la imagen esté arriba -->
@@ -51,4 +56,4 @@
             </a>
         </div>
     </div>
-</x-app-layout>
+@endsection

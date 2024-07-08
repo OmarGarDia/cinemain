@@ -1,9 +1,12 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Insertar Director') }}
-        </h2>
-    </x-slot>
+@extends('layouts.app')
+
+@section('header')
+    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        {{ __('Insertar Director') }}
+    </h2>
+@endsection
+
+@section('content')
     <div class="py-4">
         @if ($errors->any())
             <div class="bg-red-200 text-red-800 px-6 py-1 mb-4 rounded-md">
@@ -15,7 +18,7 @@
             </div>
         @endif
         <div class="mx-auto max-w-lg">
-            <div class="bg-white overflow-hidden shadow-lg rounded-lg">
+            <div class="bg-white shadow-md rounded-lg overflow-hidden border border-gray-300">
                 <div class="px-6 py-4 text-gray-900">
                     <div class="overflow-x-auto">
                         <form id="searchForm" method="POST" action="{{ route('storedirector') }}"
@@ -64,10 +67,9 @@
                                 </div>
                             </div>
                         </form>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</x-app-layout>
+@endsection

@@ -1,4 +1,7 @@
-<x-app-layout>
+@extends('layouts.app')
+
+@section('content')
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-600 leading-tight">
             {{ __('Series') }}
@@ -63,8 +66,7 @@
                                                             <i class="mdi mdi-pencil-outline text-lg"></i>
                                                         </a>
                                                         <form action="#" method="POST"
-                                                            id="delete-form-{{ $serie->id }}"
-                                                            class="flex items-center">
+                                                            id="delete-form-{{ $serie->id }}" class="flex items-center">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button id="botonEliminar"
@@ -86,4 +88,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+@endsection

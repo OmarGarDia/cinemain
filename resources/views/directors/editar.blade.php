@@ -1,9 +1,12 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-600 leading-tight">
-            {{ __('Editar Director') }}
-        </h2>
-    </x-slot>
+@extends('layouts.app')
+
+@section('header')
+    <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-600 leading-tight">
+        {{ __('Editar Director') }}
+    </h2>
+@endsection
+
+@section('content')
     <div class="py-4">
         @if ($errors->any())
             <div class="bg-red-200 text-red-800 px-6 py-1 mb-4 rounded-md">
@@ -15,7 +18,7 @@
             </div>
         @endif
         <div class="mx-auto max-w-lg">
-            <div class="bg-white overflow-hidden shadow-lg rounded-lg">
+            <div class="bg-white shadow-md rounded-lg overflow-hidden border border-gray-300">
                 <div class="px-6 py-4 text-gray-900 dark:text-gray-800">
                     <div class="overflow-x-auto">
                         <form method="POST" action="{{ route('updatedirector', $director->id) }}"
@@ -56,7 +59,7 @@
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">Imagen Actual</label>
                                         <img src="{{ asset('storage/directors/' . $director->imagen) }}"
-                                            alt="Imagen de la película" class="mt-2 w-32 h-auto">
+                                            alt="Imagen del director" class="mt-2 w-32 h-auto">
                                     </div>
                                 @endif
                                 <div class="flex items-center justify-between pt-4">
@@ -76,5 +79,4 @@
             </div>
         </div>
     </div>
-
-</x-app-layout>
+@endsection

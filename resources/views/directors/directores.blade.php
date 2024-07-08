@@ -1,10 +1,12 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-600 leading-tight">
-            {{ __('Directores') }}
-        </h2>
-    </x-slot>
+@extends('layouts.app')
 
+@section('header')
+    <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-600 leading-tight">
+        {{ __('Directores') }}
+    </h2>
+@endsection
+
+@section('content')
     <div class="py-4 contenedor">
         <div class="mx-auto">
             @if (Session::has('success'))
@@ -19,9 +21,8 @@
                     </div>
                 @endif
             @endif
-            <!-- Flex container para alinear el aside a la izquierda -->
+
             <div class="flex">
-                <!-- Main Content -->
                 <div class="flex-1">
                     <div class="bg-white overflow-hidden w-full">
                         <div class="px-6 text-gray-900 dark:text-gray-800 w-full">
@@ -35,7 +36,7 @@
                                 <table class="table-auto w-full border-collapse border border-gray-200 text-sm"
                                     name="tabla_directores" id="tabla_directores">
                                     <thead>
-                                        <tr class=" bg-gray-200">
+                                        <tr class="bg-gray-200">
                                             <th>ID</th>
                                             <th>NOMBRE</th>
                                             <th>AÑO NACIMIENTO</th>
@@ -75,7 +76,6 @@
                                                         </form>
                                                     </div>
                                                 </td>
-
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -85,6 +85,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
-</x-app-layout>
+@endsection
