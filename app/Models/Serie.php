@@ -9,7 +9,7 @@ class Serie extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['titulo', 'descripcion', 'fecha_estreno', 'director_id'];
+    protected $fillable = ['titulo', 'descripcion', 'fecha_estreno', 'director_id', 'imagen'];
 
     public function actores()
     {

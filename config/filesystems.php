@@ -52,6 +52,14 @@ return [
             'throw' => false,
         ],
 
+        'series' => [
+            'driver' => 'local',
+            'root' => storage_path('app/series'),
+            'url' => env('APP_URL') . '/storage',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
         'directors' => [
             'driver' => 'local',
             'root' => storage_path('app/directors'),

@@ -44,17 +44,29 @@ class SeriesController extends Controller
             'titulo' => 'required',
             'descripcion' => 'nullable',
             'fecha_estreno' => 'nullable|integer',
-            'director' => 'nullable'
+            'director_id' => 'nullable|exists:directors,id',
+            'imagen_serie' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        Serie::create($request->all());
+        $nombreImagen = null;
+
+        if ($request->hasFile('imagen_serie')) {
+            $imagenPath = $request->file('imagen_serie')->store('public/series');
+            $nombreImagen = basename($imagenPath);
+        }
+
+        $serie = Serie::create([
+            'titulo' => $request->titulo,
+            'descripcion' => $request->descripcion,
+            'fecha_estreno' => $request->fecha_estreno,
+            'director_id' => $request->director_id,
+            'imagen' => $nombreImagen,
+        ]);
 
         return redirect()->route('series')->with('success', 'Serie creada correctamente.');
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(string $id)
     {
         //

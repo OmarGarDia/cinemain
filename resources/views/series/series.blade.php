@@ -44,12 +44,13 @@
                                             <th>TITULO</th>
                                             <th>F.ESTRENO</th>
                                             <th>DIRECTOR</th>
+                                            <th>IMAGEN</th>
                                             <th>ACCION</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($series as $serie)
-                                            <tr>
+                                            <tr class="border-y-2">
                                                 <td><a href="{{ route('serieinfo', $serie->id) }}"><i
                                                             class="mdi mdi-eye text-blue-600 mr-1"></i></a>{{ $serie->id }}
                                                 </td>
@@ -57,6 +58,10 @@
                                                 <td>{{ $serie->fecha_estreno }}</td>
                                                 <td class="text-blue-700"><a
                                                         href="{{ route('infodirector', $serie->director_id) }}">{{ $serie->director->nombre }}</a>
+                                                </td>
+                                                <td>
+                                                    <img src="{{ asset('storage/series/' . $serie->imagen) }}"
+                                                        alt="Sin imagen" class="w-20 h-20 object-contain">
                                                 </td>
                                                 <td class="align-middle text-center">
                                                     <div class="flex items-center justify-center space-x-2">
