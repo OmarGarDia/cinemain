@@ -78,4 +78,18 @@ class SeasonsController extends Controller
     {
         //
     }
+
+    public function temporadainfo(int $idSerie, int $idTemp)
+    {
+        $season = Season::with('series')->findOrFail($idTemp);
+
+        $temporadaNombre = "Temporada " . $season->season_number;
+        $serieNombre = $season->series->titulo;
+
+        $capitulos = $season->episodes;
+
+        $hayCapitulos = $capitulos->isNotEmpty();
+
+        return view('seasons.info', compact('temporadaNombre', 'serieNombre', 'capitulos', 'hayCapitulos', 'idSerie', 'idTemp'));
+    }
 }

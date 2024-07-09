@@ -8,6 +8,7 @@ use App\Http\Controllers\DirectorController;
 use App\Http\Controllers\ActoresController;
 use App\Http\Controllers\SeriesController;
 use App\Http\Controllers\SeasonsController;
+use App\Http\Controllers\EpisodesController;
 
 
 use Illuminate\Support\Facades\Route;
@@ -75,6 +76,11 @@ Route::middleware(['auth', 'checkRole:1'])->group(function () {
 
     Route::get('/series/temporadas/{id}', [SeasonsController::class, 'index'])->name('seasons');
     Route::post('/series/{id}/temporadas/add', [SeasonsController::class, 'store'])->name('storeseasons');
+    Route::get('/series/temporadas/{idSerie}/info/{idTemp}', [SeasonsController::class, 'temporadainfo'])->name('temporadainfo');
+
+    Route::get('/series/{idSerie}/temporadas/{idTemp}/episodes', [EpisodesController::class, 'index'])->name('episodes');
+    Route::get('/series/{idSerie}/temporadas/{idTemp}/episodes/add', [EpisodesController::class, 'create'])->name('addepisode');
+    Route::post('/series/{idSerie}/temporadas/{idTemp}/episodes/store', [EpisodesController::class, 'store'])->name('storeepisode');
 
     Route::post('/search-series', [SeriesController::class, 'search'])->name('your_series_search_route');
 });

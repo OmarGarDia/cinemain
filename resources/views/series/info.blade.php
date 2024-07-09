@@ -11,7 +11,7 @@
 @section('content')
     <div class="py-4 contenedor">
         <div class="max-w-4xl mx-auto bg-white border border-gray-300 shadow-lg rounded-lg overflow-hidden p-6">
-            <div class="md:flex md:items-start"> <!-- md:items-start para que la imagen esté arriba -->
+            <div class="md:flex md:items-start">
                 <div class="md:flex-shrink-0">
                     <img src="{{ asset('storage/series/' . $serie->imagen) }}" alt="Sin imagen"
                         class="h-full w-full object-cover md:w-48 md:h-auto rounded-lg shadow-md">
@@ -45,25 +45,28 @@
                     <p class="mt-4 text-gray-700">{{ $serie->descripcion }}</p>
 
                     <!-- Información de Temporadas -->
-                    <div class="mt-6">
-                        <div class="flex items-center">
-                            <h2 class="text-xl font-bold mr-2">Temporadas:</h2>
-                            <a href="{{ route('seasons', $serie->id) }}"
-                                class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded">
-                                <i class="mdi mdi-plus"></i>
-                            </a>
-                        </div>
-                        <div class="mt-4">
-                            @foreach ($serie->seasons as $season)
-                                <div class="border border-gray-300 shadow-lg rounded-lg p-4 mb-4">
-                                    <h3 class="text-lg font-semibold">Temporada {{ $season->season_number }}</h3>
-                                    <p><strong>Número de capítulos:</strong> {{ $season->episodes->count() }}</p>
-                                    <p><strong>Duración promedio:</strong> {{ $season->average_duration }} minutos por
-                                        episodio</p>
-                                    <!-- Otros detalles de la temporada según sea necesario -->
+                    <div class="mt-6 flex items-center">
+                        <h2 class="text-2xl font-bold text-gray-800">Temporadas:</h2>
+                        <a href="{{ route('seasons', $serie->id) }}"
+                            class="ml-4 bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded">
+                            <i class="mdi mdi-plus"></i>
+                        </a>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-2">
+                        @foreach ($serie->seasons as $season)
+                            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                                <div class="p-4">
+                                    <h3 class="text-xl font-semibold mb-2">Temporada {{ $season->season_number }}</h3>
+                                    <p class="text-gray-600 mb-2"><strong>Nº de capítulos:</strong>
+                                        {{ $season->episodes->count() }}</p>
+                                    <p class="text-gray-600 mb-4">{{ $season->descripcion }}</p>
+                                    <a href="{{ route('temporadainfo', ['idSerie' => $serie->id, 'idTemp' => $season->id]) }}"
+                                        class="bg-blue-400 hover:bg-blue-500 text-white font-bold py-1 px-2 rounded inline-block">
+                                        Ver Temporada
+                                    </a>
                                 </div>
-                            @endforeach
-                        </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
