@@ -9,6 +9,8 @@ class Episode extends Model
 {
     use HasFactory;
 
+    protected $table = 'episode';
+
     protected $fillable = ['season_id', 'episode_number', 'title', 'sinopsis', 'fecha_estreno'];
 
     public function season()

@@ -42,6 +42,7 @@
                                         <tr class=" bg-gray-200">
                                             <th>ID</th>
                                             <th>TITULO</th>
+                                            <th>TEMPORADAS</th>
                                             <th>F.ESTRENO</th>
                                             <th>DIRECTOR</th>
                                             <th>IMAGEN</th>
@@ -51,10 +52,14 @@
                                     <tbody>
                                         @foreach ($series as $serie)
                                             <tr class="border-y-2">
-                                                <td><a href="{{ route('serieinfo', $serie->id) }}"><i
-                                                            class="mdi mdi-eye text-blue-600 mr-1"></i></a>{{ $serie->id }}
+                                                <td>
+                                                    <a href="{{ route('serieinfo', ['serieId' => $serie->id]) }}">
+                                                        <i class="mdi mdi-eye text-blue-600 mr-1"></i>
+                                                    </a>
+                                                    {{ $serie->id }}
                                                 </td>
                                                 <td>{{ $serie->titulo }}</td>
+                                                <td>{{ $serie->seasons_count }}</td>
                                                 <td>{{ $serie->fecha_estreno }}</td>
                                                 <td class="text-blue-700"><a
                                                         href="{{ route('infodirector', $serie->director_id) }}">{{ $serie->director->nombre }}</a>

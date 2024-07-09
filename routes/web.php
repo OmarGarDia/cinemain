@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DirectorController;
 use App\Http\Controllers\ActoresController;
 use App\Http\Controllers\SeriesController;
+use App\Http\Controllers\SeasonsController;
 
 
 use Illuminate\Support\Facades\Route;
@@ -71,6 +72,9 @@ Route::middleware(['auth', 'checkRole:1'])->group(function () {
     Route::post('series/editarserie/{id}', [SeriesController::class, 'update'])->name('updateserie');
     Route::delete('/series/delete/{id}', [SeriesController::class, 'destroy'])->name('deleteserie');
     Route::get('/series/{serieId}/info', [SeriesController::class, 'serieinfo'])->name('serieinfo');
+
+    Route::get('/series/temporadas/{id}', [SeasonsController::class, 'index'])->name('seasons');
+    Route::post('/series/{id}/temporadas/add', [SeasonsController::class, 'store'])->name('storeseasons');
 
     Route::post('/search-series', [SeriesController::class, 'search'])->name('your_series_search_route');
 });

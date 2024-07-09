@@ -20,6 +20,7 @@ class SeriesController extends Controller
     public function index()
     {
         $series = Serie::with('director')
+            ->withCount('seasons')
             ->get()
             ->map(function ($serie) {
                 $serie->load('genres');
@@ -29,6 +30,7 @@ class SeriesController extends Controller
 
         return view('series.series', compact('series'));
     }
+
     public function serieinfo($id)
     {
         $serie = Serie::with('director', 'actores')->findOrFail($id);

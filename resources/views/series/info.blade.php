@@ -25,19 +25,17 @@
                     </div>
                     <div class="mt-2">
                         <span class="text-gray-600">Director:</span>
-                        <span class="ml-2 text-gray-800"><a class="text-blue-600 font-bold"
-                                href="{{ route('serieinfo', $serie->director->id) }}">{{ $serie->director->nombre }}</a></span>
+                        <span class="ml-2 text-gray-800">
+                            <a class="text-blue-600 font-bold"
+                                href="{{ route('serieinfo', $serie->director->id) }}">{{ $serie->director->nombre }}</a>
+                        </span>
                     </div>
                     <div class="mt-2">
                         <span class="text-gray-600">Elenco:</span>
                         <span class="ml-2 text-gray-800">
-                            @php
-                                $actorNames = $serie->actores->pluck('nombre')->implode(', ');
-                            @endphp
                             @foreach ($serie->actores as $actor)
-                                <a class="text-blue-600 font-bold" href="{{ route('infoactor', $actor->id) }}">
-                                    {{ $actor->nombre }}
-                                </a>
+                                <a class="text-blue-600 font-bold"
+                                    href="{{ route('infoactor', $actor->id) }}">{{ $actor->nombre }}</a>
                                 @if (!$loop->last)
                                     ,
                                 @endif
@@ -45,13 +43,35 @@
                         </span>
                     </div>
                     <p class="mt-4 text-gray-700">{{ $serie->descripcion }}</p>
+
+                    <!-- Información de Temporadas -->
+                    <div class="mt-6">
+                        <div class="flex items-center">
+                            <h2 class="text-xl font-bold mr-2">Temporadas:</h2>
+                            <a href="{{ route('seasons', $serie->id) }}"
+                                class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded">
+                                <i class="mdi mdi-plus"></i>
+                            </a>
+                        </div>
+                        <div class="mt-4">
+                            @foreach ($serie->seasons as $season)
+                                <div class="border border-gray-300 shadow-lg rounded-lg p-4 mb-4">
+                                    <h3 class="text-lg font-semibold">Temporada {{ $season->season_number }}</h3>
+                                    <p><strong>Número de capítulos:</strong> {{ $season->episodes->count() }}</p>
+                                    <p><strong>Duración promedio:</strong> {{ $season->average_duration }} minutos por
+                                        episodio</p>
+                                    <!-- Otros detalles de la temporada según sea necesario -->
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="mt-4 flex justify-center"> <!-- flex justify-center para centrar el botón -->
-            <a href="{{ route('series') }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"><i
-                    class="mdi mdi-arrow-left-thick"></i>
-                Volver
+        <div class="mt-4 flex justify-center">
+            <a href="{{ route('series', $serie->id) }}"
+                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                <i class="mdi mdi-arrow-left-thick"></i> Volver
             </a>
         </div>
     </div>
