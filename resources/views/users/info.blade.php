@@ -1,10 +1,13 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-600 leading-tight">
-            {{ __('Seguimiento del usuario: ') . ' ' . $user->id . ' | ' . $user->name }}
-        </h2>
-    </x-slot>
+@extends('layouts.app')
 
+@section('header')
+    <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-600 leading-tight">
+        {{ __('Seguimiento de usuario ' . ' ' . $user->id . ' | ' . $user->name) }}
+
+    </h2>
+@endsection
+
+@section('content')
     <div class="py-12 contenedor">
         <div class="mx-auto">
             @if (Session::has('success'))
@@ -118,8 +121,7 @@
                                 @endif
                             </div>
                             <div class="overflow-x-auto mt-10">
-                                <div
-                                    class="text-xl font-semibold border-b-2 border-purple-700 pb-2 mb-4 text-purple-700">
+                                <div class="text-xl font-semibold border-b-2 border-purple-700 pb-2 mb-4 text-purple-700">
                                     Películas que sigue
                                 </div>
                                 @if ($peliculasSiguiendo->isEmpty())
@@ -222,5 +224,4 @@
             </div>
         </div>
     </div>
-    </div>
-</x-app-layout>
+@endsection

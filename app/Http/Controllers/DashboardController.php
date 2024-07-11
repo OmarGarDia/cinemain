@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Pelicula;
+use App\Models\Serie;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -12,7 +13,8 @@ class DashboardController extends Controller
     {
         $users = User::count();
         $peliculas = Pelicula::count();
+        $series = Serie::count();
 
-        return view('/dashboard', compact('users', 'peliculas'));
+        return view('/dashboard', compact('users', 'peliculas', 'series'));
     }
 }

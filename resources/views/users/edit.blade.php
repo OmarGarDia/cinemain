@@ -1,9 +1,11 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-600 leading-tight">
-            {{ __('Editar Usuario') }}
-        </h2>
-    </x-slot>
+@extends('layouts.app')
+
+@section('header')
+    <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-600 leading-tight">
+        {{ __('Editar usuario ') }}
+    </h2>
+@endsection
+@section('content')
     <div class="py-12">
         <div class="mx-auto max-w-md">
             <div class="bg-white overflow-hidden">
@@ -40,8 +42,7 @@
                                     <label for="password_edit_confirmation"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-700">Confirmar
                                         Contraseña</label>
-                                    <input type="password" name="password_edit_confirmation"
-                                        id="password_edit_confirmation"
+                                    <input type="password" name="password_edit_confirmation" id="password_edit_confirmation"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" />
                                 </div>
                                 @if (Session::has('error'))
@@ -62,5 +63,4 @@
             </div>
         </div>
     </div>
-
-</x-app-layout>
+@endsection

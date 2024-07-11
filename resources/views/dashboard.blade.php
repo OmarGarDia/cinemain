@@ -1,12 +1,12 @@
-<!-- dashboard.blade.php -->
+@extends('layouts.app')
 
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl dark:text-gray-600 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+@section('header')
+    <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-600 leading-tight">
+        {{ __('Dashboard') }}
+    </h2>
+@endsection
 
+@section('content')
     <div class="py-12 h-full">
         <div class="mx-auto h-full">
             <!-- Flex container para alinear el aside a la izquierda -->
@@ -48,7 +48,7 @@
                                     <!-- Texto "400 Series" -->
                                     <div class="text-center">
                                         <div class="text-5xl dark:text-white font-normal text-gray-700">
-                                            0
+                                            {{ $series }}
                                         </div>
                                         <div class="text-4xl dark:text-white font-normal text-gray-700">
                                             Series
@@ -114,4 +114,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+@endsection
