@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Serie;
 use App\Models\Season;
+use App\Models\Episode;
 use Illuminate\Http\Request;
 
 class SeasonsController extends Controller
@@ -79,17 +80,24 @@ class SeasonsController extends Controller
         //
     }
 
-    public function temporadainfo(int $idSerie, int $idTemp)
+    public function temporadainfo($idSerie, $idTemp)
     {
-        $season = Season::with('series')->findOrFail($idTemp);
+        $serie = Serie::findOrFail($idSerie);
 
-        $temporadaNombre = "Temporada " . $season->season_number;
-        $serieNombre = $season->series->titulo;
+        $temporada = Season::findOrFail($idTemp);
+        $temporadaNombre = "Temporada " . $temporada->season_number;
+        $serieNombre = $temporada->series->titulo;
 
-        $capitulos = $season->episodes;
+        $episodios = Episode::where('serie_id', $idSerie)
+            ->where('season_id', $idTemp)
+            ->get();
 
-        $hayCapitulos = $capitulos->isNotEmpty();
-
-        return view('seasons.info', compact('temporadaNombre', 'serieNombre', 'capitulos', 'hayCapitulos', 'idSerie', 'idTemp'));
+        return view('seasons.info', [
+            'serie' => $serie,
+            'temporada' => $temporada,
+            'episodios' => $episodios,
+            'temporadaNombre' => $temporadaNombre,
+            'serieNombre' => $serieNombre,
+        ]);
     }
 }

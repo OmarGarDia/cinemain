@@ -8,6 +8,9 @@
 
 @section('content')
     <div class="py-4 contenedor">
+        @error('season_id')
+            <span class="text-red-500 text-sm">{{ $message }}</span>
+        @enderror
         <div class="max-w-4xl mx-auto bg-white border border-gray-300 shadow-lg rounded-lg overflow-hidden p-6">
             <div class="mb-4">
                 <label for="search_series" class="block text-gray-700 font-bold mb-2">Buscar Serie:</label>
@@ -62,4 +65,10 @@
             </form>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    @if (request()->route()->getName() == 'addepisode')
+        <script src="{{ asset('js/agregarCapitulos.js') }}" defer></script>
+    @endif
 @endsection

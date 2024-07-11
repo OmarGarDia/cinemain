@@ -15,6 +15,27 @@ class EpisodesController extends Controller
     public function index($idSerie, $idTemp)
     {
         $serie = Serie::findOrFail($idSerie);
+        $temporada = Season::findOrFail($idTemp);
+
+        $episodios = Episode::where('serie_id', $idSerie)
+            ->where('season_id', $idTemp)
+            ->get();
+
+        // Pasar los datos a la vista
+        return view('seasons.info', [
+            'serie' => $serie,
+            'temporada' => $temporada,
+            'episodios' => $episodios,
+        ]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create($idSerie, $idTemp)
+    {
+
+        $serie = Serie::findOrFail($idSerie);
 
         $temporada = Season::findOrFail($idTemp);
 
@@ -24,41 +45,32 @@ class EpisodesController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create($idSerie, $idTemp)
-    {
-    }
-
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, $idSerie, $idTemp)
+    public function store(Request $request)
     {
-        // Valida los datos del formulario
-        $validatedData = $request->validate([
-            'episode_number' => 'required|numeric',
+        $request->validate([
+            'season_id' => 'required|exists:seasons,id',
+            'serie_id' => 'required|exists:series,id',
+            'episode' => 'required|numeric',
             'title' => 'required|string',
             'sinopsis' => 'required|string',
             'fecha_estreno' => 'required|date',
         ]);
 
-        // Crea una instancia del modelo Episode con los datos validados
         $episode = new Episode();
-        $episode->serie_id = $idSerie; // Asigna el ID de la serie
-        $episode->season_id = $idTemp; // Asigna el ID de la temporada
-        $episode->episode_number = $validatedData['episode_number'];
-        $episode->title = $validatedData['title'];
-        $episode->sinopsis = $validatedData['sinopsis'];
-        $episode->fecha_estreno = $validatedData['fecha_estreno'];
+        $episode->season_id = $request->season_id;
+        $episode->serie_id = $request->serie_id;
+        $episode->episode_number = $request->episode;
+        $episode->title = $request->title;
+        $episode->sinopsis = $request->sinopsis;
+        $episode->fecha_estreno = $request->fecha_estreno;
 
-        // Guarda el episodio en la base de datos
         $episode->save();
 
-        // Redirige a alguna ruta adecuada después de guardar el episodio
-        return redirect()->route('addepisode');
+        return redirect()->route('temporadainfo', ['idSerie' => $request->serie_id, 'idTemp' => $request->season_id])->with('success', 'Episodio añadido correctamente');
     }
 
     /**

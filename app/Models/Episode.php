@@ -11,7 +11,7 @@ class Episode extends Model
 
     protected $table = 'episode';
 
-    protected $fillable = ['season_id', 'episode_number', 'title', 'sinopsis', 'fecha_estreno'];
+    protected $fillable = ['serie_id', 'season_id', 'episode', 'title', 'sinopsis', 'fecha_estreno'];
 
     public function season()
     {

@@ -7,7 +7,11 @@ export default defineConfig({
             input: [
                 "resources/css/app.css",
                 "resources/js/app.js",
-                "resources/js/misFunciones.js",
+                // "resources/js/misFunciones.js",
+                // "resources/js/buscadorActores.js",
+                // "resources/js/buscadorDirectores.js",
+                // "resources/js/buscadorPeliculas.js",
+                // "resources/js/buscadorSeries.js",
             ],
             refresh: true,
         }),

@@ -13,11 +13,11 @@ class Season extends Model
 
     public function series()
     {
-        return $this->belongsTo(Serie::class);
+        return $this->belongsTo(Serie::class, 'series_id');
     }
 
     public function episodes()
     {
-        return $this->hasMany(Episode::class);
+        return $this->hasMany(Episode::class, 'season_id');
     }
 }
