@@ -38,7 +38,7 @@
                                 <table class="table-auto w-full border-collapse border border-gray-200 text-sm"
                                     name="tabla_peliculas" id="tabla_peliculas">
                                     <thead>
-                                        <tr class=" bg-gray-200">
+                                        <tr class=" bg-blue-500 text-white">
                                             <th>ID</th>
                                             <th>TITULO</th>
                                             <th>AÑO</th>
@@ -49,7 +49,7 @@
                                             <th>CALIFICA</th>
                                             <th>F.ESTRENO</th>
                                             <th>DIRECTOR</th>
-                                            <th>IMG</th>
+                                            <th class="flex">IMG</th>
                                             <th>ACCION</th>
                                         </tr>
                                     </thead>

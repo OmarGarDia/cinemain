@@ -11,39 +11,24 @@ window.Alpine = Alpine;
 
 Alpine.start();
 
-document
-    .getElementById("user-menu-button")
-    .addEventListener("click", function (event) {
-        event.stopPropagation();
-        var userMenu = document.getElementById("user-menu");
-        if (
-            userMenu.style.display === "none" ||
-            userMenu.style.display === ""
-        ) {
-            userMenu.style.display = "block";
-        } else {
-            userMenu.style.display = "none";
-        }
-    });
-
-document.addEventListener("click", function (event) {
-    var userMenu = document.getElementById("user-menu");
-    var isClickInside = document
-        .getElementById("user-menu-button")
-        .contains(event.target);
-    if (!isClickInside) {
-        userMenu.style.display = "none";
-    }
-});
-
 // Inicializa DataTables en la tabla con el id "miTabla"
 $(document).ready(function () {
     $("#tabla_usuarios").DataTable({
         lengthChange: false,
     });
-    $("#tabla_peliculas").DataTable({
-        lengthMenu: [20],
-        lengthChange: false,
+
+    $(document).ready(function () {
+        var table = $("#tabla_peliculas").DataTable({
+            lengthMenu: [20],
+            lengthChange: false,
+            initComplete: function () {
+                $("#tabla_peliculas thead th").addClass("text-center");
+            },
+        });
+
+        $("#tabla_peliculas").on("draw.dt", function () {
+            $("#tabla_peliculas tbody td").addClass("text-center");
+        });
     });
 
     $("#tabla_directores").DataTable({

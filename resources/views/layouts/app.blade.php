@@ -18,7 +18,7 @@
     <!-- Incluir Axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/buscadorActores.js', 'resources/js/buscadorDirectores.js', 'resources/js/buscadorPeliculas.js', 'resources/js/buscadorSeries.js', 'resources/js/buscadorCapitulos.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/buscadorActores.js', 'resources/js/buscadorDirectores.js', 'resources/js/buscadorPeliculas.js', 'resources/js/buscadorSeries.js', 'resources/js/buscadorCapitulos.js', 'resources/js/peliculasUsuarios.js'])
 </head>
 
 <body class="font-sans antialiased h-screen overflow-hidden">
@@ -27,10 +27,11 @@
         @include('layouts.navigation')
         <!-- Contenido -->
         <div class="flex flex-1 overflow-hidden">
-            <!-- Aside -->
-            <div class="w-1/6 border-gray-100 dark:bg-gray-800 border-b overflow-auto">
-                <x-aside />
-            </div>
+            @if (auth()->user() && auth()->user()->role_id == 1)
+                <div class="w-1/6 border-gray-100 dark:bg-gray-800 border-b overflow-auto">
+                    <x-aside />
+                </div>
+            @endif
             <!-- Contenido principal -->
             <div class="flex flex-col w-full overflow-auto">
                 <!-- Header -->

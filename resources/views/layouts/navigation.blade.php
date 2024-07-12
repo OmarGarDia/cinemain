@@ -2,7 +2,7 @@
     <!-- Primary Navigation Menu -->
     <div class="px-8">
         <div class="flex justify-between h-16">
-            <div class="flex">
+            <div class="flex items-center">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
@@ -11,13 +11,22 @@
                 </div>
             </div>
 
+            <!-- Centered Navigation for Role 2 (Basic User) -->
+            @if (Auth::user()->role_id == 2)
+                <div class="flex justify-center flex-1">
+                    <x-nav-link :href="route('peliculasUsuario')" :active="request()->routeIs('peliculasUsuario')" class="text-xl">
+                        {{ __('Peliculas') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('series')" :active="request()->routeIs('series')" class="ml-6 text-xl">
+                        {{ __('Series') }}
+                    </x-nav-link>
+                </div>
+            @endif
+
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <!-- Navigation Links -->
                 <div class="hidden space-x-2 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
                     @if (Auth::user()->role_id == 1)
                         <x-nav-link :href="route('usuarios')" :active="request()->routeIs('usuarios')">
                             {{ __('Usuarios') }}

@@ -226,4 +226,11 @@ class PeliculasController extends Controller
 
         return response()->json(['results' => $detailedResults]);
     }
+
+    public function mostrarPeliculas()
+    {
+
+        $peliculas = Pelicula::all();
+        return view('users.peliculas', compact('peliculas'));
+    }
 }

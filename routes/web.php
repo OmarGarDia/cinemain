@@ -9,6 +9,7 @@ use App\Http\Controllers\ActoresController;
 use App\Http\Controllers\SeriesController;
 use App\Http\Controllers\SeasonsController;
 use App\Http\Controllers\EpisodesController;
+use App\Http\Controllers\BasicUserController;
 
 
 use Illuminate\Support\Facades\Route;
@@ -81,6 +82,12 @@ Route::middleware(['auth', 'checkRole:1'])->group(function () {
     Route::post('/series/{idSerie}/temporadas/{idTemp}/episodes/store', [EpisodesController::class, 'store'])->name('storeepisode');
 
     Route::post('/search-series', [SeriesController::class, 'search'])->name('your_series_search_route');
+});
+
+Route::middleware(['auth', 'checkRole:2'])->group(function () {
+    Route::get('/index', [BasicUserController::class, 'index'])->name('index');
+
+    Route::get('/peliculas', [PeliculasController::class, 'mostrarPeliculas'])->name('peliculasUsuario');
 });
 
 
