@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('content')
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-600 leading-tight">
-            {{ __('Peliculas') }}
-        </h2>
-    </x-slot>
+@section('header')
+    <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-600 leading-tight">
+        {{ __('Peliculas') }}
+    </h2>
+@endsection
 
+@section('content')
     <div class="py-4 contenedor">
         <div class="mx-auto">
             @if (Session::has('success'))
@@ -27,78 +27,83 @@
                 <div class="flex-1">
                     <div class="bg-white overflow-hidden w-full">
                         <div class="px-6 text-gray-900 dark:text-gray-800 w-full">
-                            <div class="overflow-x-auto">
+                            <div>
                                 <div class="p-0 mt-2">
                                     <a href="{{ route('addmovie') }}"
-                                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"><i
-                                            class="mdi mdi-plus"></i>
+                                        class="inline-flex items-center px-6 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold rounded shadow-lg transform hover:scale-105 transition-transform duration-200 ease-in-out hover:from-blue-600 hover:to-indigo-700">
+                                        <i class="mdi mdi-plus mr-2"></i>
                                         Añadir
                                     </a>
                                 </div>
-                                <table class="table-auto w-full border-collapse border border-gray-200 text-sm"
-                                    name="tabla_peliculas" id="tabla_peliculas">
+                                <table class="table-auto w-full border-collapse shadow-lg rounded-lg overflow-hidden"
+                                    id="tabla_peliculas">
                                     <thead>
-                                        <tr class=" bg-blue-500 text-white">
-                                            <th>ID</th>
-                                            <th>TITULO</th>
-                                            <th>AÑO</th>
-                                            <th>DURACION</th>
-                                            <th>IDIOMA</th>
-                                            <th>PAIS</th>
-                                            <th>GENERO</th>
-                                            <th>CALIFICA</th>
-                                            <th>F.ESTRENO</th>
-                                            <th>DIRECTOR</th>
-                                            <th class="flex">IMG</th>
-                                            <th>ACCION</th>
+                                        <tr class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white">
+                                            <th class="px-4 py-2">ID</th>
+                                            <th class="px-4 py-2">TITULO</th>
+                                            <th class="px-4 py-2">AÑO</th>
+                                            <th class="px-4 py-2">DURACION</th>
+                                            <th class="px-4 py-2">IDIOMA</th>
+                                            <th class="px-4 py-2">PAIS</th>
+                                            <th class="px-4 py-2">GENERO</th>
+                                            <th class="px-4 py-2">CALIFICA</th>
+                                            <th class="px-4 py-2">F.ESTRENO</th>
+                                            <th class="px-4 py-2">DIRECTOR</th>
+                                            <th class="px-4 py-2">IMG</th>
+                                            <th class="px-4 py-2">ACCION</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($peliculas as $pelicula)
-                                            <tr class="border-y-2">
-                                                <td><a href="{{ route('movieinfo', $pelicula->id) }}"><i
-                                                            class="mdi mdi-eye text-blue-600 mr-1"></i></a>{{ $pelicula->id }}
+                                            <tr class="border-b last:border-b-0 hover:bg-gray-100">
+                                                <td class="px-4 py-2">
+                                                    <a href="{{ route('movieinfo', $pelicula->id) }}">
+                                                        <i class="mdi mdi-eye text-blue-600 mr-1"></i>{{ $pelicula->id }}
+                                                    </a>
                                                 </td>
-                                                <td>{{ $pelicula->titulo }}</td>
-                                                <td>{{ $pelicula->año }}</td>
-                                                <td>{{ $pelicula->duracion }} min</td>
-                                                <td>{{ $pelicula->idioma }}</td>
-                                                <td>{{ $pelicula->pais }}</td>
-                                                <td>
+                                                <td class="px-4 py-2">{{ $pelicula->titulo }}</td>
+                                                <td class="px-4 py-2">{{ $pelicula->año }}</td>
+                                                <td class="px-4 py-2">{{ $pelicula->duracion }} min</td>
+                                                <td class="px-4 py-2">{{ $pelicula->idioma }}</td>
+                                                <td class="px-4 py-2">{{ $pelicula->pais }}</td>
+                                                <td class="px-4 py-2">
                                                     {{ implode(', ', $pelicula->genres_array) }}
                                                 </td>
-                                                <td>{{ $pelicula->calificacion }}/10</td>
-                                                <td>{{ $pelicula->fecha_estreno }}</td>
-                                                <td class="text-blue-700"><a
-                                                        href="{{ route('infodirector', $pelicula->director_id) }}">{{ $pelicula->director->nombre }}</a>
+                                                <td class="px-4 py-2">{{ $pelicula->calificacion }}/10</td>
+                                                <td class="px-4 py-2">{{ $pelicula->fecha_estreno }}</td>
+                                                <td class="px-4 py-2 text-blue-700">
+                                                    <a href="{{ route('infodirector', $pelicula->director_id) }}">
+                                                        {{ $pelicula->director->nombre }}
+                                                    </a>
                                                 </td>
-                                                <td>
+                                                <td class="px-4 py-2">
                                                     <img src="{{ asset('storage/movies/' . $pelicula->imagen) }}"
-                                                        alt="Sin imagen" class="w-20 h-20 object-contain">
+                                                        alt="Sin imagen"
+                                                        class="w-20 h-20 object-contain rounded-lg shadow-md">
                                                 </td>
-                                                <td>
-                                                    <div class="flex items-center space-x-2">
+                                                <td class="px-4 py-2">
+                                                    <div class="flex space-x-2">
                                                         <a href="{{ route('editarmovie', $pelicula->id) }}"
-                                                            class="bg-orange-400 text-white font-bold py-0 px-1 rounded flex items-center">
+                                                            class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-2 rounded-lg flex items-center justify-center transition duration-200">
                                                             <i class="mdi mdi-pencil-outline text-lg"></i>
                                                         </a>
                                                         <form action="{{ route('deletemovie', $pelicula->id) }}"
                                                             method="POST" id="delete-form-{{ $pelicula->id }}"
-                                                            style="display: inline;" class="flex items-center">
+                                                            style="display: inline;">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button id="botonEliminar"
-                                                                class="bg-red-500 text-white font-bold py-0 px-1 rounded flex items-center">
+                                                                class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 rounded-lg flex items-center justify-center transition duration-200">
                                                                 <i class="mdi mdi-trash-can-outline text-lg"></i>
                                                             </button>
                                                         </form>
                                                     </div>
                                                 </td>
-
                                             </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
+
                             </div>
                         </div>
                     </div>

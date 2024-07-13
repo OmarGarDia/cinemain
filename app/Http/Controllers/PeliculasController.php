@@ -20,13 +20,11 @@ class PeliculasController extends Controller
 
     public function index()
     {
-        $peliculas = Pelicula::with('director')
-            ->get()
-            ->map(function ($pelicula) {
-                $pelicula->load('genres');
-                $pelicula->genres_array = $pelicula->genres->pluck('name')->toArray();
-                return $pelicula;
-            });
+        $peliculas = Pelicula::with('director', 'genres')->paginate(10);
+
+        foreach ($peliculas as $pelicula) {
+            $pelicula->genres_array = $pelicula->genres->pluck('name')->toArray();
+        }
 
         return view('movies.movie', compact('peliculas'));
     }
