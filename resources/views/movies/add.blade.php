@@ -115,13 +115,13 @@
                                         required>
                                 </div>
                             </div>
-                            <div class="flex items-center justify-between pt-6">
+                            <div class="flex items-center justify-end space-x-4 pt-6">
                                 <button type="submit"
-                                    class="py-2 px-4 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
+                                    class="py-2 px-6 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 flex items-center">
                                     Añadir
                                 </button>
                                 <a href="{{ route('peliculas') }}"
-                                    class="py-2 px-4 text-sm font-medium text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-4 focus:ring-gray-300">
+                                    class="py-2 px-4 text-sm font-medium text-white bg-red-500 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-4 focus:ring-red-300 flex items-center">
                                     Cancelar
                                 </a>
                             </div>
@@ -132,6 +132,8 @@
         </div>
     </div>
 @endsection
+
+
 
 @section('scripts')
     <script src="{{ asset('js/buscadorPeliculas.js') }}"></script>
