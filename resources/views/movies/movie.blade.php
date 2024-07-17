@@ -92,8 +92,9 @@
                                                             style="display: inline;">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button id="botonEliminar"
-                                                                class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 rounded-lg flex items-center justify-center transition duration-200">
+                                                            <button type="button"
+                                                                onclick="confirmDelete('{{ $pelicula->titulo }}', '{{ $pelicula->id }}')"
+                                                                class="bg-red-500 text-white font-bold py-1 px-2 rounded-lg flex items-center hover:bg-red-600">
                                                                 <i class="mdi mdi-trash-can-outline text-lg"></i>
                                                             </button>
                                                         </form>

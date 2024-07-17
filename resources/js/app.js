@@ -1,5 +1,5 @@
 import "./bootstrap";
-import "./misFunciones";
+// import "./misFunciones";
 // import "./buscadorPeliculas";
 // import "./buscadorActores";
 // import "./buscadorDirectores";

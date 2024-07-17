@@ -18,7 +18,7 @@
     <!-- Incluir Axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/buscadorActores.js', 'resources/js/buscadorDirectores.js', 'resources/js/buscadorPeliculas.js', 'resources/js/buscadorSeries.js', 'resources/js/buscadorCapitulos.js', 'resources/js/peliculasUsuarios.js'])
+    @vite(['resources/css/app.css', 'resources/js/misFunciones.js', 'resources/js/app.js', 'resources/js/buscadorActores.js', 'resources/js/buscadorDirectores.js', 'resources/js/buscadorPeliculas.js', 'resources/js/buscadorSeries.js', 'resources/js/buscadorCapitulos.js', 'resources/js/peliculasUsuarios.js'])
 </head>
 
 <body class="font-sans antialiased h-screen overflow-hidden">

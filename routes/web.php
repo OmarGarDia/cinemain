@@ -46,6 +46,7 @@ Route::middleware(['auth', 'checkRole:1'])->group(function () {
     Route::get('/peliculas/{movieId}/info', [PeliculasController::class, 'movieinfo'])->name('movieinfo');
     Route::get('/peliculas/{movieId}/elenco', [PeliculasController::class, 'toAddElenco'])->name('elenco');
     Route::post('/movies/{id}/addactors', [PeliculasController::class, 'storeActorToMovie'])->name('store_actor_to_movie');
+    Route::get('/peliculas/genero/{genero}', [PeliculasController::class, 'filtrarPorGenero'])->name('peliculas.genero');
     Route::post('/searchmovie', [PeliculasController::class, 'search'])->name('searchmovie');
 
     Route::get('/directores', [DirectorController::class, 'index'])->name('directores');

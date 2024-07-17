@@ -73,7 +73,7 @@
                                             0
                                         </div>
                                         <div class="text-4xl dark:text-white font-normal text-gray-700">
-                                            Documentales
+                                            Documentales (En Desarrollo)
                                         </div>
                                     </div>
 

@@ -41,9 +41,9 @@
                 @endif
 
 
-                <div class="flex justify-end mb-4">
+                <div class="flex justify-start mb-4">
                     <a href="{{ route('addepisode', ['idSerie' => $serie->id, 'idTemp' => $temporada->id]) }}"
-                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                         Añadir Capítulo
                     </a>
                 </div>

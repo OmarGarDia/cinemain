@@ -51,16 +51,15 @@ class PeliculasController extends Controller
     {
         $movie = Pelicula::with('director', 'actores', 'genres')->findOrFail($movieId);
 
-        $generos = $movie->genres->pluck('name')->toArray();
-        $generosString = implode(', ', $generos);
+
+        $generos = $movie->genres;
         $actorNames = $movie->actores->pluck('nombre')->toArray();
         $actoresString = implode(', ', $actorNames);
 
-
-        return view('movies.info', compact('movie', 'generosString', 'actoresString'));
+        return view('movies.info', compact('movie', 'generos', 'actoresString'));
     }
 
-    public function update(Request $request, int $id)
+    public function update(Request $request, Pelicula $pelicula)
     {
         try {
             $request->validate([
@@ -79,7 +78,6 @@ class PeliculasController extends Controller
                 'titulo.unique' => 'Ya existe una pelicula con ese titulo',
             ]);
 
-            $pelicula = Pelicula::findOrFail($id);
             $pelicula->titulo = $request->titulo;
             $pelicula->año = $request->anio;
             $pelicula->sinopsis = $request->sinopsis;
@@ -114,9 +112,8 @@ class PeliculasController extends Controller
     }
 
 
-    public function destroy(int $id)
+    public function destroy(Pelicula $pelicula)
     {
-        $pelicula = Pelicula::findOrFail($id);
         $pelicula->delete();
         return redirect()->route('peliculas')->with('success', 'Pelicula eliminada correctamente.');
     }
@@ -166,9 +163,8 @@ class PeliculasController extends Controller
         return redirect()->route('peliculas')->with('success', 'Pelicula almacenada correctamente');
     }
 
-    public function toAddElenco(int $id)
+    public function toAddElenco(Pelicula $pelicula)
     {
-        $pelicula = Pelicula::findOrFail($id);
         $actores = Actor::all();
         return view('movies.addactors', compact('pelicula', 'actores'));
     }
@@ -230,5 +226,14 @@ class PeliculasController extends Controller
 
         $peliculas = Pelicula::all();
         return view('users.peliculas', compact('peliculas'));
+    }
+
+    public function filtrarPorGenero($generoId)
+    {
+        $peliculas = Pelicula::whereHas('genres', function ($query) use ($generoId) {
+            $query->where('genres.id', $generoId);
+        })->get();
+
+        return view('movies.filtroGenero', compact('peliculas'));
     }
 }

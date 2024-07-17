@@ -29,36 +29,37 @@
                             <div class="overflow-x-auto">
                                 <div class="p-0 mt-2">
                                     <a href="{{ route('createdirector') }}"
-                                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                        class="inline-flex items-center px-6 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold rounded shadow-lg transform hover:scale-105 transition-transform duration-200 ease-in-out hover:from-blue-600 hover:to-indigo-700">
                                         <i class="mdi mdi-plus"></i> Añadir
                                     </a>
                                 </div>
-                                <table class="table-auto w-full border-collapse border border-gray-200 text-sm"
+                                <table class="table-auto w-full border-collapse shadow-lg rounded-lg overflow-hidden"
                                     name="tabla_directores" id="tabla_directores">
                                     <thead>
-                                        <tr class="bg-gray-200">
-                                            <th>ID</th>
-                                            <th>NOMBRE</th>
-                                            <th>AÑO NACIMIENTO</th>
-                                            <th>LUGAR NACIMIENTO</th>
-                                            <th>IMAGEN</th>
-                                            <th>ACCION</th>
+                                        <tr class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white">
+                                            <th class="px-4 py-2">ID</th>
+                                            <th class="px-4 py-2">NOMBRE</th>
+                                            <th class="px-4 py-2">AÑO NACIMIENTO</th>
+                                            <th class="px-4 py-2">LUGAR NACIMIENTO</th>
+                                            <th class="px-4 py-2">IMAGEN</th>
+                                            <th class="px-4 py-2">ACCION</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($directores as $director)
-                                            <tr class="border-y-2">
-                                                <td><a href="{{ route('infodirector', $director->id) }}"><i
+                                            <tr class="border-b last:border-b-0 hover:bg-gray-100">
+                                                <td class="px-4 py-2"><a
+                                                        href="{{ route('infodirector', $director->id) }}"><i
                                                             class="mdi mdi-eye text-blue-600 mr-1"></i></a>{{ $director->id }}
                                                 </td>
-                                                <td>{{ $director->nombre }}</td>
-                                                <td>{{ $director->fecha_nacimiento }}</td>
-                                                <td>{{ $director->lugar_nacimiento }}</td>
-                                                <td>
+                                                <td class="px-4 py-2">{{ $director->nombre }}</td>
+                                                <td class="px-4 py-2">{{ $director->fecha_nacimiento }}</td>
+                                                <td class="px-4 py-2">{{ $director->lugar_nacimiento }}</td>
+                                                <td class="px-4 py-2">
                                                     <img src="{{ asset('storage/directors/' . $director->imagen) }}"
                                                         alt="Sin imagen" class="w-20 h-20 object-contain">
                                                 </td>
-                                                <td>
+                                                <td class="px-4 py-2">
                                                     <div class="flex items-center space-x-2">
                                                         <a href="{{ route('editdirector', $director->id) }}"
                                                             class="bg-orange-400 text-white font-bold py-0 px-1 rounded flex items-center">
