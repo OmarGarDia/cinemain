@@ -60,10 +60,18 @@
                                     <p class="text-gray-600 mb-2"><strong>Nº de capítulos:</strong>
                                         {{ $season->episodes->count() }}</p>
                                     <p class="text-gray-600 mb-4">{{ $season->descripcion }}</p>
-                                    <a href="{{ route('temporadainfo', ['idSerie' => $serie->id, 'idTemp' => $season->id]) }}"
-                                        class="bg-blue-400 hover:bg-blue-500 text-white font-bold py-1 px-2 rounded inline-block">
-                                        Ver Temporada
-                                    </a>
+                                    <div class="flex space-x-1">
+                                        <a href="{{ route('temporadainfo', ['idSerie' => $serie->id, 'idTemp' => $season->id]) }}"
+                                            class="bg-blue-400 hover:bg-blue-500 text-white font-bold py-1 px-2 rounded inline-block">
+                                            Ver Temporada
+                                        </a>
+                                        <form action="{{ route('deleteseason', $season->id) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="bg-red-500 px-1 py-1 rounded">
+                                                <i class="mdi mdi-delete text-white"></i>
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         @endforeach

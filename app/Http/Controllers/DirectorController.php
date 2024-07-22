@@ -18,9 +18,9 @@ class DirectorController extends Controller
         return view('directors.directores', compact('directores'));
     }
 
-    public function show($id)
+    public function show(Director $director)
     {
-        $director = Director::findOrFail($id);
+        //$director = Director::findOrFail($id);
         $peliculas = $director->peliculas()->paginate(12);
         $series = $director->series()->paginate(12);
         $numPeliculas = $director->peliculas->count();
@@ -71,9 +71,9 @@ class DirectorController extends Controller
         }
     }
 
-    public function edit(int $id)
+    public function edit(Director $director)
     {
-        $director = Director::findOrFail($id);
+        //$director = Director::findOrFail($id);
         return view('directors.editar', compact('director'));
     }
 
@@ -115,10 +115,10 @@ class DirectorController extends Controller
         }
     }
 
-    public function destroy(int $id)
+    public function destroy(Director $director)
     {
         try {
-            $director = Director::findOrFail($id);
+            //$director = Director::findOrFail($id);
             $director->delete();
             return redirect()->route('directores')->with('success', 'Director eliminado correctamente.');
         } catch (Exception $e) {

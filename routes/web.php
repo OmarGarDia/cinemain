@@ -77,6 +77,7 @@ Route::middleware(['auth', 'checkRole:1'])->group(function () {
     Route::get('/series/temporadas/{id}', [SeasonsController::class, 'index'])->name('seasons');
     Route::post('/series/{id}/temporadas/add', [SeasonsController::class, 'store'])->name('storeseasons');
     Route::get('/series/temporadas/{idSerie}/info/{idTemp}', [SeasonsController::class, 'temporadainfo'])->name('temporadainfo');
+    Route::post('/series/temporadas/{temporada}', [SeasonsController::class, 'destroy'])->name('deleteseason');
 
     Route::get('/series/{idSerie}/temporadas/{idTemp}/episodes', [EpisodesController::class, 'index'])->name('episodes');
     Route::get('/series/{idSerie}/temporadas/{idTemp}/episodes/add', [EpisodesController::class, 'create'])->name('addepisode');

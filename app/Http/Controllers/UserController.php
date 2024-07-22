@@ -29,9 +29,9 @@ class UserController extends Controller
         return view('users.info', compact('user', 'peliculasVistas', 'peliculasPendientes', 'peliculasSiguiendo', 'peliculasFavoritas'));
     }
 
-    public function edit(int $id)
+    public function edit(User $user)
     {
-        $users = User::findOrFail($id);
+        //$users = User::findOrFail($id);
         return view('users.edit', compact('users'));
     }
 
@@ -69,9 +69,9 @@ class UserController extends Controller
         }
     }
 
-    public function destroy(int $id)
+    public function destroy(User $user)
     {
-        $user = User::findOrFail($id);
+        //$user = User::findOrFail($id);
         $user->delete();
         Session::flash('success', 'Usuario eliminado correctamente.');
         return redirect()->route('usuarios');

@@ -75,9 +75,14 @@ class SeasonsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $temporada = Season::findOrFail($id);
+
+        $serieId = $temporada->series_id;
+        $temporada->delete();
+
+        return redirect()->route('serieinfo', ['serieId' => $serieId])->with('success', 'Temporada eliminada correctamente');
     }
 
     public function temporadainfo($idSerie, $idTemp)

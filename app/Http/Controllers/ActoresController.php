@@ -18,9 +18,9 @@ class ActoresController extends Controller
         return view('actors.actores', compact('actores'));
     }
 
-    public function show($id)
+    public function show(Actor $actor)
     {
-        $actor = Actor::findOrFail($id);
+        //$actor = Actor::findOrFail($id);
         $peliculas = $actor->peliculas()->paginate(12);
         $series = $actor->series()->paginate(12);
         $numPeliculas = $actor->peliculas->count();
@@ -72,9 +72,9 @@ class ActoresController extends Controller
         }
     }
 
-    public function edit(int $id)
+    public function edit(Actor $actor)
     {
-        $actor = Actor::findOrFail($id);
+        //$actor = Actor::findOrFail($id);
         return view('actors.editar', compact('actor'));
     }
 
@@ -118,10 +118,10 @@ class ActoresController extends Controller
         }
     }
 
-    public function destroy(int $id)
+    public function destroy(Actor $actor)
     {
         try {
-            $actor = Actor::findOrFail($id);
+            //$actor = Actor::findOrFail($id);
             $actor->delete();
             return redirect()->route('actores')->with('success', 'Actor/actriz eliminado correctamente.');
         } catch (Exception $e) {
