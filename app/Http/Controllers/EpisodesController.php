@@ -102,6 +102,11 @@ class EpisodesController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $episodio = Episode::findOrFail($id);
+        $temporadaId = $episodio->season_id;
+        $episodio->delete();
+
+        return redirect()->route('temporadainfo', ['idSerie' => $episodio->serie_id, 'idTemp' => $temporadaId])
+            ->with('success', 'Episodio eliminado correctamente');
     }
 }

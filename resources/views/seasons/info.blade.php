@@ -27,6 +27,15 @@
                                                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block">
                                                 Ver Detalles
                                             </a>
+                                            <form action="{{ route('destroyepisode', $episodio->id) }}" method="POST"
+                                                class="inline-block">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"
+                                                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-2 rounded inline-block ml-2">
+                                                    <i class="mdi mdi-trash-can"></i>
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                 </li>
@@ -49,7 +58,7 @@
                 </div>
             </div>
             <div class="mt-4 flex justify-center">
-                <a href="{{ route('temporadainfo', ['idSerie' => $serie->id, 'idTemp' => $temporada->id]) }}"
+                <a href="{{ route('serieinfo', ['serieId' => $serie->id]) }}"
                     class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                     <i class="mdi mdi-arrow-left-thick"></i> Volver a la Temporada
                 </a>
