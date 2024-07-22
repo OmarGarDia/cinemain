@@ -37,9 +37,7 @@
                                     <tbody>
                                         @foreach ($users as $user)
                                             <tr class="border-y-2">
-                                                <td class="">{{ $user->id }}<a
-                                                        href="{{ route('perfil.info', ['userId' => $user->id]) }}"><i
-                                                            class="mdi mdi-eye ml-2 text-blue-500"></i></a>
+                                                <td class="">{{ $user->id }}
                                                 </td>
                                                 <td>{{ $user->name }}</td>
                                                 <td>{{ $user->email }}</td>
@@ -48,6 +46,10 @@
                                                 <td>{{ $user->updated_at }}</td>
                                                 <td>
                                                     <div class="flex items-center space-x-2">
+                                                        <a href="{{ route('perfil.info', ['userId' => $user->id]) }}"
+                                                            class="bg-blue-400 text-white font-bold py-0 px-1 rounded flex items-center">
+                                                            <i class="mdi mdi-eye text-lg"></i>
+                                                        </a>
                                                         <a href="{{ route('users.edit', $user->id) }}"
                                                             class="bg-orange-400 text-white font-bold py-0 px-1 rounded flex items-center">
                                                             <i class="mdi mdi-pencil-outline text-lg"></i>
