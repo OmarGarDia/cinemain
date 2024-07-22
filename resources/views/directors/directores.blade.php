@@ -48,10 +48,7 @@
                                     <tbody>
                                         @foreach ($directores as $director)
                                             <tr class="border-b last:border-b-0 hover:bg-gray-100">
-                                                <td class="px-4 py-2"><a
-                                                        href="{{ route('infodirector', $director->id) }}"><i
-                                                            class="mdi mdi-eye text-blue-600 mr-1"></i></a>{{ $director->id }}
-                                                </td>
+                                                <td class="px-4 py-2">{{ $director->id }}</td>
                                                 <td class="px-4 py-2">{{ $director->nombre }}</td>
                                                 <td class="px-4 py-2">{{ $director->fecha_nacimiento }}</td>
                                                 <td class="px-4 py-2">{{ $director->lugar_nacimiento }}</td>
@@ -61,6 +58,10 @@
                                                 </td>
                                                 <td class="px-4 py-2">
                                                     <div class="flex items-center space-x-2">
+                                                        <a href="{{ route('infodirector', $director->id) }}"
+                                                            class="bg-blue-400 text-white font-bold py-0 px-1 rounded flex items-center">
+                                                            <i class="mdi mdi-eye text-lg"></i>
+                                                        </a>
                                                         <a href="{{ route('editdirector', $director->id) }}"
                                                             class="bg-orange-400 text-white font-bold py-0 px-1 rounded flex items-center">
                                                             <i class="mdi mdi-pencil-outline text-lg"></i>
