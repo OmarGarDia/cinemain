@@ -48,8 +48,7 @@
                                     <tbody>
                                         @foreach ($actores as $actor)
                                             <tr class="border-y-2">
-                                                <td class="px-4 py-2"><a href="{{ route('infoactor', $actor->id) }}"><i
-                                                            class="mdi mdi-eye text-blue-600 mr-1"></i></a>{{ $actor->id }}
+                                                <td class="px-4 py-2">{{ $actor->id }}
                                                 </td>
                                                 <td class="px-4 py-2">{{ $actor->nombre }}</td>
                                                 <td class="px-4 py-2">{{ $actor->fecha_nacimiento }}</td>
@@ -60,6 +59,10 @@
                                                 </td>
                                                 <td class="px-4 py-2">
                                                     <div class="flex items-center space-x-2">
+                                                        <a href="{{ route('infoactor', $actor->id) }}"
+                                                            class="bg-blue-400 text-white font-bold py-0 px-1 rounded">
+                                                            <i class="mdi mdi-eye text-lg"></i>
+                                                        </a>
                                                         <a href="{{ route('editactor', $actor->id) }}"
                                                             class="bg-orange-400 text-white font-bold py-0 px-1 rounded">
                                                             <i class="mdi mdi-pencil-outline text-lg"></i>
