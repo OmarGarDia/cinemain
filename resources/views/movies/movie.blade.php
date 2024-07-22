@@ -83,8 +83,12 @@
                                                 </td>
                                                 <td class="px-4 py-2">
                                                     <div class="flex space-x-2">
-                                                        <a href="{{ route('editarmovie', $pelicula->id) }}"
+                                                        <a href="{{ route('movieinfo', $pelicula->id) }}"
                                                             class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-2 rounded-lg flex items-center justify-center transition duration-200">
+                                                            <i class="mdi mdi-eye text-white mr-1"></i>
+                                                        </a>
+                                                        <a href="{{ route('editarmovie', $pelicula->id) }}"
+                                                            class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-1 px-2 rounded-lg flex items-center justify-center transition duration-200">
                                                             <i class="mdi mdi-pencil-outline text-lg"></i>
                                                         </a>
                                                         <form action="{{ route('deletemovie', $pelicula->id) }}"
