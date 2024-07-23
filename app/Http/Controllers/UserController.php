@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -19,14 +20,15 @@ class UserController extends Controller
 
     public function userinfo($userId)
     {
-        $user = User::findOrFail($userId);
+        $user = User::with(['peliculasVistas', 'peliculasPendientes', 'peliculasSiguiendo', 'peliculasFavoritas'])->findOrFail($userId);
 
-        $peliculasVistas = $user->peliculasVistas;
-        $peliculasPendientes = $user->peliculasPendientes;
-        $peliculasSiguiendo = $user->peliculasSiguiendo;
-        $peliculasFavoritas = $user->peliculasFavoritas;
-
-        return view('users.info', compact('user', 'peliculasVistas', 'peliculasPendientes', 'peliculasSiguiendo', 'peliculasFavoritas'));
+        return view('users.info', [
+            'user' => $user,
+            'peliculasVistas' => $user->peliculasVistas,
+            'peliculasPendientes' => $user->peliculasPendientes,
+            'peliculasSiguiendo' => $user->peliculasSiguiendo,
+            'peliculasFavoritas' => $user->peliculasFavoritas,
+        ]);
     }
 
     public function edit(User $user)
@@ -35,32 +37,14 @@ class UserController extends Controller
         return view('users.edit', compact('users'));
     }
 
-    public function update(Request $request, int $id)
+    public function update(UpdateUserRequest $request, int $id)
     {
         try {
-            $request->validate([
-                'name_edit' => 'required|string',
-                'email_edit' => [
-                    'required',
-                    'email',
-                    Rule::unique('users', 'email')->ignore($id),
-                ],
-                'password_edit' => 'nullable|string|min:8|confirmed', // Añade confirmed para verificar el campo confirmación
-            ], [
-                'password_edit.confirmed' => 'Las contraseñas no coinciden.',
-            ]);
-
             $user = User::findOrFail($id);
-            $user->name = $request->name_edit;
-            $user->email = $request->email_edit;
-
-            // Si se proporciona una nueva contraseña, actualizarla
+            $user->update($request->only('name_edit', 'email_edit'));
             if ($request->filled('password_edit')) {
-                $user->password = Hash::make($request->password_edit);
+                $user->update(['password' => Hash::make($request->password_edit)]);
             }
-
-            $user->save();
-
             Session::flash('success', 'Usuario actualizado correctamente.');
             return redirect()->route('usuarios');
         } catch (ValidationException $e) {
