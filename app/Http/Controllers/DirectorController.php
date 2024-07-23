@@ -20,13 +20,18 @@ class DirectorController extends Controller
 
     public function show(Director $director)
     {
-        //$director = Director::findOrFail($id);
+
+        $director->loadCount(['peliculas', 'series']);
         $peliculas = $director->peliculas()->paginate(12);
         $series = $director->series()->paginate(12);
-        $numPeliculas = $director->peliculas->count();
-        $numSeries = $director->series->count();
 
-        return view('directors.info', compact('director', 'peliculas', 'series', 'numPeliculas', 'numSeries'));
+        return view('directors.info', [
+            'director' => $director,
+            'peliculas' => $peliculas,
+            'series' => $series,
+            'numPeliculas' => $director->peliculas_count,
+            'numSeries' => $director->series_count,
+        ]);
     }
 
     public function create()
