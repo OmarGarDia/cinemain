@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateSerieRequest;
 use Illuminate\Http\Request;
 use App\Models\Serie;
 use App\Models\Director;
@@ -9,14 +10,19 @@ use App\Models\Genre;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Support\Facades\Storage;
-
+use App\Http\Services\SerieService;
 
 class SeriesController extends Controller
 {
+    protected $serieService;
     /**
      * Display a listing of the resource.
      */
+    public function __construct(SerieService $serieService)
+    {
+        $this->serieService = $serieService;
+    }
+
     public function index()
     {
         $series = Serie::with('director')
@@ -105,40 +111,16 @@ class SeriesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateSerieRequest $request, string $id)
     {
         try {
-            $request->validate([
-                'titulo' => 'required|string|max:255|unique:series,titulo,' . $id,
-                'fecha_estreno' => 'required|integer',
-                'director_id' => 'nullable|exists:directors,id',
-                'descripcion' => 'required|string',
-                'imagen_serie' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
-            ], [
-                'titulo.unique' => 'Ya existe una serie con ese titulo',
-            ]);
-
             $serie = Serie::findOrFail($id);
-            $serie->titulo = $request->titulo;
-            $serie->fecha_estreno = $request->fecha_estreno;
-            $serie->descripcion = $request->descripcion;
-            if ($request->hasFile('imagen_serie')) {
-                if ($serie->imagen) {
-                    Storage::delete('public/series/' . $serie->imagen);
-                }
+            $datosActualizados = $request->validated(); // Usa validated() en lugar de validate()
 
-                $imagen = $request->file('imagen_serie');
-                $nombreImagen = time() . '.' . $imagen->getClientOriginalExtension();
-                $imagen->storeAs('public/series', $nombreImagen);
-                $serie->imagen = $nombreImagen;
-            }
-
-            $serie->genres()->sync($request->generos);
-
-            $serie->save();
-
+            $this->serieService->updateSerie($serie, $datosActualizados);
             return redirect()->route('series')->with('success', 'Serie actualizada correctamente');
         } catch (ValidationException $e) {
+            return back()->withErrors($e->errors())->withInput();
         }
     }
 
