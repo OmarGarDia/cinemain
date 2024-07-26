@@ -894,10 +894,11 @@
 
 <body class="font-sans antialiased dark:bg-black dark:text-white/50">
     <div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50 min-h-screen flex flex-col">
-        <header class="py-10">
-            <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl mx-auto">
+        <header class="py-10 flex justify-center align-items-center">
+            <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl mx-auto flex
+            justify-center">
                 @if (Route::has('login'))
-                    <nav class="flex justify-end">
+                    <nav class="flex space-x-4">
                         @auth
                             <a href="{{ url('/dashboard') }}"
                                 class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
@@ -921,8 +922,8 @@
             </div>
         </header>
 
-        <main class="flex-1 flex items-center justify-center">
-            <div class="container mx-auto p-6">
+        <main class="flex-1 flexi items-start justify-center">
+            <div class="container mx-auto p-6 mt-4"> <!-- Agregando mt-4 para margen superior -->
                 <section class="mb-12">
                     <div class="bg-dark-500 dark:bg-gray-800 shadow-md rounded-lg p-6 flex flex-col items-center">
                         <h2 class="text-6xl font-semibold mb-4 dark:text-white text-center">Bienvenido a Cinemain</h2>
@@ -936,25 +937,9 @@
                             <svg class="w-12 h-12 text-gray-400 dark:text-gray-300" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M17 3a2 2 0 00-2 2v14a2 2 0 002 2h4a2 2 0 002-2V5a2 2 0 00-2-2h-4zM9 3a2 2 0 00-2 2v14a2 2 0 002 2H7a2 2 0 01-2-2V5a2 2 0 012-2h2zM1 5a2 2 0 012-2h4a2 2 0 012 2v14a2 2 0 01-2 2H3a2 2 0 01-2-2V5z">
+                                    d="M17 3a2 2 0 00-2 2v14a2 2 0 002 2h4a2 2 0 002-2V5a2 2 0 00-2-2h-4zM9 3a2 2 0 00-2 2v14a2 2 0 002 2H7a2 2 0 01-2-2V5a2 2 0 012-2h2zM1 5a2 2 0 012-2h4a2 2 012 2v14a2 2 0 01-2 2H3a2 2 01-2-2V5z">
                                 </path>
-                            </svg>
-                            <!-- Ícono de Series -->
-                            <svg class="w-12 h-12 text-gray-400 dark:text-gray-300" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M4 4h16M4 10h16M4 16h16M4 20h16"></path>
-                            </svg>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </main>
 
-        <footer class="py-16 text-center text-sm text-black dark:text-white/70">
-            Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
-        </footer>
-    </div>
-</body>
+
 
 </html>

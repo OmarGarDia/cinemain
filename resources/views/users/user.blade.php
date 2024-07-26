@@ -41,7 +41,13 @@
                                                 </td>
                                                 <td>{{ $user->name }}</td>
                                                 <td>{{ $user->email }}</td>
-                                                <td>{{ $user->password }}</td>
+                                                <td class="border px-4 py-2">
+                                                    <span id="password-{{ $user->id }}" class="password">••••••••</span>
+                                                    <button onclick="togglePassword({{ $user->id }})" class="ml-2"
+                                                        data-password="{{ $user->password }}">
+                                                        <i id="toggle-icon-{{ $user->id }}" class="mdi mdi-eye"></i>
+                                                    </button>
+                                                </td>
                                                 <td>{{ $user->created_at }}</td>
                                                 <td>{{ $user->updated_at }}</td>
                                                 <td>
