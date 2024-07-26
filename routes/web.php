@@ -32,9 +32,9 @@ Route::middleware(['auth', 'checkRole:1'])->group(function () {
 
     // Rutas solo protegidas por 'auth'
     Route::get('/users', [UserController::class, 'index'])->name('usuarios');
-    Route::get('/users/editar/{id}', [UserController::class, 'edit'])->name('users.edit');
+    Route::get('/users/editar/{user}', [UserController::class, 'edit'])->name('users.edit');
     Route::post('/users/update/{id}', [UserController::class, 'update'])->name('users.update');
-    Route::delete('/users/delete/{id}', [UserController::class, 'destroy'])->name('users.delete');
+    Route::delete('/users/delete/{user}', [UserController::class, 'destroy'])->name('users.delete');
     Route::get('/perfil/{userId}/info', [UserController::class, 'userinfo'])->name('perfil.info');
 
     Route::get('/listapeliculas', [PeliculasController::class, 'index'])->name('peliculas');
