@@ -61,9 +61,9 @@ Route::middleware(['auth', 'checkRole:1'])->group(function () {
     Route::get('/actores', [ActoresController::class, 'index'])->name('actores');
     Route::get('/actores/add', [ActoresController::class, 'create'])->name('createactor');
     Route::post('/actores/addactor', [ActoresController::class, 'store'])->name('storeactor');
-    Route::get('/actores/editar/{id}', [ActoresController::class, 'edit'])->name('editactor');
-    Route::post('actores/editaractor/{id}', [ActoresController::class, 'update'])->name('updateactor');
-    Route::delete('/actores/delete/{id}', [ActoresController::class, 'destroy'])->name('deleteactor');
+    Route::get('/actores/editar/{actor}', [ActoresController::class, 'edit'])->name('editactor');
+    Route::post('actores/editaractor/{actor}', [ActoresController::class, 'update'])->name('updateactor');
+    Route::delete('/actores/delete/{actor}', [ActoresController::class, 'destroy'])->name('deleteactor');
     Route::get('/actores/{id}', [ActoresController::class, 'show'])->name('infoactor');
 
     Route::get('/series', [SeriesController::class, 'index'])->name('series');

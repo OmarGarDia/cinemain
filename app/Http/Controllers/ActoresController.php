@@ -78,20 +78,11 @@ class ActoresController extends Controller
         return view('actors.editar', compact('actor'));
     }
 
-    public function update(Request $request, int $id)
+    public function update(Request $request, Actor $actor)
     {
         try {
-            $request->validate([
-                'nombre' => 'required|string|max:255|unique:actors,nombre,' . $id,
-                'fecha_nac' => 'required|date',
-                'lugar_nac' => 'required|string',
-                'bio' => 'nullable|string',
-                'imagen_actor' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
-            ], [
-                'nombre.unique' => 'Ya existe ese director',
-            ]);
 
-            $actor = Actor::findOrFail($id);
+            //$actor = Actor::findOrFail($id);
             $actor->nombre = $request->nombre;
             $actor->fecha_nacimiento = $request->fecha_nac;
             $actor->nacionalidad = $request->lugar_nac;
@@ -125,7 +116,6 @@ class ActoresController extends Controller
             $actor->delete();
             return redirect()->route('actores')->with('success', 'Actor/actriz eliminado correctamente.');
         } catch (Exception $e) {
-            // Puedes personalizar el mensaje de error según tus necesidades
             return redirect()->route('actores')->with('error', 'Error al eliminar el actor/actriz. No se puede eliminar un actor asociado a una película.');
         }
     }
