@@ -41,10 +41,14 @@ class UserController extends Controller
     {
         try {
             $user = User::findOrFail($id);
-            $user->update($request->only('name_edit', 'email_edit'));
+            $updateData = $request->only('name_edit', 'email_edit');
+
+            $user->name = $updateData['name_edit'] ?? $user->name;
+            $user->email = $updateData['email_edit'] ?? $user->email;
             if ($request->filled('password_edit')) {
-                $user->update(['password' => Hash::make($request->password_edit)]);
+                $user->password = Hash::make($request->password_edit);
             }
+            $user->save();
             Session::flash('success', 'Usuario actualizado correctamente.');
             return redirect()->route('usuarios');
         } catch (ValidationException $e) {
