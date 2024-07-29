@@ -19,7 +19,5 @@ class ActorService
         $nombreImagen = time() . '.' . $imagen->getClientOriginalExtension();
         $imagen->storeAs('public/actors', $nombreImagen);
         $actor->imagen = $nombreImagen;
-
-        $actor->save();
     }
 }

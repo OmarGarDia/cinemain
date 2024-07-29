@@ -29,7 +29,6 @@ class ActoresController extends Controller
 
     public function show(Actor $actor)
     {
-        //$actor = Actor::findOrFail($id);
         $peliculas = $actor->peliculas()->paginate(12);
         $series = $actor->series()->paginate(12);
         $numPeliculas = $actor->peliculas->count();
@@ -61,7 +60,6 @@ class ActoresController extends Controller
 
             return redirect()->route('actores')->with('success', 'Actor/Actriz almacenado correctamente');
         } catch (ValidationException $e) {
-            // Aquí se ejecuta si la validación falla
             $errors = $e->validator->errors()->all();
             return redirect()->back()->withErrors($errors)->withInput();
         }
@@ -69,14 +67,12 @@ class ActoresController extends Controller
 
     public function edit(Actor $actor)
     {
-        //$actor = Actor::findOrFail($id);
         return view('actors.editar', compact('actor'));
     }
 
     public function update(UpdateActorRequest $request, Actor $actor)
     {
 
-        //$actor = Actor::findOrFail($id);
         $actor->nombre = $request->nombre;
         $actor->fecha_nacimiento = $request->fecha_nac;
         $actor->nacionalidad = $request->lugar_nac;
@@ -94,7 +90,6 @@ class ActoresController extends Controller
     public function destroy(Actor $actor)
     {
         try {
-            //$actor = Actor::findOrFail($id);
             $actor->delete();
             return redirect()->route('actores')->with('success', 'Actor/actriz eliminado correctamente.');
         } catch (Exception $e) {

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreDirectorRequest;
 use App\Models\Director;
+use App\Services\DirectorService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
@@ -11,6 +13,13 @@ use Exception;
 
 class DirectorController extends Controller
 {
+
+    protected $directorService;
+
+    public function __construct(DirectorService $directorService)
+    {
+        $this->directorService = $directorService;
+    }
 
     public function index()
     {
@@ -39,38 +48,26 @@ class DirectorController extends Controller
         return view('directors.add');
     }
 
-    public function store(Request $request)
+    public function store(StoreDirectorRequest $request)
     {
         try {
-            $request->validate([
-                'nombre' => 'required|string|max:255|unique:directors,nombre',
-                'fecha_nac' => 'required|date',
-                'lugar_nac' => 'required|string',
-                'imagen_director' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
-            ], [
-                'nombre.unique' => 'Ya existe ese director',
-            ]);
 
             $director = new Director();
             $director->nombre = $request->nombre;
             $director->fecha_nacimiento = $request->fecha_nac;
             $director->lugar_nacimiento = $request->lugar_nac;
 
-            $file = $request->file('imagen_director');
-            if ($file) {
-                $file = $request->file('imagen_director');
-                $filename = time() . '.' . $file->getClientOriginalExtension();
-                $filePath = $file->storeAs('directors', $filename, 'public');
-                $director->imagen = $filename;
+            if ($request->hasFile('imagen_director')) {
+                $this->directorService->handleImagen($request, $director);
             } else {
-                return back()->withErrors(['imagen' => 'El archivo de imagen no se ha cargado correctamente.']);
+                return back()->withErrors([
+                    'imagen' => 'El archivo de imagen no se ha cargado correctamente',
+                ]);
             }
-
             $director->save();
 
             return redirect()->route('directores')->with('success', 'Director almacenado correctamente');
         } catch (ValidationException $e) {
-            // Aquí se ejecuta si la validación falla
             $errors = $e->validator->errors()->all();
             return redirect()->back()->withErrors($errors)->withInput();
         }
@@ -78,7 +75,6 @@ class DirectorController extends Controller
 
     public function edit(Director $director)
     {
-        //$director = Director::findOrFail($id);
         return view('directors.editar', compact('director'));
     }
 

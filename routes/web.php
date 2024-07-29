@@ -49,6 +49,9 @@ Route::middleware(['auth', 'checkRole:1'])->group(function () {
     Route::get('/peliculas/genero/{genero}', [PeliculasController::class, 'filtrarPorGenero'])->name('peliculas.genero');
     Route::post('/searchmovie', [PeliculasController::class, 'search'])->name('searchmovie');
 
+
+    //  ============= DIRECTORES =============
+
     Route::get('/directores', [DirectorController::class, 'index'])->name('directores');
     Route::get('/directores/create', [DirectorController::class, 'create'])->name('createdirector');
     Route::post('/directores/adddirector', [DirectorController::class, 'store'])->name('storedirector');
@@ -57,6 +60,9 @@ Route::middleware(['auth', 'checkRole:1'])->group(function () {
     Route::delete('/directores/delete/{id}', [DirectorController::class, 'destroy'])->name('deletedirector');
     Route::get('/directores/{director}', [DirectorController::class, 'show'])->name('infodirector');
     Route::post('/search/director', [DirectorController::class, 'search'])->name('search.director');
+
+
+    //  ============= ACTORES =============
 
     Route::get('/actores', [ActoresController::class, 'index'])->name('actores');
     Route::get('/actores/add', [ActoresController::class, 'create'])->name('createactor');
