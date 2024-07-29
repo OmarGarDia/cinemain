@@ -52,8 +52,7 @@
                                     <label for="imagen_director"
                                         class="block text-sm font-medium text-gray-700">Imagen</label>
                                     <input type="file" name="imagen_director" id="imagen_director"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                        required>
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                                 </div>
                                 @if ($director->imagen)
                                     <div>

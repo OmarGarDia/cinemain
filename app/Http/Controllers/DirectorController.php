@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreDirectorRequest;
+use App\Http\Requests\UpdateDirectorRequest;
 use App\Models\Director;
 use App\Services\DirectorService;
 use Illuminate\Http\Request;
@@ -78,39 +79,21 @@ class DirectorController extends Controller
         return view('directors.editar', compact('director'));
     }
 
-    public function update(Request $request, int $id)
+    public function update(UpdateDirectorRequest $request, Director $director)
     {
         try {
-            $request->validate([
-                'nombre' => 'required|string|max:255|unique:directors,nombre,' . $id,
-                'fecha_nac' => 'required|date',
-                'lugar_nac' => 'required|string',
-                'imagen_director' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
-            ], [
-                'nombre.unique' => 'Ya existe ese director',
-            ]);
-
-            $director = Director::findOrFail($id);
             $director->nombre = $request->nombre;
             $director->fecha_nacimiento = $request->fecha_nac;
             $director->lugar_nacimiento = $request->lugar_nac;
 
             if ($request->hasFile('imagen_director')) {
-                if ($director->imagen) {
-                    Storage::delete('public/directors/' . $director->imagen);
-                }
-
-                $imagen = $request->file('imagen_director');
-                $nombreImagen = time() . '.' . $imagen->getClientOriginalExtension();
-                $imagen->storeAs('public/directors', $nombreImagen);
-                $director->imagen = $nombreImagen;
+                $this->directorService->handleImagen($request, $director);
             }
 
             $director->save();
 
             return redirect()->route('directores')->with('success', 'Director actualizado correctamente');
         } catch (ValidationException $e) {
-            // Aquí se ejecuta si la validación falla
             $errors = $e->validator->errors()->all();
             return redirect()->back()->withErrors($errors)->withInput();
         }
@@ -119,12 +102,13 @@ class DirectorController extends Controller
     public function destroy(Director $director)
     {
         try {
-            //$director = Director::findOrFail($id);
+            if ($director->peliculas()->count() > 0) {
+                return redirect()->route('directores')->with('error', 'No se puede eliminar un director asociado a una película.');
+            }
             $director->delete();
             return redirect()->route('directores')->with('success', 'Director eliminado correctamente.');
         } catch (Exception $e) {
-            // Puedes personalizar el mensaje de error según tus necesidades
-            return redirect()->route('directores')->with('error', 'Error al eliminar el director. No se puede eliminar un director asociado a una película.');
+            return redirect()->route('directores')->with('error', 'Error al eliminar el director. ' . $e->getMessage());
         }
     }
 

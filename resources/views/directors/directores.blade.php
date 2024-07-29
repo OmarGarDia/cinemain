@@ -13,16 +13,13 @@
                 <div class="bg-green-200 text-green-800 px-6 py-1 mb-4 rounded-md">
                     {{ Session::get('success') }}
                 </div>
-            @else
-                @if (Session::has('error'))
-                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-                        <strong class="font-bold">Error:</strong>
-                        <span class="block sm:inline">{{ Session::get('error') }}</span>
-                    </div>
-                @endif
             @endif
-
-            <div class="flex">
+            @if (Session::has('error'))
+                <div class="bg-red-200 text-red-800 px-6 py-1 mb-4 rounded-md">
+                    {{ Session::get('error') }}
+                </div>
+            @endif
+            <div class="flex mb-6">
                 <div class="flex-1">
                     <div class="bg-white overflow-hidden w-full">
                         <div class="px-6 text-gray-900 dark:text-gray-800 w-full">
