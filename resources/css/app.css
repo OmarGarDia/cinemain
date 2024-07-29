@@ -20,11 +20,11 @@ input[type="password"].reveal-password {
     text-security: none;
 }
 
-table.dataTable thead tr th {
+table.dataTable thead tr {
     text-align: center;
 }
 
-table.dataTable tbody tr td {
+table.dataTable tbody tr {
     text-align: center;
 }
 
