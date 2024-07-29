@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreActorRequest;
 use App\Services\ActorService;
 use App\Http\Requests\UpdateActorRequest;
 use App\Models\Actor;
@@ -41,33 +42,19 @@ class ActoresController extends Controller
         return view('actors.add');
     }
 
-    public function store(Request $request)
+    public function store(StoreActorRequest $request)
     {
         try {
-            $request->validate([
-                'nombre' => 'required|string|max:255|unique:actors,nombre',
-                'fecha_nac' => 'required|date',
-                'lugar_nac' => 'required|string',
-                'bio' => 'nullable|string',
-                'imagen_actor' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
-            ], [
-                'nombre.unique' => 'Ya existe ese actor',
-            ]);
-
             $actor = new Actor();
             $actor->nombre = $request->nombre;
             $actor->fecha_nacimiento = $request->fecha_nac;
             $actor->nacionalidad = $request->lugar_nac;
             $actor->bio = $request->bio;
 
-            $file = $request->file('imagen_actor');
-            if ($file) {
-                $file = $request->file('imagen_actor');
-                $filename = time() . '.' . $file->getClientOriginalExtension();
-                $filePath = $file->storeAs('actors', $filename, 'public');
-                $actor->imagen = $filename;
+            if ($request->hasFile('imagen_actor')) {
+                $this->actorService->handleImagen($request, $actor);
             } else {
-                return back()->withErrors(['imagen' => 'El archivo de imagen no se ha cargado correctamente.']);
+                return back()->withErrors(['imagen' => 'El archivo de imagen no se ha cargado correctamente']);
             }
 
             $actor->save();

@@ -2,14 +2,14 @@
 
 namespace App\Services;
 
-use App\Http\Requests\UpdateActorRequest;
 use App\Models\Actor;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class ActorService
 {
 
-    public function handleImagen(UpdateActorRequest $request, Actor $actor)
+    public function handleImagen(Request $request, Actor $actor)
     {
         if ($actor->imagen) {
             Storage::delete('public/actors/' . $actor->imagen);
@@ -19,5 +19,7 @@ class ActorService
         $nombreImagen = time() . '.' . $imagen->getClientOriginalExtension();
         $imagen->storeAs('public/actors', $nombreImagen);
         $actor->imagen = $nombreImagen;
+
+        $actor->save();
     }
 }
