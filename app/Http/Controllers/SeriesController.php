@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\SerieService;
+
 use App\Http\Requests\UpdateSerieRequest;
+use App\Http\Requests\StoreSerieRequest;
 use Illuminate\Http\Request;
 use App\Models\Serie;
 use App\Models\Director;
 use App\Models\Genre;
-
 use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\ValidationException;
-use App\Http\Services\SerieService;
 
 class SeriesController extends Controller
 {
@@ -57,34 +58,13 @@ class SeriesController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreSerieRequest $request)
     {
-        $request->validate([
-            'titulo' => 'required',
-            'descripcion' => 'nullable',
-            'fecha_estreno' => 'nullable|integer',
-            'director_id' => 'nullable|exists:directors,id',
-            'imagen_serie' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            'generos' => 'required|array', // Asegúrate de que los géneros estén presentes y sean un arreglo
-            'generos.*' => 'exists:genres,id', // Valida que cada género exista en la tabla de géneros por su id
-        ]);
+        $datos = $request->all();
+        $datos['imagen_serie'] = $request->file('imagen_serie');
 
-        $nombreImagen = null;
+        $this->serieService->storeSerie($datos);
 
-        if ($request->hasFile('imagen_serie')) {
-            $imagenPath = $request->file('imagen_serie')->store('public/series');
-            $nombreImagen = basename($imagenPath);
-        }
-
-        $serie = Serie::create([
-            'titulo' => $request->titulo,
-            'descripcion' => $request->descripcion,
-            'fecha_estreno' => $request->fecha_estreno,
-            'director_id' => $request->director_id,
-            'imagen' => $nombreImagen,
-        ]);
-
-        $serie->genres()->attach($request->generos);
         return redirect()->route('series')->with('success', 'Serie creada correctamente.');
     }
 
