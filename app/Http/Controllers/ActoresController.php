@@ -2,15 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\ActorService;
+use App\Http\Requests\UpdateActorRequest;
 use App\Models\Actor;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 use Exception;
 
 
 class ActoresController extends Controller
 {
+
+    protected $actorService;
+
+    public function __construct(ActorService $actorService)
+    {
+        $this->actorService = $actorService;
+    }
 
     public function index()
     {
@@ -78,35 +86,22 @@ class ActoresController extends Controller
         return view('actors.editar', compact('actor'));
     }
 
-    public function update(Request $request, Actor $actor)
+    public function update(UpdateActorRequest $request, Actor $actor)
     {
-        try {
 
-            //$actor = Actor::findOrFail($id);
-            $actor->nombre = $request->nombre;
-            $actor->fecha_nacimiento = $request->fecha_nac;
-            $actor->nacionalidad = $request->lugar_nac;
-            $actor->bio = $request->bio;
+        //$actor = Actor::findOrFail($id);
+        $actor->nombre = $request->nombre;
+        $actor->fecha_nacimiento = $request->fecha_nac;
+        $actor->nacionalidad = $request->lugar_nac;
+        $actor->bio = $request->bio;
 
-            if ($request->hasFile('imagen_director')) {
-                if ($actor->imagen) {
-                    Storage::delete('public/actors/' . $actor->imagen);
-                }
-
-                $imagen = $request->file('imagen_actor');
-                $nombreImagen = time() . '.' . $imagen->getClientOriginalExtension();
-                $imagen->storeAs('public/actors', $nombreImagen);
-                $actor->imagen = $nombreImagen;
-            }
-
-            $actor->save();
-
-            return redirect()->route('actores')->with('success', 'Actor actualizado correctamente');
-        } catch (ValidationException $e) {
-            // Aquí se ejecuta si la validación falla
-            $errors = $e->validator->errors()->all();
-            return redirect()->back()->withErrors($errors)->withInput();
+        if ($request->hasFile('imagen_actor')) {
+            $this->actorService->handleImagen($request, $actor);
         }
+
+        $actor->save();
+
+        return redirect()->route('actores')->with('success', 'Actor actualizado correctamente');
     }
 
     public function destroy(Actor $actor)

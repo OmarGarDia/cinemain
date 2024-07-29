@@ -21,10 +21,9 @@ class UpdateActorRequest extends FormRequest
      */
     public function rules(): array
     {
-        $id = $this->route('actor');
-
+        $actor = $this->route('actor');
         return [
-            'nombre' => 'required|string|max:255|unique:actors,nombre,' . $id,
+            'nombre' => 'required|string|max:255|unique:actors,nombre,' . $actor->id,
             'fecha_nac' => 'required|date',
             'lugar_nac' => 'required|string',
             'bio' => 'nullable|string',

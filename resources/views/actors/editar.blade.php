@@ -57,8 +57,7 @@
                                 <div>
                                     <label for="imagen_actor" class="block text-sm font-medium text-gray-700">Imagen</label>
                                     <input type="file" name="imagen_actor" id="imagen_actor"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-300 dark:placeholder-gray-400"
-                                        required>
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-300 dark:placeholder-gray-400">
                                 </div>
                                 @if ($actor->imagen)
                                     <div>
