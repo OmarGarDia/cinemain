@@ -1,5 +1,3 @@
-// BUSCADOR DE PELICULAS
-
 document.addEventListener("DOMContentLoaded", function () {
     const searchInput = document.getElementById("search_movie");
     const searchResults = document.getElementById("search_results");
@@ -24,7 +22,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const cache = new Map();
     let genresMap = {};
 
-    // Llamada inicial para obtener los nombres de géneros en español
     axios
         .get("https://api.themoviedb.org/3/genre/movie/list", {
             params: {
@@ -38,7 +35,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 return acc;
             }, {});
 
-            // Luego de obtener los géneros desde la API, procedemos a llenar el formulario
             searchInput.addEventListener("input", function () {
                 clearTimeout(timeout);
                 const query = searchInput.value.trim();
@@ -84,17 +80,20 @@ document.addEventListener("DOMContentLoaded", function () {
                                             error
                                         );
                                     }
-                                })
-                                .finally(() => {
-                                    searchResults.innerHTML = "";
                                 });
                         }
-                    }, 500);
+                    }, 1000); // Aumenta el tiempo de espera a 1 segundo
                 }
             });
 
             function displayResults(movies) {
                 searchResults.innerHTML = "";
+
+                if (!movies || movies.length === 0) {
+                    searchResults.innerHTML =
+                        "<p>No se encontraron resultados.</p>";
+                    return;
+                }
 
                 movies.forEach((movie) => {
                     const li = document.createElement("li");
@@ -140,7 +139,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     movie.original_language
                 );
 
-                // Obtener duración y país de producción
                 try {
                     const movieDetails = await getMovieDetails(movie.id);
                     if (movieDetails) {
@@ -156,14 +154,10 @@ document.addEventListener("DOMContentLoaded", function () {
                         document.getElementById("duracion").value =
                             movieDetails.runtime || "";
 
-                        // Obtener nombres de géneros
                         const genreNames = movie.genre_ids.map(
                             (genreId) => genresMap[genreId]
                         );
-
-                        // Seleccionar géneros correspondientes
                         selectGenres(genreNames);
-
                         searchResults.innerHTML = "";
                     }
                 } catch (error) {
@@ -206,26 +200,19 @@ document.addEventListener("DOMContentLoaded", function () {
                             api_key: "572048c03066a9b129b919b78cc7e6fc",
                         },
                     })
-                    .then((response) => {
-                        return response.data;
-                    })
+                    .then((response) => response.data)
                     .catch((error) => {
                         throw error;
                     });
             }
 
             function getLanguage(originalLanguage) {
-                const languageMap = {
-                    en: "Inglés",
-                    es: "Español",
-                };
+                const languageMap = { en: "Inglés", es: "Español" };
                 return languageMap[originalLanguage] || "Desconocido";
             }
 
             function getProductionCountries(countries) {
-                if (!countries || countries.length === 0) {
-                    return "";
-                }
+                if (!countries || countries.length === 0) return "";
 
                 const countryCodes = {
                     US: "Estados Unidos",
@@ -245,8 +232,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 const genreSelect = document.getElementById("generos");
                 if (genreSelect) {
                     const genreOptions = [...genreSelect.options];
-
-                    // Iterar sobre los nombres de género de la película y seleccionar los correspondientes
                     genreNames.forEach((genreName) => {
                         const genreOption = genreOptions.find(
                             (option) => option.text === genreName

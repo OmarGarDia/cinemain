@@ -60,28 +60,6 @@
 
                             <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4">
                                 <div
-                                    class="max-w-sm p-6 rounded-lg shadow dark:bg-green-400 dark:border-gray-700 flex justify-center items-center">
-
-                                    <!-- Icono de serie (cambiado por un ícono de FontAwesome) -->
-                                    <div class="flex-shrink-0 mr-4">
-                                        <span class="text-6xl dark:text-white mdi mdi-camcorder"></span>
-                                    </div>
-
-                                    <!-- Texto "400 Series" -->
-                                    <div class="text-center">
-                                        <div class="text-5xl dark:text-white font-normal text-gray-700">
-                                            0
-                                        </div>
-                                        <div class="text-4xl dark:text-white font-normal text-gray-700">
-                                            Documentales (En Desarrollo)
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4">
-                                <div
                                     class="max-w-sm p-6 rounded-lg shadow dark:bg-orange-400 dark:border-gray-700 flex justify-center items-center">
 
                                     <!-- Icono de serie (cambiado por un ícono de FontAwesome) -->

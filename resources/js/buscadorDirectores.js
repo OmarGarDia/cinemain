@@ -54,17 +54,21 @@ document.addEventListener("DOMContentLoaded", function () {
                             } else {
                                 console.error("Error fetching data:", error);
                             }
-                        })
-                        .finally(() => {
-                            searchResults.innerHTML = "";
                         });
                 }
-            }, 300);
+            }, 2000); // Aumenta el tiempo de espera a 2 segundos
+        } else {
+            searchResults.innerHTML = "";
         }
     });
 
     function displayResults(directors) {
         searchResults.innerHTML = "";
+
+        if (!directors || directors.length === 0) {
+            searchResults.innerHTML = "<p>No se encontraron resultados.</p>";
+            return;
+        }
 
         directors.forEach((director) => {
             const li = document.createElement("li");
@@ -121,7 +125,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 searchResults.innerHTML = "";
             })
-
             .catch((error) => {
                 console.error("Error fetching director details:", error);
             });

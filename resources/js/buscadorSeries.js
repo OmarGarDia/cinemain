@@ -54,12 +54,9 @@ document.addEventListener("DOMContentLoaded", function () {
                             } else {
                                 console.error("Error fetching data:", error);
                             }
-                        })
-                        .finally(() => {
-                            searchResults.innerHTML = "";
                         });
                 }
-            }, 200); // Reducir el tiempo de espera inicial
+            }, 2000); // Aumenta el tiempo de espera a 2 segundos
         } else {
             searchResults.innerHTML = "";
         }
@@ -67,6 +64,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function displayResults(series) {
         searchResults.innerHTML = "";
+
+        if (!series || series.length === 0) {
+            searchResults.innerHTML = "<p>No se encontraron resultados.</p>";
+            return;
+        }
 
         series.forEach((serie) => {
             const li = document.createElement("li");

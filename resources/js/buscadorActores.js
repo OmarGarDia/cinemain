@@ -48,17 +48,21 @@ document.addEventListener("DOMContentLoaded", function () {
                             } else {
                                 console.error("Error fetching data:", error);
                             }
-                        })
-                        .finally(() => {
-                            searchResults.innerHTML = "";
                         });
                 }
-            }, 300);
+            }, 2000); // Aumenta el tiempo de espera a 2 segundos
+        } else {
+            searchResults.innerHTML = "";
         }
     });
 
     function displayResults(actors) {
         searchResults.innerHTML = "";
+
+        if (!actors || actors.length === 0) {
+            searchResults.innerHTML = "<p>No se encontraron resultados.</p>";
+            return;
+        }
 
         actors.forEach((actor) => {
             const li = document.createElement("li");
