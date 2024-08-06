@@ -8,6 +8,11 @@
     </x-slot>
 
     <div class="py-4 contenedor">
+        @if (session('success'))
+            <div class="bg-green-200 text-green-800 border border-green-300 p-2 rounded mb-4">
+                {{ session('success') }}
+            </div>
+        @endif
         <div class="max-w-4xl mx-auto bg-white border border-gray-300 shadow-lg rounded-lg overflow-hidden p-6">
             <div class="md:flex md:items-start">
                 <div class="md:w-1/3">
@@ -57,17 +62,28 @@
                     <div class="mt-4">
                         <span class="text-gray-600">Elenco:</span>
                         <div class="inline-flex items-center ml-2 space-x-2">
-                            <a href="{{ route('movieelenco', $movie->id) }}"
+                            <a href="{{ route('elenco', $movie->id) }}"
                                 class="bg-green-600 text-white px-1 py-0 rounded-full inline-flex items-center justify-center">
                                 <i class="mdi mdi-plus"></i>
                             </a>
                             <span class="text-gray-800">
                                 @foreach ($movie->actores as $actor)
-                                    <a href="{{ route('infoactor', $actor->id) }}"
-                                        class="text-blue-600 font-bold">{{ $actor->nombre }}</a>
-                                    @if (!$loop->last)
-                                        ,
-                                    @endif
+                                    <div class="inline-flex items-center">
+                                        <a href="{{ route('infoactor', $actor->id) }}"
+                                            class="text-blue-600 font-bold">{{ $actor->nombre }}</a>
+                                        <form
+                                            action="{{ route('delete_actor_from_movie', ['pelicula' => $movie->id, 'actor' => $actor->id]) }}"
+                                            method="POST" class="ml-2">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="text-red-600 hover:text-red-800">
+                                                <i class="mdi mdi-delete"></i>
+                                            </button>
+                                        </form>
+                                        @if (!$loop->last)
+                                            ,
+                                        @endif
+                                    </div>
                                 @endforeach
                             </span>
                         </div>

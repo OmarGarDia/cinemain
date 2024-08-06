@@ -32,7 +32,7 @@
                         <span class="text-gray-600">Director:</span>
                         <span class="ml-2 text-gray-800">
                             <a class="text-blue-600 font-bold"
-                                href="{{ route('serieinfo', $serie->director->id) }}">{{ $serie->director->nombre }}</a>
+                                href="{{ route('infodirector', $serie->director->id) }}">{{ $serie->director->nombre }}</a>
                         </span>
                     </div>
                     <div class="mt-2">

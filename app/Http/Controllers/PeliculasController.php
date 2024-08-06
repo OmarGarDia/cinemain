@@ -195,6 +195,12 @@ class PeliculasController extends Controller
         return redirect()->route('movieinfo', $movie->id)->with('success', 'Actores añadidos correctamente');
     }
 
+    public function deleteActorFromMovie(Pelicula $pelicula, Actor $actor)
+    {
+        $pelicula->actores()->detach($actor->id);
+
+        return redirect()->back()->with('success', 'Actor eliminado de la pelicula correctamente.');
+    }
 
     public function search(Request $request)
     {
