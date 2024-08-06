@@ -25,7 +25,8 @@
                                 <p class="text-gray-600">{{ $pelicula->año }}</p>
                                 <p class="text-gray-600">{{ $pelicula->duracion }} min</p>
                                 <p class="text-gray-600">{{ $pelicula->pais }}</p>
-                                <a href="" class="text-blue-600 font-bold mt-2 block">Ver detalles</a>
+                                <a href="{{ route('movieinfo', $pelicula->id) }}"
+                                    class="text-blue-600 font-bold mt-2 block">Ver detalles</a>
                             </div>
                         </li>
                     @endforeach

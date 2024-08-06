@@ -81,7 +81,7 @@ Route::middleware(['auth', 'checkRole:1'])->group(function () {
     Route::post('/series/add', [SeriesController::class, 'store'])->name('storeserie');
     Route::get('/series/editar/{id}', [SeriesController::class, 'edit'])->name('editarserie');
     Route::post('series/editarserie/{id}', [SeriesController::class, 'update'])->name('updateserie');
-    Route::delete('/series/delete/{id}', [SeriesController::class, 'destroy'])->name('deleteserie');
+    Route::delete('/series/delete/{serie}', [SeriesController::class, 'destroy'])->name('deleteserie');
     Route::get('/series/{serieId}/info', [SeriesController::class, 'serieinfo'])->name('serieinfo');
     Route::get('/series/{serieId}/elenco', [SeriesController::class, 'toAddElenco'])->name('elenco');
     Route::post('/series/{id}/addactors', [SeriesController::class, 'storeActorToSerie'])->name('store_actor_to_serie');

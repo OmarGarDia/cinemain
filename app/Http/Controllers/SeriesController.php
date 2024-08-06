@@ -14,6 +14,7 @@ use App\Models\Genre;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\ValidationException;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class SeriesController extends Controller
 {
@@ -109,9 +110,11 @@ class SeriesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Serie $serie)
     {
-        $serie = Serie::findOrFail($id);
+        if ($serie->imagen && Storage::exists('public/series/' . $serie->imagen)) {
+            Storage::delete('public/series/' . $serie->imagen);
+        }
         $serie->delete();
         return redirect()->route('series')->with('success', 'Serie eliminada correctamente.');
     }
