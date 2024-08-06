@@ -32,15 +32,21 @@
                     </div>
                     <div class="mt-2">
                         <span class="text-gray-600">Elenco:</span>
-                        <span class="ml-2 text-gray-800">
-                            @foreach ($serie->actores as $actor)
-                                <a class="text-blue-600 font-bold"
-                                    href="{{ route('infoactor', $actor->id) }}">{{ $actor->nombre }}</a>
-                                @if (!$loop->last)
-                                    ,
-                                @endif
-                            @endforeach
-                        </span>
+                        <div class="inline-flex items-center ml-2 space-x-2">
+                            <a href="{{ route('elenco', $serie->id) }}"
+                                class="bg-green-600 text-white px-1 py-0 rounded-full inline-flex items-center justify-center">
+                                <i class="mdi mdi-plus"></i>
+                            </a>
+                            <span class="text-gray-800">
+                                @foreach ($serie->actores as $actor)
+                                    <a href="{{ route('infoactor', $actor->id) }}"
+                                        class="text-blue-600 font-bold">{{ $actor->nombre }}</a>
+                                    @if (!$loop->last)
+                                        ,
+                                    @endif
+                                @endforeach
+                            </span>
+                        </div>
                     </div>
                     <p class="mt-4 text-gray-700">{{ $serie->descripcion }}</p>
 

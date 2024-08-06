@@ -83,22 +83,29 @@
                         </div>
 
                         @if ($series->isEmpty())
-                            <div class="mt-4 bg-orange-200 text-orange-800 p-4 rounded">
-                                De momento no ha participado en ninguna serie.
+                            <div class="mt-4 bg-orange-200 text-orange-800 rounded-md p-4">
+                                De momento no ha dirigido ninguna serie.
                             </div>
                         @else
                             <div
                                 class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
                                 @foreach ($series as $serie)
                                     <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
-                                        <div class="px-4 py-3">
+                                        <a href="">
                                             <a href="{{ route('serieinfo', $serie->id) }}">
-                                                <p class="text-lg font-semibold text-gray-800 dark:text-gray-200 truncate">
-                                                    {{ $serie->titulo }}</p>
-                                                <p class="text-sm text-gray-500 dark:text-gray-300">Año:
-                                                    {{ $serie->fecha_estreno }}</p>
+                                                <img src="{{ asset('storage/series/' . $serie->imagen) }}"
+                                                    alt="{{ $serie->titulo }}" class="object-cover w-full h-48">
                                             </a>
-                                        </div>
+                                            <div class="px-4 py-3">
+                                                <p class="text-lg font-semibold text-gray-800 dark:text-gray-200 truncate">
+                                                    {{ $serie->titulo }}
+                                                </p>
+                                                <p class="text-sm text-gray-500 dark:text-gray-300">
+                                                    Año: {{ $serie->fecha_estreno }}
+                                                </p>
+                                            </div>
+                                        </a>
+
                                     </div>
                                 @endforeach
                             </div>

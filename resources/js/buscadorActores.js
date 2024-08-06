@@ -91,7 +91,10 @@ document.addEventListener("DOMContentLoaded", function () {
             li.appendChild(actorInfoContainer);
             searchResults.appendChild(li);
 
-            actorInfoContainer.addEventListener("click", () => fillForm(actor));
+            actorInfoContainer.addEventListener("click", () => {
+                console.log("Actor clickeado:", actor); // Verifica si el clic funciona
+                fillForm(actor);
+            });
         });
     }
 
@@ -107,14 +110,17 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .then((response) => {
                 const actorDetails = response.data;
+
                 document.getElementById("nombre").value =
                     actorDetails.name || "";
                 document.getElementById("fecha_nac").value =
                     actorDetails.birthday || "";
                 document.getElementById("lugar_nac").value =
                     actorDetails.place_of_birth || "";
-                document.getElementById("bio").value =
-                    actorDetails.biography || "";
+                // Verifica la longitud de la biografía
+                const bio =
+                    actorDetails.biography || "Biografía no disponible.";
+                document.getElementById("bio").value = bio;
 
                 searchResults.innerHTML = "";
             })

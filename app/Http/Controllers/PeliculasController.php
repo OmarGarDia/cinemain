@@ -63,7 +63,7 @@ class PeliculasController extends Controller
     {
         try {
             $request->validate([
-                'titulo' => 'required|string|max:255|unique:peliculas,titulo,' . $id,
+                'titulo' => 'required|string|max:255|unique:peliculas,titulo,' . $pelicula->id,
                 'anio' => 'required|integer',
                 'sinopsis' => 'required|string',
                 'duracion' => 'required|integer',
@@ -114,6 +114,10 @@ class PeliculasController extends Controller
 
     public function destroy(Pelicula $pelicula)
     {
+        if ($pelicula->imagen && Storage::exists('public/movies/' . $pelicula->imagen)) {
+            Storage::delete('public/movies/' . $pelicula->imagen);
+        }
+
         $pelicula->delete();
         return redirect()->route('peliculas')->with('success', 'Pelicula eliminada correctamente.');
     }
@@ -163,9 +167,10 @@ class PeliculasController extends Controller
         return redirect()->route('peliculas')->with('success', 'Pelicula almacenada correctamente');
     }
 
-    public function toAddElenco(Pelicula $pelicula)
+    public function toAddElenco(Pelicula $movieId)
     {
         $actores = Actor::all();
+        $pelicula = $movieId;
         return view('movies.addactors', compact('pelicula', 'actores'));
     }
 

@@ -57,9 +57,7 @@
                                         @foreach ($peliculas as $pelicula)
                                             <tr class="border-b last:border-b-0 hover:bg-gray-100">
                                                 <td class="px-4 py-2">
-                                                    <a href="{{ route('movieinfo', $pelicula->id) }}">
-                                                        <i class="mdi mdi-eye text-blue-600 mr-1"></i>{{ $pelicula->id }}
-                                                    </a>
+                                                    </i>{{ $pelicula->id }}
                                                 </td>
                                                 <td class="px-4 py-2">{{ $pelicula->titulo }}</td>
                                                 <td class="px-4 py-2">{{ $pelicula->año }}</td>
@@ -96,8 +94,7 @@
                                                             style="display: inline;">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="button"
-                                                                onclick="confirmDelete('{{ $pelicula->titulo }}', '{{ $pelicula->id }}')"
+                                                            <button type="submit"
                                                                 class="bg-red-500 text-white font-bold py-1 px-2 rounded-lg flex items-center hover:bg-red-600">
                                                                 <i class="mdi mdi-trash-can-outline text-lg"></i>
                                                             </button>

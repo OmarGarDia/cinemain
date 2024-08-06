@@ -6,12 +6,14 @@ use App\Services\SerieService;
 
 use App\Http\Requests\UpdateSerieRequest;
 use App\Http\Requests\StoreSerieRequest;
+use App\Models\Actor;
 use Illuminate\Http\Request;
 use App\Models\Serie;
 use App\Models\Director;
 use App\Models\Genre;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\ValidationException;
+use Carbon\Carbon;
 
 class SeriesController extends Controller
 {
@@ -141,5 +143,32 @@ class SeriesController extends Controller
         }
 
         return response()->json(['results' => $detailedResults]);
+    }
+
+    public function toAddElenco(Serie $serieId)
+    {
+        $actores = Actor::all();
+        return view('series.addactors', compact('serieId', 'actores'));
+    }
+
+    public function storeActorToSerie(Request $request, int $id)
+    {
+        $request->validate([
+            'actor_ids' => 'required|array',
+            'actor_ids.*' => 'exists:actors,id',
+        ]);
+
+        $serie = Serie::findOrFail($id);
+
+        $actor_ids = $request->actor_ids;
+
+        foreach ($actor_ids as $actor_id) {
+            $serie->actores()->attach($actor_id, [
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+        }
+
+        return redirect()->route('serieinfo', $serie->id)->with('success', 'Actores añadidos correctamente');
     }
 }

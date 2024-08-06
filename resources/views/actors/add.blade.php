@@ -54,7 +54,7 @@
                                 </div>
                                 <div>
                                     <label for="bio" class="block text-sm font-medium text-gray-700">Biografía</label>
-                                    <textarea name="bio" id="bio"
+                                    <textarea rows="5" cols="50" name="bio" id="bio"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-300 dark:placeholder-gray-400"
                                         required></textarea>
                                 </div>

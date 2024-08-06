@@ -42,9 +42,9 @@ Route::middleware(['auth', 'checkRole:1'])->group(function () {
     Route::post('/peliculas/addmovie', [PeliculasController::class, 'store'])->name('storemovie');
     Route::get('/peliculas/editar/{id}', [PeliculasController::class, 'edit'])->name('editarmovie');
     Route::post('/peliculas/editarmovie/{id}', [PeliculasController::class, 'update'])->name('updatemovie');
-    Route::delete('/peliculas/delete/{id}', [PeliculasController::class, 'destroy'])->name('deletemovie');
+    Route::delete('/peliculas/delete/{pelicula}', [PeliculasController::class, 'destroy'])->name('deletemovie');
     Route::get('/peliculas/{movieId}/info', [PeliculasController::class, 'movieinfo'])->name('movieinfo');
-    Route::get('/peliculas/{movieId}/elenco', [PeliculasController::class, 'toAddElenco'])->name('elenco');
+    Route::get('/peliculas/{movieId}/elenco', [PeliculasController::class, 'toAddElenco'])->name('movieelenco');
     Route::post('/movies/{id}/addactors', [PeliculasController::class, 'storeActorToMovie'])->name('store_actor_to_movie');
     Route::get('/peliculas/genero/{genero}', [PeliculasController::class, 'filtrarPorGenero'])->name('peliculas.genero');
     Route::post('/searchmovie', [PeliculasController::class, 'search'])->name('searchmovie');
@@ -72,6 +72,9 @@ Route::middleware(['auth', 'checkRole:1'])->group(function () {
     Route::delete('/actores/delete/{actor}', [ActoresController::class, 'destroy'])->name('deleteactor');
     Route::get('/actores/{actor}', [ActoresController::class, 'show'])->name('infoactor');
 
+
+    //  ============= SERIES =============
+
     Route::get('/series', [SeriesController::class, 'index'])->name('series');
     Route::get('/series/create', [SeriesController::class, 'create'])->name('createserie');
     Route::post('/series/add', [SeriesController::class, 'store'])->name('storeserie');
@@ -79,6 +82,8 @@ Route::middleware(['auth', 'checkRole:1'])->group(function () {
     Route::post('series/editarserie/{id}', [SeriesController::class, 'update'])->name('updateserie');
     Route::delete('/series/delete/{id}', [SeriesController::class, 'destroy'])->name('deleteserie');
     Route::get('/series/{serieId}/info', [SeriesController::class, 'serieinfo'])->name('serieinfo');
+    Route::get('/series/{serieId}/elenco', [SeriesController::class, 'toAddElenco'])->name('elenco');
+    Route::post('/series/{id}/addactors', [SeriesController::class, 'storeActorToSerie'])->name('store_actor_to_serie');
 
     Route::get('/series/temporadas/{id}', [SeasonsController::class, 'index'])->name('seasons');
     Route::post('/series/{id}/temporadas/add', [SeasonsController::class, 'store'])->name('storeseasons');

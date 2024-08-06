@@ -57,7 +57,7 @@
                     <div class="mt-4">
                         <span class="text-gray-600">Elenco:</span>
                         <div class="inline-flex items-center ml-2 space-x-2">
-                            <a href="{{ route('elenco', $movie->id) }}"
+                            <a href="{{ route('movieelenco', $movie->id) }}"
                                 class="bg-green-600 text-white px-1 py-0 rounded-full inline-flex items-center justify-center">
                                 <i class="mdi mdi-plus"></i>
                             </a>
