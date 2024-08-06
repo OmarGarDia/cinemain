@@ -76,9 +76,18 @@ class EpisodesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+
+    public function show(Episode $episodio)
     {
-        //
+        $serie = Serie::where('id', $episodio->serie_id)->firstOrFail();
+        $idSerie = $serie->id;
+        $titulo_serie = $serie->titulo;
+
+        $temporada = Season::where('id', $episodio->season_id)->firstOrFail();
+        $idTemp = $temporada->id;
+        $numTemporada = $temporada->season_number;
+
+        return view('episodes.info', compact('episodio', 'titulo_serie', 'idSerie', 'idTemp', 'numTemporada'));
     }
 
     /**

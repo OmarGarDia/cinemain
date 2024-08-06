@@ -42,7 +42,7 @@
             <div class="mt-4 flex justify-center">
                 <a href="{{ route('temporadainfo', ['idSerie' => $idSerie, 'idTemp' => $idTemp]) }}"
                     class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                    <i class="mdi mdi-arrow-left-thick"></i> Volver a la Temporada
+                    <i class="mdi mdi-arrow-left-thick"></i> Volver a la
                 </a>
             </div>
         </div>

@@ -85,15 +85,21 @@ Route::middleware(['auth', 'checkRole:1'])->group(function () {
     Route::get('/series/{serieId}/elenco', [SeriesController::class, 'toAddElenco'])->name('elenco');
     Route::post('/series/{id}/addactors', [SeriesController::class, 'storeActorToSerie'])->name('store_actor_to_serie');
 
+    //  ============= TEMPORADAS =============
+
     Route::get('/series/temporadas/{id}', [SeasonsController::class, 'index'])->name('seasons');
     Route::post('/series/{id}/temporadas/add', [SeasonsController::class, 'store'])->name('storeseasons');
     Route::get('/series/temporadas/{idSerie}/info/{idTemp}', [SeasonsController::class, 'temporadainfo'])->name('temporadainfo');
     Route::post('/series/temporadas/{temporada}', [SeasonsController::class, 'destroy'])->name('deleteseason');
 
+
+    //  ============= EPISODIOS =============
+
     Route::get('/series/{idSerie}/temporadas/{idTemp}/episodes', [EpisodesController::class, 'index'])->name('episodes');
     Route::get('/series/{idSerie}/temporadas/{idTemp}/episodes/add', [EpisodesController::class, 'create'])->name('addepisode');
     Route::delete('/series/capitulos/{id}', [EpisodesController::class, 'destroy'])->name('destroyepisode');
     Route::post('/series/{idSerie}/temporadas/{idTemp}/episodes/store', [EpisodesController::class, 'store'])->name('storeepisode');
+    Route::get('/episode/{episodio}', [EpisodesController::class, 'show'])->name('episodeinfo');
 
     Route::post('/search-series', [SeriesController::class, 'search'])->name('your_series_search_route');
 });
