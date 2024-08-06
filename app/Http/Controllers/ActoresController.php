@@ -9,7 +9,7 @@ use App\Models\Actor;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Exception;
-
+use Illuminate\Support\Facades\Storage;
 
 class ActoresController extends Controller
 {
@@ -90,6 +90,9 @@ class ActoresController extends Controller
     public function destroy(Actor $actor)
     {
         try {
+            if ($actor->imagen && Storage::exists('public/actors/' . $actor->imagen)) {
+                Storage::delete('public/actors/' . $actor->imagen);
+            }
             $actor->delete();
             return redirect()->route('actores')->with('success', 'Actor/actriz eliminado correctamente.');
         } catch (Exception $e) {

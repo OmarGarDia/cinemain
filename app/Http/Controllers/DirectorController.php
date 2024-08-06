@@ -105,6 +105,9 @@ class DirectorController extends Controller
             if ($director->peliculas()->count() > 0) {
                 return redirect()->route('directores')->with('error', 'No se puede eliminar un director asociado a una película.');
             }
+            if ($director->imagen && Storage::exists('public/directors/' . $director->imagen)) {
+                Storage::delete('public/directors/' . $director->imagen);
+            }
             $director->delete();
             return redirect()->route('directores')->with('success', 'Director eliminado correctamente.');
         } catch (Exception $e) {
