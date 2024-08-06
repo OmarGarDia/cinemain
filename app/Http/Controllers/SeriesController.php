@@ -171,4 +171,11 @@ class SeriesController extends Controller
 
         return redirect()->route('serieinfo', $serie->id)->with('success', 'Actores añadidos correctamente');
     }
+
+    public function deleteActorFromSerie(Serie $serie, Actor $actor)
+    {
+        $serie->actores()->detach($actor->id);
+
+        return redirect()->back()->with('success', 'Actor eliminado de la serie correctamente.');
+    }
 }

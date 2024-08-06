@@ -10,6 +10,11 @@
 
 @section('content')
     <div class="py-4 contenedor">
+        @if (session('success'))
+            <div class="bg-green-200 text-green-800 border border-green-300 p-2 rounded mb-4">
+                {{ session('success') }}
+            </div>
+        @endif
         <div class="max-w-4xl mx-auto bg-white border border-gray-300 shadow-lg rounded-lg overflow-hidden p-6">
             <div class="md:flex md:items-start">
                 <div class="md:flex-shrink-0">
@@ -39,11 +44,22 @@
                             </a>
                             <span class="text-gray-800">
                                 @foreach ($serie->actores as $actor)
-                                    <a href="{{ route('infoactor', $actor->id) }}"
-                                        class="text-blue-600 font-bold">{{ $actor->nombre }}</a>
-                                    @if (!$loop->last)
-                                        ,
-                                    @endif
+                                    <div class="inline-flex items-center">
+                                        <a href="{{ route('infoactor', $actor->id) }}"
+                                            class="text-blue-600 font-bold">{{ $actor->nombre }}</a>
+                                        <form
+                                            action="{{ route('deleteActorFromSerie', ['serie' => $serie->id, 'actor' => $actor->id]) }}"
+                                            method="POST" class="ml-2">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="text-red-600 hover:text-red-800">
+                                                <i class="mdi mdi-delete"></i>
+                                            </button>
+                                        </form>
+                                        @if (!$loop->last)
+                                            ,
+                                        @endif
+                                    </div>
                                 @endforeach
                             </span>
                         </div>
