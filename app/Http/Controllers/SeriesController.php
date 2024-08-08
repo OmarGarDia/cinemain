@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use App\Models\Serie;
 use App\Models\Director;
 use App\Models\Genre;
+use App\Services\ModelDeletionService;
+use App\Services\PathResolver\seriesPathResolver;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\ValidationException;
 use Carbon\Carbon;
@@ -19,11 +21,13 @@ use Illuminate\Support\Facades\Storage;
 class SeriesController extends Controller
 {
     protected $serieService;
+    protected $deletionService;
     /**
      * Display a listing of the resource.
      */
     public function __construct(SerieService $serieService)
     {
+        $this->deletionService = new ModelDeletionService(new seriesPathResolver());
         $this->serieService = $serieService;
     }
 
@@ -112,11 +116,12 @@ class SeriesController extends Controller
      */
     public function destroy(Serie $serie)
     {
-        if ($serie->imagen && Storage::exists('public/series/' . $serie->imagen)) {
-            Storage::delete('public/series/' . $serie->imagen);
-        }
-        $serie->delete();
-        return redirect()->route('series')->with('success', 'Serie eliminada correctamente.');
+        $this->deletionService->delete($serie);
+        return redirect()->route('series')->with('success', 'Serie eliminada correctamente');
+        // if ($serie->imagen && Storage::exists('public/series/' . $serie->imagen)) {
+        //     Storage::delete('public/series/' . $serie->imagen);
+        // }
+        // $serie->delete();
     }
 
     public function search(Request $request)

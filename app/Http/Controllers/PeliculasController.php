@@ -6,7 +6,8 @@ use App\Models\Pelicula;
 use App\Models\Director;
 use App\Models\Genre;
 use App\Models\Actor;
-
+use App\Services\ModelDeletionService;
+use App\Services\PathResolver\PeliculasPathResolver;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -18,6 +19,12 @@ use Carbon\Carbon;
 class PeliculasController extends Controller
 {
 
+    protected $deletionService;
+
+    public function __construct()
+    {
+        $this->deletionService = new ModelDeletionService(new PeliculasPathResolver());
+    }
     public function index()
     {
         $peliculas = Pelicula::with('director', 'genres')->paginate(10);
@@ -114,12 +121,14 @@ class PeliculasController extends Controller
 
     public function destroy(Pelicula $pelicula)
     {
-        if ($pelicula->imagen && Storage::exists('public/movies/' . $pelicula->imagen)) {
-            Storage::delete('public/movies/' . $pelicula->imagen);
-        }
-
-        $pelicula->delete();
+        $this->deletionService->delete($pelicula);
         return redirect()->route('peliculas')->with('success', 'Pelicula eliminada correctamente.');
+
+        // if ($pelicula->imagen && Storage::exists('public/movies/' . $pelicula->imagen)) {
+        //     Storage::delete('public/movies/' . $pelicula->imagen);
+        // }
+
+        // $pelicula->delete();
     }
 
     public function store(Request $request)
